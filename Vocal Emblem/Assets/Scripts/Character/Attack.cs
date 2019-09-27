@@ -155,6 +155,17 @@ public class Attack : MonoBehaviour
                                         Text hp = hpPanel.GetChild(j).GetChild(k).GetComponent<Text>();
                                         hp.text = stats.hp.ToString();
                                     }
+                                    else if(hpPanel.GetChild(j).GetChild(k).name == "TextAfterAttack")
+                                    {
+                                        float healthAfterAttack = stats.hp - (enemyDamage * enemyDoubling);
+                                        if (healthAfterAttack < 0)
+                                        {
+                                            healthAfterAttack = 0;
+                                        }
+
+                                        Text hp = hpPanel.GetChild(j).GetChild(k).GetComponent<Text>();
+                                        hp.text = healthAfterAttack.ToString();
+                                    }
                                 }                                
                             }
                             else if (hpPanel.GetChild(j).name == "EnemyHPbar")
@@ -181,6 +192,17 @@ public class Attack : MonoBehaviour
                                     {
                                         Text hp = hpPanel.GetChild(j).GetChild(k).GetComponent<Text>();
                                         hp.text = target.GetComponent<Stats>().hp.ToString();
+                                    }
+                                    else if (hpPanel.GetChild(j).GetChild(k).name == "TextAfterAttack")
+                                    {
+                                        float healthAfterAttack = target.GetComponent<Stats>().hp - (damage * doubling);
+                                        if (healthAfterAttack < 0)
+                                        {
+                                            healthAfterAttack = 0;
+                                        }
+
+                                        Text hp = hpPanel.GetChild(j).GetChild(k).GetComponent<Text>();
+                                        hp.text = healthAfterAttack.ToString("F0");
                                     }
                                 }
                             }
