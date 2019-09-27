@@ -21,7 +21,9 @@ public class Cursor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tileData = GameObject.FindGameObjectWithTag("TileManager").GetComponent<TileData>();        
+        tileData = GameObject.FindGameObjectWithTag("TileManager").GetComponent<TileData>();
+        attackPanel.SetActive(false);
+        selectPanel.SetActive(false);
     }
 
     // Update is called once per frame
