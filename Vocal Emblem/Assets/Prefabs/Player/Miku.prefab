@@ -111,8 +111,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapons:
-  - {fileID: 6804034824547974545, guid: ec84fd89a8c60794ca3c941580eb8044, type: 3}
-  equippedWeapon: {fileID: 0}
+  - {fileID: 11400000, guid: 6af9e21a1dceb65499127d62fcd60cbc, type: 2}
+  equippedWeapon: {fileID: 11400000, guid: 6af9e21a1dceb65499127d62fcd60cbc, type: 2}
   typeMovement: 0
   maxHP: 20
   hp: 20
@@ -171,3 +171,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   enemies: []
+  indexEnemies: 0

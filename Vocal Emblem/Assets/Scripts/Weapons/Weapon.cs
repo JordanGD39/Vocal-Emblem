@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+
+[CreateAssetMenu(fileName = "New Weapon", menuName = "Weapon")]
+public class Weapon : ScriptableObject
 {
     public string weaponName = "";
     public string description = "";
@@ -15,6 +17,7 @@ public class Weapon : MonoBehaviour
     public int skillLevel = 1;
     public int range = 1;
     public bool rangeOneAndTwo = true;
+    public bool counterAll = false;
     public int weight = 2;
     public int worth = 320;
     public int exp = 1;

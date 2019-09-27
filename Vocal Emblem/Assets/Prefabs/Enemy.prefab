@@ -96,8 +96,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapons:
-  - {fileID: 6804034824547974545, guid: ec84fd89a8c60794ca3c941580eb8044, type: 3}
-  equippedWeapon: {fileID: 0}
+  - {fileID: 11400000, guid: c11e4e42138ea294e868c75c6c2208d3, type: 2}
+  equippedWeapon: {fileID: 11400000, guid: c11e4e42138ea294e868c75c6c2208d3, type: 2}
   typeMovement: 0
   maxHP: 12
   hp: 12

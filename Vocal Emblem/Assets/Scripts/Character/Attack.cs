@@ -93,23 +93,37 @@ public class Attack : MonoBehaviour
 
             //MT calc
             float damage = CalcDamage(gameObject, target);
-            float enemyDamage = CalcDamage(target, gameObject);
             int doubling = CalcSpeed(gameObject, target);
-            int enemyDoubling = CalcSpeed(target, gameObject);
             //Hit calc
             float hit = CalcHit(gameObject);
             float enemyEvade = CalcEvade(target);
-            float enemyHit = CalcHit(target);
-            float evade = CalcEvade(gameObject);
             float acc = CalcAccuracy(hit, enemyEvade);
-            float enemyAcc = CalcAccuracy(enemyHit, evade);
             //Crit calc
             float critRate = CalcCrit(gameObject);
-            float enemyCritRate = CalcCrit(target);
-            float critEvade = CalcCritEvade(gameObject);
             float enemyCritEvade = CalcCritEvade(target);
             float crit = CalcCritHit(critRate, enemyCritEvade);
-            float enemyCrit = CalcCritHit(enemyCritRate, critEvade);
+
+            float enemyDamage = 0;
+            int enemyDoubling = 0;
+            float enemyHit = 0;
+            float evade = 0;
+            float enemyAcc = 0;
+            float enemyCritRate = 0;
+            float critEvade = 0;
+            float enemyCrit = 0;
+
+            if ((gameObject.transform.position.x - target.transform.position.x) + (gameObject.transform.position.y - target.transform.position.y) <= target.GetComponent<Stats>().equippedWeapon.range || target.GetComponent<Stats>().equippedWeapon.counterAll)
+            {
+                enemyDamage = CalcDamage(target, gameObject);
+                enemyDoubling = CalcSpeed(target, gameObject);
+                enemyHit = CalcHit(target);
+                evade = CalcEvade(gameObject);
+                enemyAcc = CalcAccuracy(enemyHit, evade);
+
+                enemyCritRate = CalcCrit(target);
+                critEvade = CalcCritEvade(gameObject);
+                enemyCrit = CalcCritHit(enemyCritRate, critEvade);
+            }           
 
             for (int i = 0; i < attackPanel.childCount; i++)
             {
