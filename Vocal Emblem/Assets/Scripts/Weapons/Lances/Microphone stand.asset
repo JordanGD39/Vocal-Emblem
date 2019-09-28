@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94eae39947782b849af71f23eeaa44f3, type: 3}
   m_Name: Microphone stand
   m_EditorClassIdentifier: 
-  weaponName: Scratched Mic stand
+  weaponName: Mic stand
   description: Just a scrathed mic stand
   typeOfWeapon: 2
   mt: 7

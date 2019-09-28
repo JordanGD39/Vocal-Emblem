@@ -155,8 +155,28 @@ public class Attack : MonoBehaviour
                                 {
                                     weaponEmpty.GetChild(k).GetComponent<Text>().text = stats.equippedWeapon.uses.ToString();
                                 }
+                            }                            
+                        }
+                        else if (weaponPanel.GetChild(j).name == "Arrow")
+                        {
+                            Image arrow = weaponPanel.GetChild(j).GetComponent<Image>();
+
+                            if (triangleBonus == 15)
+                            {
+                                arrow.gameObject.SetActive(true);
+                                arrow.transform.rotation = Quaternion.Euler(0, 0, 0);
+                                arrow.color = new Color32(105,255,102,255);
                             }
-                            
+                            else if (triangleBonus == 0)
+                            {
+                                arrow.gameObject.SetActive(false);
+                            }
+                            else if(triangleBonus == -15)
+                            {
+                                arrow.gameObject.SetActive(true);
+                                arrow.transform.rotation = Quaternion.Euler(0, 0, 180);
+                                arrow.color = new Color32(255, 104, 102, 255);
+                            }
                         }
                     }
                 }
@@ -172,7 +192,27 @@ public class Attack : MonoBehaviour
 
                             weaponEmpty.GetComponentInChildren<Text>().text = target.GetComponent<Stats>().equippedWeapon.weaponName;
                         }
-                    }
+                        else if (weaponPanel.GetChild(j).name == "Arrow")
+                        {
+                            Image arrow = weaponPanel.GetChild(j).GetComponent<Image>();
+
+                            if (triangleBonusEnemy == 15)
+                            {
+                                arrow.gameObject.SetActive(true);
+                                arrow.transform.rotation = Quaternion.Euler(0, 0, 0);
+                                arrow.color = new Color32(105, 255, 102, 255);
+                            }
+                            else if (triangleBonusEnemy == 0)
+                            {
+                                arrow.gameObject.SetActive(false);
+                            }
+                            else if (triangleBonusEnemy == -15)
+                            {
+                                arrow.gameObject.SetActive(true);
+                                arrow.transform.rotation = Quaternion.Euler(0, 0, 180);
+                                arrow.color = new Color32(255, 104, 102, 255);
+                            }
+                        }
                 }
             }
 

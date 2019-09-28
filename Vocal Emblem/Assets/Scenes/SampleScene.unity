@@ -8123,7 +8123,7 @@ GameObject:
   - component: {fileID: 715880506}
   - component: {fileID: 715880505}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Dur
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
