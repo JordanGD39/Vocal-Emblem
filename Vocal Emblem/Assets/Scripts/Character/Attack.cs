@@ -11,8 +11,8 @@ public class Attack : MonoBehaviour
     private GameObject cursor;
     public GameObject target;
 
-    private int triangleBonus = 0;
-    private int triangleBonusEnemy = 0;
+    public int triangleBonus = 0;
+    public int triangleBonusEnemy = 0;
 
     [SerializeField]
     private List<GameObject> enemies = new List<GameObject>();
@@ -488,26 +488,10 @@ public class Attack : MonoBehaviour
                     switch (otherChar.GetComponent<Stats>().equippedWeapon.typeOfWeapon)
                     {
                         case Weapon.WeaponType.AXE:
-                            weaponTriangle = 1;
-                            if (firstChar == gameObject)
-                            {
-                                triangleBonus = 15;
-                            }
-                            else
-                            {
-                                triangleBonusEnemy = 15;
-                            }
+                            weaponTriangle = 1;                            
                             break;
                         case Weapon.WeaponType.LANCE:
                             weaponTriangle = -1;
-                            if (firstChar == gameObject)
-                            {
-                                triangleBonus = -15;
-                            }
-                            else
-                            {
-                                triangleBonusEnemy = -15;
-                            }
                             break;
                         default:
                             break;
@@ -518,25 +502,9 @@ public class Attack : MonoBehaviour
                     {
                         case Weapon.WeaponType.SWORD:
                             weaponTriangle = -1;
-                            if (firstChar == gameObject)
-                            {
-                                triangleBonus = -15;
-                            }
-                            else
-                            {
-                                triangleBonusEnemy = -15;
-                            }
                             break;
                         case Weapon.WeaponType.LANCE:
                             weaponTriangle = 1;
-                            if (firstChar == gameObject)
-                            {
-                                triangleBonus = 15;
-                            }
-                            else
-                            {
-                                triangleBonusEnemy = 15;
-                            }
                             break;
                         default:
                             break;
@@ -547,25 +515,9 @@ public class Attack : MonoBehaviour
                     {
                         case Weapon.WeaponType.AXE:
                             weaponTriangle = -1;
-                            if (firstChar == gameObject)
-                            {
-                                triangleBonus = -15;
-                            }
-                            else
-                            {
-                                triangleBonusEnemy = -15;
-                            }
                             break;
                         case Weapon.WeaponType.SWORD:
                             weaponTriangle = 1;
-                            if (firstChar == gameObject)
-                            {
-                                triangleBonus = 15;
-                            }
-                            else
-                            {
-                                triangleBonusEnemy = 15;
-                            }
                             break;
                         default:
                             break;
@@ -584,13 +536,13 @@ public class Attack : MonoBehaviour
             {
                 damage = 0;
             }
-            if (firstChar.GetComponent<PlayerMovement>() != null)
+            if (firstChar == gameObject)
             {
-                weaponTrianglePlayer = weaponTriangle;
+                triangleBonus = weaponTriangle * 15;
             }
             else
             {
-                weaponTriangleEnemy = weaponTriangle;
+                triangleBonusEnemy = weaponTriangle * 15;
             }
         }
         
