@@ -10,19 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94eae39947782b849af71f23eeaa44f3, type: 3}
-  m_Name: Old Guitar
+  m_Name: Microphone stand
   m_EditorClassIdentifier: 
-  weaponName: 
-  description: 
-  typeOfWeapon: 0
-  mt: 5
-  uses: 42
+  weaponName: Scratched Mic stand
+  description: Just a scrathed mic stand
+  typeOfWeapon: 2
+  mt: 7
+  uses: 50
   crit: 0
-  accuracy: 100
+  accuracy: 80
   skillLevel: 1
   range: 1
   rangeOneAndTwo: 1
   counterAll: 0
-  weight: 2
-  worth: 320
+  worth: 200
   exp: 1

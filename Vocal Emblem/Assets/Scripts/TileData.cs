@@ -89,6 +89,30 @@ public class TileData : MonoBehaviour
                             GameObject enemy = Instantiate(enemies[0], new Vector3(x + 0.5f, -y + 0.5f, 0), enemies[0].transform.rotation);
                         }
                         break;
+                    case 3:
+                        if (enemies.Count > 0)
+                        {
+                            GameObject enemy = Instantiate(enemies[1], new Vector3(x + 0.5f, -y + 0.5f, 0), enemies[1].transform.rotation);
+                        }
+                        break;
+                    case 4:
+                        if (enemies.Count > 0)
+                        {
+                            GameObject enemy = Instantiate(enemies[2], new Vector3(x + 0.5f, -y + 0.5f, 0), enemies[2].transform.rotation);
+                        }
+                        break;
+                    case 5:
+                        if (enemies.Count > 0)
+                        {
+                            GameObject enemy = Instantiate(enemies[3], new Vector3(x + 0.5f, -y + 0.5f, 0), enemies[3].transform.rotation);
+                        }
+                        break;
+                    case 6:
+                        if (enemies.Count > 0)
+                        {
+                            GameObject enemy = Instantiate(enemies[4], new Vector3(x + 0.5f, -y + 0.5f, 0), enemies[4].transform.rotation);
+                        }
+                        break;
                 }
                 if (GameManager.instance.playerTeamCount < GameManager.instance.playerTeam.Count - 1)
                 {
@@ -199,7 +223,7 @@ public class TileData : MonoBehaviour
         {
             if (openList.Contains(topNeighbor) || giveCount < topNeighbor.GetComponent<TileNumber>().number)
             {
-                if (giveCount <= mov && currMap[y - 1, x] > wall && currMapCharPos[y - 1, x] != 2)
+                if (giveCount <= mov && currMap[y - 1, x] > wall && currMapCharPos[y - 1, x] == 0)
                 {
                     //Debug.Log("TOP");
                     topNeighbor.GetComponent<TileNumber>().number = giveCount;
@@ -210,7 +234,7 @@ public class TileData : MonoBehaviour
                     topNeighbor.tag = "MoveTile";
                     CheckNeighbors(y - 1, x, wall, mov, beginX, beginY, range, giveCount);
                 }
-                if (giveCount > mov && giveCount <= mov + range || currMap[y - 1, x] <= wall || currMapCharPos[y - 1, x] == 2)
+                if (giveCount > mov && giveCount <= mov + range || currMap[y - 1, x] <= wall || currMapCharPos[y - 1, x] != 0)
                 {
                     if (!topNeighbor.CompareTag("MoveTile"))
                     {
@@ -232,7 +256,7 @@ public class TileData : MonoBehaviour
         {
             if (openList.Contains(bottomNeighbor) || giveCount < bottomNeighbor.GetComponent<TileNumber>().number)
             {
-                if (giveCount <= mov && currMap[y + 1, x] > wall && currMapCharPos[y + 1, x] != 2)
+                if (giveCount <= mov && currMap[y + 1, x] > wall && currMapCharPos[y + 1, x] == 0)
                 {
                     // Debug.Log("Bottom");
                     bottomNeighbor.GetComponent<TileNumber>().number = giveCount;
@@ -243,7 +267,7 @@ public class TileData : MonoBehaviour
                     bottomNeighbor.tag = "MoveTile";
                     CheckNeighbors(y + 1, x, wall, mov, beginX, beginY, range, giveCount);
                 }
-                if (giveCount > mov && giveCount <= mov + range || currMap[y + 1, x] <= wall || currMapCharPos[y + 1, x] == 2)
+                if (giveCount > mov && giveCount <= mov + range || currMap[y + 1, x] <= wall || currMapCharPos[y + 1, x] != 0)
                 {
                     if (!bottomNeighbor.CompareTag("MoveTile"))
                     {
@@ -265,7 +289,7 @@ public class TileData : MonoBehaviour
         {
             if (openList.Contains(leftNeighbor) || giveCount < leftNeighbor.GetComponent<TileNumber>().number)
             {
-                if (giveCount <= mov && currMap[y, x - 1] > wall && currMapCharPos[y, x - 1] != 2)
+                if (giveCount <= mov && currMap[y, x - 1] > wall && currMapCharPos[y, x - 1] == 0)
                 {
                     //Debug.Log("Left");
                     leftNeighbor.GetComponent<TileNumber>().number = giveCount;
@@ -276,7 +300,7 @@ public class TileData : MonoBehaviour
                     leftNeighbor.tag = "MoveTile";
                     CheckNeighbors(y, x - 1, wall, mov, beginX, beginY, range, giveCount);
                 }
-                else if (giveCount > mov && giveCount <= mov + range || currMap[y, x - 1] <= wall || currMapCharPos[y, x - 1] == 2)
+                else if (giveCount > mov && giveCount <= mov + range || currMap[y, x - 1] <= wall || currMapCharPos[y, x - 1] != 0)
                 {
                     if (!leftNeighbor.CompareTag("MoveTile"))
                     {
@@ -298,7 +322,7 @@ public class TileData : MonoBehaviour
         {
             if (openList.Contains(rightNeighbor) || giveCount < rightNeighbor.GetComponent<TileNumber>().number)
             {
-                if (giveCount <= mov && currMap[y, x + 1] > wall && currMapCharPos[y, x + 1] != 2)
+                if (giveCount <= mov && currMap[y, x + 1] > wall && currMapCharPos[y, x + 1] == 0)
                 {
                     //Debug.Log("right");
                     rightNeighbor.GetComponent<TileNumber>().number = giveCount;
@@ -309,7 +333,7 @@ public class TileData : MonoBehaviour
                     rightNeighbor.tag = "MoveTile";
                     CheckNeighbors(y, x + 1, wall, mov, beginX, beginY, range, giveCount);
                 }
-                if (giveCount > mov && giveCount <= mov + range || currMap[y, x + 1] <= wall || currMapCharPos[y, x + 1] == 2)
+                if (giveCount > mov && giveCount <= mov + range || currMap[y, x + 1] <= wall || currMapCharPos[y, x + 1] != 0)
                 {
                     if (!rightNeighbor.CompareTag("MoveTile"))
                     {

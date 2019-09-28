@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94eae39947782b849af71f23eeaa44f3, type: 3}
-  m_Name: Job
+  m_Name: Old Guitar
   m_EditorClassIdentifier: 
-  weaponName: Job
-  description: Auto drop
-  typeOfWeapon: 4
-  mt: 11
-  uses: 50
-  crit: 10
-  accuracy: 95
-  skillLevel: 3
-  range: 2
+  weaponName: Old Guitar
+  description: A pretty old guitar
+  typeOfWeapon: 1
+  mt: 8
+  uses: 39
+  crit: 0
+  accuracy: 75
+  skillLevel: 1
+  range: 1
   rangeOneAndTwo: 1
-  weight: 2
-  worth: 390
-  exp: 20
+  counterAll: 0
+  worth: 270
+  exp: 1

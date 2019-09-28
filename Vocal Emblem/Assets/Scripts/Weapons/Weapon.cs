@@ -18,7 +18,6 @@ public class Weapon : ScriptableObject
     public int range = 1;
     public bool rangeOneAndTwo = true;
     public bool counterAll = false;
-    public int weight = 2;
     public int worth = 320;
     public int exp = 1;
 }
