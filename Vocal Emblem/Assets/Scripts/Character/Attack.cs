@@ -90,9 +90,11 @@ public class Attack : MonoBehaviour
             Transform mtPanel = null;
             Transform hitPanel = null;
             Transform critPanel = null;            
-            Transform weaponPanel = null;                   
+            Transform weaponPanel = null;
 
             //MT calc
+            triangleBonus = 0;
+            triangleBonusEnemy = 0;
             float damage = CalcDamage(gameObject, target);
             int doubling = CalcSpeed(gameObject, target);
             //Hit calc
@@ -213,6 +215,7 @@ public class Attack : MonoBehaviour
                                 arrow.color = new Color32(255, 104, 102, 255);
                             }
                         }
+                    }
                 }
             }
 
