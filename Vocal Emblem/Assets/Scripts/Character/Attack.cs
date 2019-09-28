@@ -136,6 +136,45 @@ public class Attack : MonoBehaviour
                     statsPanel = attackPanel.GetChild(i);
                     Debug.Log("StatsFound");
                 }
+                else if (attackPanel.GetChild(i).name == "Weapon")
+                {
+                    weaponPanel = attackPanel.GetChild(i);
+
+                    for (int j = 0; j < weaponPanel.childCount; j++)
+                    {
+                        if (weaponPanel.GetChild(j).name == "Weapon")
+                        {
+                            Transform weaponEmpty = weaponPanel.GetChild(j);
+
+                            for (int k = 0; k < weaponEmpty.childCount; k++)
+                            {
+                                if (weaponEmpty.GetChild(k).name == "Text")
+                                {
+                                    weaponEmpty.GetChild(k).GetComponent<Text>().text = stats.equippedWeapon.weaponName;
+                                }
+                                else if (weaponEmpty.GetChild(k).name == "Dur")
+                                {
+                                    weaponEmpty.GetChild(k).GetComponent<Text>().text = stats.equippedWeapon.uses.ToString();
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+                else if (attackPanel.GetChild(i).name == "EnemyWeapon")
+                {
+                    weaponPanel = attackPanel.GetChild(i);
+
+                    for (int j = 0; j < weaponPanel.childCount; j++)
+                    {
+                        if (weaponPanel.GetChild(j).name == "Weapon")
+                        {
+                            Transform weaponEmpty = weaponPanel.GetChild(j);
+
+                            weaponEmpty.GetComponentInChildren<Text>().text = target.GetComponent<Stats>().equippedWeapon.weaponName;
+                        }
+                    }
+                }
             }
 
             for (int i = 0; i < statsPanel.childCount; i++)
@@ -352,35 +391,9 @@ public class Attack : MonoBehaviour
                                 }
                             }
                         }
-                        break;
-                    case "Weapon":
-                        weaponPanel = statsPanel.GetChild(i);
-
-                        for (int j = 0; j < weaponPanel.childCount; j++)
-                        {
-                            if (weaponPanel.GetChild(j).name == "Weapon")
-                            {
-                                Transform weaponEmpty = weaponPanel.GetChild(j);
-
-                                weaponEmpty.GetComponentInChildren<Text>().text = stats.equippedWeapon.weaponName;
-                            }
-                        }
-                        break;
-                    case "EnemyWeapon":
-                        enemyWeaponPanel = statsPanel.GetChild(i);
-
-                        for (int j = 0; j < enemyWeaponPanel.childCount; j++)
-                        {
-                            if (enemyWeaponPanel.GetChild(j).name == "Weapon")
-                            {
-                                Transform weaponEmpty = enemyWeaponPanel.GetChild(j);
-
-                                weaponEmpty.GetComponentInChildren<Text>().text = target.GetComponent<Stats>().equippedWeapon.weaponName;
-                            }
-                        }
-                        break;
+                        break;                    
                 }
-            }
+            }           
         }
     }
 
