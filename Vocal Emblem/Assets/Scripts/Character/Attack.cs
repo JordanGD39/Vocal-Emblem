@@ -11,8 +11,8 @@ public class Attack : MonoBehaviour
     private GameObject cursor;
     public GameObject target;
 
-    private int weaponTrianglePlayer = 0;
-    private int weaponTriangleEnemy = 0;
+    private int triangleBonus = 0;
+    private int triangleBonusEnemy = 0;
 
     [SerializeField]
     private List<GameObject> enemies = new List<GameObject>();
@@ -90,8 +90,7 @@ public class Attack : MonoBehaviour
             Transform mtPanel = null;
             Transform hitPanel = null;
             Transform critPanel = null;            
-            Transform weaponPanel = null;            
-            Transform enemyWeaponPanel = null;            
+            Transform weaponPanel = null;                   
 
             //MT calc
             float damage = CalcDamage(gameObject, target);
@@ -99,7 +98,7 @@ public class Attack : MonoBehaviour
             //Hit calc
             float hit = CalcHit(gameObject);
             float enemyEvade = CalcEvade(target);
-            float acc = CalcAccuracy(hit, enemyEvade);
+            float acc = CalcAccuracy(hit, enemyEvade, gameObject);
             //Crit calc
             float critRate = CalcCrit(gameObject);
             float enemyCritEvade = CalcCritEvade(target);
@@ -122,7 +121,7 @@ public class Attack : MonoBehaviour
                 enemyDoubling = CalcSpeed(target, gameObject);
                 enemyHit = CalcHit(target);
                 evade = CalcEvade(gameObject);
-                enemyAcc = CalcAccuracy(enemyHit, evade);
+                enemyAcc = CalcAccuracy(enemyHit, evade, target);
 
                 enemyCritRate = CalcCrit(target);
                 critEvade = CalcCritEvade(gameObject);
@@ -431,9 +430,19 @@ public class Attack : MonoBehaviour
         return crit;
     }
 
-    private float CalcAccuracy(float hit, float evasion)
+    private float CalcAccuracy(float hit, float evasion, GameObject character)
     {
-        float accuracy = hit - evasion;
+        float triangle = 0;
+        if (character == gameObject)
+        {
+            triangle = triangleBonus;
+        }
+        else
+        {
+            triangle = triangleBonusEnemy;
+        }
+        
+        float accuracy = hit - evasion + triangle;
         if (accuracy < 0)
         {
             accuracy = 0;
@@ -480,9 +489,25 @@ public class Attack : MonoBehaviour
                     {
                         case Weapon.WeaponType.AXE:
                             weaponTriangle = 1;
+                            if (firstChar == gameObject)
+                            {
+                                triangleBonus = 15;
+                            }
+                            else
+                            {
+                                triangleBonusEnemy = 15;
+                            }
                             break;
                         case Weapon.WeaponType.LANCE:
                             weaponTriangle = -1;
+                            if (firstChar == gameObject)
+                            {
+                                triangleBonus = -15;
+                            }
+                            else
+                            {
+                                triangleBonusEnemy = -15;
+                            }
                             break;
                         default:
                             break;
@@ -493,9 +518,25 @@ public class Attack : MonoBehaviour
                     {
                         case Weapon.WeaponType.SWORD:
                             weaponTriangle = -1;
+                            if (firstChar == gameObject)
+                            {
+                                triangleBonus = -15;
+                            }
+                            else
+                            {
+                                triangleBonusEnemy = -15;
+                            }
                             break;
                         case Weapon.WeaponType.LANCE:
                             weaponTriangle = 1;
+                            if (firstChar == gameObject)
+                            {
+                                triangleBonus = 15;
+                            }
+                            else
+                            {
+                                triangleBonusEnemy = 15;
+                            }
                             break;
                         default:
                             break;
@@ -506,9 +547,25 @@ public class Attack : MonoBehaviour
                     {
                         case Weapon.WeaponType.AXE:
                             weaponTriangle = -1;
+                            if (firstChar == gameObject)
+                            {
+                                triangleBonus = -15;
+                            }
+                            else
+                            {
+                                triangleBonusEnemy = -15;
+                            }
                             break;
                         case Weapon.WeaponType.SWORD:
                             weaponTriangle = 1;
+                            if (firstChar == gameObject)
+                            {
+                                triangleBonus = 15;
+                            }
+                            else
+                            {
+                                triangleBonusEnemy = 15;
+                            }
                             break;
                         default:
                             break;
