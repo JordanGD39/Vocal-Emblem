@@ -375,113 +375,108 @@ public class TileData : MonoBehaviour
         List<GameObject> enemiesFound = new List<GameObject>();        
 
         for (int i = 0; i < range + 1; i++)
-        {
-            if (-y + i < rowsMovement.Count) //Down
+        { 
+            for (int j = 0; j < range + 1 - i; j++)
             {
-                for (int j = 0; j < range + 1 - i; j++)
+                if (!oneTwo && i == 0 && j < 2)
                 {
-                    if (!oneTwo && i == 0 && j < 2)
-                    {
-                        j = 2;
-                    }
-                    if (!oneTwo && i == 1 && j < 1)
-                    {
-                        j = 1;
-                    }
+                    j = 2;
+                }
+                if (!oneTwo && i == 1 && j < 1)
+                {
+                    j = 1;
+                }
 
-                    if (x + j < rowsMovement[-y + i].transform.childCount)
+                if (-y + i < rowsMovement.Count && x + j < rowsMovement[-y + i].transform.childCount)
+                {
+                    for (int k = 0; k < enemiesInGame.Count; k++)
                     {
-                        for (int k = 0; k < enemiesInGame.Count; k++)
+                        rowsMovement[-y + i].transform.GetChild(x + j).GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
+                        rowsMovement[-y + i].transform.GetChild(x + j).gameObject.SetActive(true);
+
+                        //Debug.Log("down right " + (x + j) + " X: " + (enemiesInGame[k].transform.position.x - 0.5f) + " " + (-y + i) + " Y: " + (-enemiesInGame[k].transform.position.y + 0.5f));
+
+                        if (x + j == enemiesInGame[k].transform.position.x - 0.5f && -y + i == -enemiesInGame[k].transform.position.y + 0.5f)
                         {
-                            rowsMovement[-y + i].transform.GetChild(x + j).GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
-                            rowsMovement[-y + i].transform.GetChild(x + j).gameObject.SetActive(true);
-
-                            //Debug.Log("down right " + (x + j) + " X: " + (enemiesInGame[k].transform.position.x - 0.5f) + " " + (-y + i) + " Y: " + (-enemiesInGame[k].transform.position.y + 0.5f));
-
-                            if (x + j == enemiesInGame[k].transform.position.x - 0.5f && -y + i == -enemiesInGame[k].transform.position.y + 0.5f)
+                            if (!enemiesFound.Contains(enemiesInGame[k]))
                             {
-                                if (!enemiesFound.Contains(enemiesInGame[k]))
-                                {
-                                    enemiesFound.Add(enemiesInGame[k]);
-                                }
-                            }
-                        }
-                    }
-                    if (x + j < rowsMovement[-y - i].transform.childCount && i != 0) //Up
-                    {
-                        for (int k = 0; k < enemiesInGame.Count; k++)
-                        {
-                            rowsMovement[-y - i].transform.GetChild(x + j).GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
-                            rowsMovement[-y - i].transform.GetChild(x + j).gameObject.SetActive(true);
-
-                            //Debug.Log("up right " + (x + j) + " X: " + (enemiesInGame[k].transform.position.x - 0.5f) + " " + (-y - i) + " Y: " + (-enemiesInGame[k].transform.position.y + 0.5f));
-
-                            if (x + j == enemiesInGame[k].transform.position.x - 0.5f && -y - i == -enemiesInGame[k].transform.position.y + 0.5f)
-                            {
-                                if (!enemiesFound.Contains(enemiesInGame[k]))
-                                {
-                                    enemiesFound.Add(enemiesInGame[k]);
-                                }
+                                enemiesFound.Add(enemiesInGame[k]);
                             }
                         }
                     }
                 }
-            }
+                if (-y - i > -1 && x + j < rowsMovement[-y - i].transform.childCount && i != 0) //Up
+                {
+                    for (int k = 0; k < enemiesInGame.Count; k++)
+                    {
+                        rowsMovement[-y - i].transform.GetChild(x + j).GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
+                        rowsMovement[-y - i].transform.GetChild(x + j).gameObject.SetActive(true);
+
+                        //Debug.Log("up right " + (x + j) + " X: " + (enemiesInGame[k].transform.position.x - 0.5f) + " " + (-y - i) + " Y: " + (-enemiesInGame[k].transform.position.y + 0.5f));
+
+                        if (x + j == enemiesInGame[k].transform.position.x - 0.5f && -y - i == -enemiesInGame[k].transform.position.y + 0.5f)
+                        {
+                            if (!enemiesFound.Contains(enemiesInGame[k]))
+                            {
+                                enemiesFound.Add(enemiesInGame[k]);
+                            }
+                        }
+                    }
+                }
+            }            
         } //Right
 
         for (int i = 0; i < range + 1; i++)
         {
-            if (-y - i > -1) //Up
+            for (int j = 0; j < range + 1 - i; j++)
             {
-                for (int j = 0; j < range + 1 - i; j++)
+                if (!oneTwo && i == 0 && j < 2)
                 {
-                    if (!oneTwo && i == 0 && j < 2)
-                    {
-                        j = 2;
-                    }
-                    if (!oneTwo && i == 1 && j < 1)
-                    {
-                        j = 1;
-                    }
+                    j = 2;
+                }
+                if (!oneTwo && i == 1 && j < 1)
+                {
+                    j = 1;
+                }
 
-                    if (x - j > -1)
+                if (-y - i > -1 && x - j > -1)
+                {
+                    for (int k = 0; k < enemiesInGame.Count; k++)
                     {
-                        for (int k = 0; k < enemiesInGame.Count; k++)
+                        rowsMovement[-y - i].transform.GetChild(x - j).GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
+                        rowsMovement[-y - i].transform.GetChild(x - j).gameObject.SetActive(true);
+
+                        //Debug.Log("up left "+(x - j) + " X: " + (enemiesInGame[k].transform.position.x - 0.5f) + " " + (-y - i) + " Y: " + (-enemiesInGame[k].transform.position.y + 0.5f));
+
+                        if (x - j == enemiesInGame[k].transform.position.x - 0.5f && -y - i == -enemiesInGame[k].transform.position.y + 0.5f)
                         {
-                            rowsMovement[-y - i].transform.GetChild(x - j).GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
-                            rowsMovement[-y - i].transform.GetChild(x - j).gameObject.SetActive(true);
-
-                            //Debug.Log("up left "+(x - j) + " X: " + (enemiesInGame[k].transform.position.x - 0.5f) + " " + (-y - i) + " Y: " + (-enemiesInGame[k].transform.position.y + 0.5f));
-
-                            if (x - j == enemiesInGame[k].transform.position.x - 0.5f && -y - i == -enemiesInGame[k].transform.position.y + 0.5f)
+                            if (!enemiesFound.Contains(enemiesInGame[k]))
                             {
-                                if (!enemiesFound.Contains(enemiesInGame[k]))
-                                {
-                                    enemiesFound.Add(enemiesInGame[k]);
-                                }
+                                enemiesFound.Add(enemiesInGame[k]);
                             }
                         }
                     }
-                    if (x - j > -1 && i != 0) //Down
+                }
+                if (-y + i < rowsMovement.Count && x - j > -1 && i != 0) //Down
+                {
+                    for (int k = 0; k < enemiesInGame.Count; k++)
                     {
-                        for (int k = 0; k < enemiesInGame.Count; k++)
+                        rowsMovement[-y + i].transform.GetChild(x - j).GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
+                        rowsMovement[-y + i].transform.GetChild(x - j).gameObject.SetActive(true);
+
+                        //Debug.Log("down Left " + (x - j) + " X: " + (enemiesInGame[k].transform.position.x - 0.5f) + " " + (-y + i) + " Y: " + (-enemiesInGame[k].transform.position.y + 0.5f));
+
+                        if (x - j == enemiesInGame[k].transform.position.x - 0.5f && -y + i == -enemiesInGame[k].transform.position.y + 0.5f)
                         {
-                            rowsMovement[-y + i].transform.GetChild(x - j).GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
-                            rowsMovement[-y + i].transform.GetChild(x - j).gameObject.SetActive(true);
-
-                            //Debug.Log("down Left " + (x - j) + " X: " + (enemiesInGame[k].transform.position.x - 0.5f) + " " + (-y + i) + " Y: " + (-enemiesInGame[k].transform.position.y + 0.5f));
-
-                            if (x - j == enemiesInGame[k].transform.position.x - 0.5f && -y + i == -enemiesInGame[k].transform.position.y + 0.5f)
+                            if (!enemiesFound.Contains(enemiesInGame[k]))
                             {
-                                if (!enemiesFound.Contains(enemiesInGame[k]))
-                                {
-                                    enemiesFound.Add(enemiesInGame[k]);
-                                }
+                                enemiesFound.Add(enemiesInGame[k]);
                             }
                         }
                     }
                 }
             }
+            
             
         } //Left
         return enemiesFound;

@@ -112,7 +112,7 @@ public class Attack : MonoBehaviour
             float critEvade = 0;
             float enemyCrit = 0;
 
-            if ((gameObject.transform.position.x - target.transform.position.x) + (gameObject.transform.position.y - target.transform.position.y) <= target.GetComponent<Stats>().equippedWeapon.range || target.GetComponent<Stats>().equippedWeapon.counterAll)
+            if (Mathf.Abs(gameObject.transform.position.x - target.transform.position.x) + Mathf.Abs(gameObject.transform.position.y - target.transform.position.y) <= target.GetComponent<Stats>().equippedWeapon.range || target.GetComponent<Stats>().equippedWeapon.counterAll)
             {
                 enemyDamage = CalcDamage(target, gameObject);
                 enemyDoubling = CalcSpeed(target, gameObject);
