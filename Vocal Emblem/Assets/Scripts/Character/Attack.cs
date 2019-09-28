@@ -90,6 +90,8 @@ public class Attack : MonoBehaviour
             Transform mtPanel = null;
             Transform hitPanel = null;
             Transform critPanel = null;            
+            Transform weaponPanel = null;            
+            Transform enemyWeaponPanel = null;            
 
             //MT calc
             float damage = CalcDamage(gameObject, target);
@@ -348,6 +350,32 @@ public class Attack : MonoBehaviour
                                         critTxt.text = enemyCrit.ToString("F0");
                                     }
                                 }
+                            }
+                        }
+                        break;
+                    case "Weapon":
+                        weaponPanel = statsPanel.GetChild(i);
+
+                        for (int j = 0; j < weaponPanel.childCount; j++)
+                        {
+                            if (weaponPanel.GetChild(j).name == "Weapon")
+                            {
+                                Transform weaponEmpty = weaponPanel.GetChild(j);
+
+                                weaponEmpty.GetComponentInChildren<Text>().text = stats.equippedWeapon.weaponName;
+                            }
+                        }
+                        break;
+                    case "EnemyWeapon":
+                        enemyWeaponPanel = statsPanel.GetChild(i);
+
+                        for (int j = 0; j < enemyWeaponPanel.childCount; j++)
+                        {
+                            if (enemyWeaponPanel.GetChild(j).name == "Weapon")
+                            {
+                                Transform weaponEmpty = enemyWeaponPanel.GetChild(j);
+
+                                weaponEmpty.GetComponentInChildren<Text>().text = target.GetComponent<Stats>().equippedWeapon.weaponName;
                             }
                         }
                         break;
