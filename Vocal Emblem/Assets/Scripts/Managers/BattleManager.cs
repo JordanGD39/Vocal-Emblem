@@ -133,6 +133,9 @@ public class BattleManager : MonoBehaviour
     {
         bool didHit = Randomizer(hit);
         bool didCrit = Randomizer(crit);
+
+        Debug.Log(attacker.charName + " hit? " + didHit);
+        Debug.Log(attacker.charName + " crit? " + didCrit);
     }
 
     private bool Randomizer(float number)
@@ -140,11 +143,11 @@ public class BattleManager : MonoBehaviour
         float rand = Random.Range(0, 100);
         bool hit = true;
 
-        if (rand > number)
+        if (rand >= number)
         {
             hit = false;
         }
-        else if (rand <= number)
+        else if (rand < number)
         {
             hit = true;
         }
