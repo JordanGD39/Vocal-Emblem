@@ -25,8 +25,9 @@ public class SelectChoices : MonoBehaviour
     public void Wait()
     {
         cursor.currSelectedChar.GetComponent<PlayerMovement>().wait = true;
-        tileData.currMapCharPos[Mathf.RoundToInt(-cursor.currSelectedChar.transform.position.y - 0.5f), Mathf.RoundToInt(cursor.currSelectedChar.transform.position.x - 0.5f)] = 1;
-        tileData.currMapCharPos[Mathf.RoundToInt(-cursor.currSelectedChar.GetComponent<PlayerMovement>().oldPos.y - 0.5f), Mathf.RoundToInt(cursor.currSelectedChar.GetComponent<PlayerMovement>().oldPos.x - 0.5f)] = 0;
+        tileData.currMapCharPos[Mathf.RoundToInt(-cursor.currSelectedChar.transform.position.y + 0.5f), Mathf.RoundToInt(cursor.currSelectedChar.transform.position.x - 0.5f)] = 1;
+        tileData.currMapCharPos[Mathf.RoundToInt(-cursor.currSelectedChar.GetComponent<PlayerMovement>().oldPos.y + 0.5f), Mathf.RoundToInt(cursor.currSelectedChar.GetComponent<PlayerMovement>().oldPos.x - 0.5f)] = 0;
+        Debug.Log(tileData.currMapCharPos[4,10] + " "+ tileData.currMapCharPos[4, 12]);
         StartCoroutine(WaitForSetActive());
         tileData.DeselectMovement();
     }

@@ -85,12 +85,19 @@ public class Attack : MonoBehaviour
             cursor.GetComponent<Cursor>().attackPanel.SetActive(true);
 
             Transform attackPanel = cursor.GetComponent<Cursor>().attackPanel.transform;
+            Transform battlePanel = cursor.GetComponent<Cursor>().battlePanel.transform;
             Transform statsPanel = null;
             Transform hpPanel = null;
             Transform mtPanel = null;
             Transform hitPanel = null;
             Transform critPanel = null;            
             Transform weaponPanel = null;
+
+            int x = Mathf.RoundToInt(transform.position.x - 0.5f);
+            int y = Mathf.RoundToInt(transform.position.y - 0.5f);
+            int xEnemy = Mathf.RoundToInt(target.transform.position.x - 0.5f);
+            int yEnemy = Mathf.RoundToInt(target.transform.position.y - 0.5f);
+            Debug.Log(xEnemy + " " + yEnemy);
 
             //MT calc
             triangleBonus = 0;
@@ -99,7 +106,7 @@ public class Attack : MonoBehaviour
             int doubling = CalcSpeed(gameObject, target);
             //Hit calc
             float hit = CalcHit(gameObject);
-            float enemyEvade = CalcEvade(target);
+            float enemyEvade = CalcEvade(target, xEnemy, yEnemy);
             float acc = CalcAccuracy(hit, enemyEvade, gameObject);
             //Crit calc
             float critRate = CalcCrit(gameObject);
@@ -122,7 +129,7 @@ public class Attack : MonoBehaviour
                 enemyDamage = CalcDamage(target, gameObject);
                 enemyDoubling = CalcSpeed(target, gameObject);
                 enemyHit = CalcHit(target);
-                evade = CalcEvade(gameObject);
+                evade = CalcEvade(gameObject, x, y);
                 enemyAcc = CalcAccuracy(enemyHit, evade, target);
 
                 enemyCritRate = CalcCrit(target);
@@ -439,6 +446,11 @@ public class Attack : MonoBehaviour
         }
     }
 
+    public void Battle()
+    {
+
+    }
+
     private float CalcCrit(GameObject character)
     {
         float crit = 0;
@@ -498,12 +510,11 @@ public class Attack : MonoBehaviour
         return accuracy;
     }
 
-    private float CalcEvade(GameObject character)
+    private float CalcEvade(GameObject character, int x, int y)
     {
         float evasion = 0;
 
-        evasion = character.GetComponent<Stats>().spd * 2 + character.GetComponent<Stats>().luk + 0 + 0; //0's are the missing pieces
-
+        evasion = character.GetComponent<Stats>().spd * 2 + character.GetComponent<Stats>().luk + tileData.rowsMovement[-y].transform.GetChild(x).GetComponent<TileNumber>().terrainBonus + 0; //0's are the missing pieces
         return evasion;
     }
 
@@ -612,6 +623,7 @@ public class Attack : MonoBehaviour
         float hitRate = 0;
 
         hitRate = character.GetComponent<Stats>().equippedWeapon.accuracy + character.GetComponent<Stats>().skill * 2 + character.GetComponent<Stats>().luk / 2 + 0 + 0; //0's for missing parts
+        Debug.Log("HitRate: " + hitRate);
 
         return hitRate;
     }

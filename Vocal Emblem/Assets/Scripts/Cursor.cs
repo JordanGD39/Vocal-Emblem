@@ -12,6 +12,7 @@ public class Cursor : MonoBehaviour
     public GameObject currSelectedChar;
     public GameObject selectPanel;
     public GameObject attackPanel;
+    public GameObject battlePanel;
 
     private List<GameObject> openList = new List<GameObject>();
     private List<GameObject> closedList = new List<GameObject>();
@@ -126,6 +127,11 @@ public class Cursor : MonoBehaviour
                 selectPanel.SetActive(true);
                 EventSystem.current.SetSelectedGameObject(null);
                 EventSystem.current.SetSelectedGameObject(selectPanel.transform.GetChild(0).GetChild(0).gameObject);
+            }
+            else if (Input.GetButtonDown("Submit"))
+            {
+                attackPanel.SetActive(false);
+                battlePanel.SetActive(true);
             }
         }
     }

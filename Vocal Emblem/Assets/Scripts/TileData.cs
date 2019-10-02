@@ -158,16 +158,13 @@ public class TileData : MonoBehaviour
         current.SetActive(true);
         current.tag = "MoveTile";
         current.GetComponent<SpriteRenderer>().color = new Color32(0, 129, 255, 168);
-        Debug.Log(x);
-        Debug.Log(-y);
         int beginX = x;
         int beginY = -y;
-        if (currMap[-y, x] >= 20 && !flier)
+        if (!flier)
         {
-            float f = mov;
-            f *= 0.75f;
-            mov = Mathf.RoundToInt(f);
-            mov -= 1;
+            float p = (100 - rowsMovement[-y].transform.GetChild(x).GetComponent<TileNumber>().moveLoss) / 100;
+            float f = mov * p;
+            mov = Mathf.RoundToInt(f) - 1;
         }
         CheckNeighbors(-y, x, wall, mov, beginX, beginY, range, 0);
     }

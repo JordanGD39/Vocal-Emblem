@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94eae39947782b849af71f23eeaa44f3, type: 3}
   m_Name: Drum stick
   m_EditorClassIdentifier: 
-  weaponName: 
-  description: 
-  typeOfWeapon: 0
+  weaponName: Drum sticks
+  description: 2 normal drum sticks
+  typeOfWeapon: 3
   mt: 7
   uses: 39
   crit: 0
