@@ -450,32 +450,6 @@ public class Attack : MonoBehaviour
         }
     }
 
-    public void Battle()
-    {
-        Transform battlePanel = cursor.GetComponent<Cursor>().battlePanel.transform;
-
-        for (int i = 0; i < battlePanel.childCount; i++)
-        {
-            if (battlePanel.GetChild(i).name == "UI")
-            {
-                Transform uiThing = battlePanel.GetChild(i);
-
-                for (int j = 0; j < uiThing.childCount; j++)
-                {
-                    if (uiThing.GetChild(j).name == "PlayerHealth")
-                    {
-                        uiThing.GetChild(j).GetComponentInChildren<Text>().text = stats.hp.ToString();
-                        uiThing.GetChild(j).GetChild(2).GetComponent<Image>().fillAmount = stats.hp / stats.maxHP;
-                    }
-                }
-            }
-            else if (battlePanel.GetChild(i).name == "Battle")
-            {
-
-            }
-        }
-    }
-
     private float CalcCrit(GameObject character)
     {
         float crit = 0;
