@@ -92,8 +92,7 @@ public class Attack : MonoBehaviour
             cursor.GetComponent<Cursor>().selectPanel.SetActive(false);
             cursor.GetComponent<Cursor>().attackPanel.SetActive(true);
 
-            Transform attackPanel = cursor.GetComponent<Cursor>().attackPanel.transform;
-            Transform battlePanel = cursor.GetComponent<Cursor>().battlePanel.transform;
+            Transform attackPanel = cursor.GetComponent<Cursor>().attackPanel.transform;            
             Transform statsPanel = null;
             Transform hpPanel = null;
             Transform mtPanel = null;
@@ -453,7 +452,28 @@ public class Attack : MonoBehaviour
 
     public void Battle()
     {
+        Transform battlePanel = cursor.GetComponent<Cursor>().battlePanel.transform;
 
+        for (int i = 0; i < battlePanel.childCount; i++)
+        {
+            if (battlePanel.GetChild(i).name == "UI")
+            {
+                Transform uiThing = battlePanel.GetChild(i);
+
+                for (int j = 0; j < uiThing.childCount; j++)
+                {
+                    if (uiThing.GetChild(j).name == "PlayerHealth")
+                    {
+                        uiThing.GetChild(j).GetComponentInChildren<Text>().text = stats.hp.ToString();
+                        uiThing.GetChild(j).GetChild(2).GetComponent<Image>().fillAmount = stats.hp / stats.maxHP;
+                    }
+                }
+            }
+            else if (battlePanel.GetChild(i).name == "Battle")
+            {
+
+            }
+        }
     }
 
     private float CalcCrit(GameObject character)
