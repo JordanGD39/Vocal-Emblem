@@ -15,8 +15,9 @@ public class SelectChoices : MonoBehaviour
 
     public void Attack()
     {
+        cursor.doneCalc = false;
         tileData.DeselectMovement();
-        cursor.currSelectedChar.GetComponent<Attack>().CheckAttackRange();
+        cursor.currSelectedChar.GetComponent<Attack>().CheckAttackRange();        
     }
     public void Items()
     {

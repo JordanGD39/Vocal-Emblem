@@ -6,8 +6,10 @@ using UnityEngine.EventSystems;
 public class Cursor : MonoBehaviour
 {
     private TileData tileData;
+    private BattleManager BM;
 
     private bool posSet = false;
+    public bool doneCalc = false;
 
     public GameObject currSelectedChar;
     public GameObject selectPanel;
@@ -23,8 +25,10 @@ public class Cursor : MonoBehaviour
     void Start()
     {
         tileData = GameObject.FindGameObjectWithTag("TileManager").GetComponent<TileData>();
+        BM = GameObject.FindGameObjectWithTag("BM").GetComponent<BattleManager>();
         attackPanel.SetActive(false);
         selectPanel.SetActive(false);
+        battlePanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -128,12 +132,19 @@ public class Cursor : MonoBehaviour
                 EventSystem.current.SetSelectedGameObject(null);
                 EventSystem.current.SetSelectedGameObject(selectPanel.transform.GetChild(0).GetChild(0).gameObject);
             }
-            else if (Input.GetButtonDown("Submit"))
+            else if (Input.GetButtonDown("Submit") && doneCalc)
             {
                 attackPanel.SetActive(false);
                 battlePanel.SetActive(true);
+                BM.Battle(currSelectedChar.GetComponent<Stats>(), currSelectedChar.GetComponent<Attack>().target.GetComponent<Stats>());
             }
         }
+    }
+
+    public IEnumerator DoneCalcStats()
+    {        
+        yield return new WaitForSeconds(0.5f);
+        doneCalc = true;
     }
 
     private void PathFinding(RaycastHit2D hit)

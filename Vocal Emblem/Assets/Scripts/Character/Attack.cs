@@ -446,7 +446,9 @@ public class Attack : MonoBehaviour
                         }
                         break;                    
                 }
-            }           
+            }
+
+            StartCoroutine(cursor.GetComponent<Cursor>().DoneCalcStats());
         }
     }
 

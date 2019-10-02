@@ -7,21 +7,14 @@ public class BattleManager : MonoBehaviour
 {
     private Cursor cursor;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Cursor>();
     }
 
     public void Battle(Stats attacker, Stats defender)
     {
-        Transform battlePanel = cursor.GetComponent<Cursor>().battlePanel.transform;
+        Transform battlePanel = cursor.battlePanel.transform;
 
         for (int i = 0; i < battlePanel.childCount; i++)
         {
