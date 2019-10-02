@@ -44,6 +44,11 @@ public class TileData : MonoBehaviour
                 break;
         }
 
+        for (int i = 0; i < GameObject.FindGameObjectWithTag("Rows").transform.childCount; i++)
+        {
+            rowsMovement.Add(GameObject.FindGameObjectWithTag("Rows").transform.GetChild(i).gameObject);
+        }
+
         for (int y = 0; y < currMap.GetLength(0); y++) //The Y axis loop
         {
             for (int x = 0; x < currMap.GetLength(1); x++) //The X axis loop
@@ -69,6 +74,8 @@ public class TileData : MonoBehaviour
                         GameObject tile3 = Instantiate(tilePrefab, mapEmpty.transform);
                         tile3.transform.position = new Vector3(x + 0.5f, -y + 0.5f, 0);
                         tile3.GetComponent<SpriteRenderer>().sprite = terrainSprites[0];
+                        rowsMovement[y].transform.GetChild(x).GetComponent<TileNumber>().moveLoss = 25;
+                        rowsMovement[y].transform.GetChild(x).GetComponent<TileNumber>().terrainBonus = 20;
                         break;
                 }
             }
@@ -119,12 +126,7 @@ public class TileData : MonoBehaviour
                     GameManager.instance.playerTeamCount++;
                 }
             }
-        }
-
-        for (int i = 0; i < GameObject.FindGameObjectWithTag("Rows").transform.childCount; i++)
-        {
-            rowsMovement.Add(GameObject.FindGameObjectWithTag("Rows").transform.GetChild(i).gameObject);
-        }
+        }        
         players.AddRange(GameObject.FindGameObjectsWithTag("Player"));
         enemiesInGame.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
 
@@ -502,7 +504,6 @@ public class TileData : MonoBehaviour
         } //Left
         return enemiesFound;
     }
-    
 
     public void DeselectMovement()
     {

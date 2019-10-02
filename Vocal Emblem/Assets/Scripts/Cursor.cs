@@ -136,7 +136,7 @@ public class Cursor : MonoBehaviour
             {
                 attackPanel.SetActive(false);
                 battlePanel.SetActive(true);
-                BM.Battle(currSelectedChar.GetComponent<Stats>(), currSelectedChar.GetComponent<Attack>().target.GetComponent<Stats>(), currSelectedChar.GetComponent<Attack>().distance);
+                BM.Battle(currSelectedChar.GetComponent<Stats>(), currSelectedChar.GetComponent<Attack>().target.GetComponent<Stats>(), currSelectedChar.GetComponent<Attack>().distance, true);
             }
         }
     }

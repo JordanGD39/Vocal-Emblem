@@ -7,6 +7,8 @@ public class Stats : MonoBehaviour
 {
     public string charName = "Character";
 
+    public GameObject battlePrefab;
+
     public List<Weapon> weapons = new List<Weapon>();
 
     public Weapon equippedWeapon;

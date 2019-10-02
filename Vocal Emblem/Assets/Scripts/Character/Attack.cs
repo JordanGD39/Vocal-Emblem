@@ -14,13 +14,15 @@ public class Attack : MonoBehaviour
     public int triangleBonus = 0;
     public int triangleBonusEnemy = 0;
 
-    private float damage = 0;
-    private float acc = 0;
-    private float crit = 0;
+    public float damage = 0;
+    public float acc = 0;
+    public float crit = 0;
+    public int doubling = 0;
 
-    private float enemyDamage = 0;
-    private float enemyAcc = 0;
-    private float enemyCrit = 0;
+    public float enemyDamage = 0;
+    public float enemyAcc = 0;
+    public float enemyCrit = 0;
+    public int enemyDoubling = 0;
 
     public float distance = 0;
 
@@ -112,7 +114,7 @@ public class Attack : MonoBehaviour
             triangleBonus = 0;
             triangleBonusEnemy = 0;
             damage = CalcDamage(gameObject, target);
-            int doubling = CalcSpeed(gameObject, target);
+            doubling = CalcSpeed(gameObject, target);
             //Hit calc
             float hit = CalcHit(gameObject);
             float enemyEvade = CalcEvade(target, xEnemy, yEnemy);
@@ -122,7 +124,7 @@ public class Attack : MonoBehaviour
             float enemyCritEvade = CalcCritEvade(target);
             crit = CalcCritHit(critRate, enemyCritEvade);
 
-            int enemyDoubling = 0;
+            enemyDoubling = 0;
             float enemyHit = 0;
             float evade = 0;
             float enemyCritRate = 0;
