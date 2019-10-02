@@ -22,6 +22,8 @@ public class Attack : MonoBehaviour
     private float enemyAcc = 0;
     private float enemyCrit = 0;
 
+    public float distance = 0;
+
     [SerializeField]
     private List<GameObject> enemies = new List<GameObject>();
 
@@ -126,7 +128,7 @@ public class Attack : MonoBehaviour
             float enemyCritRate = 0;
             float critEvade = 0;
 
-            float distance = Mathf.Abs(gameObject.transform.position.x - target.transform.position.x) + Mathf.Abs(gameObject.transform.position.y - target.transform.position.y);
+            distance = Mathf.Abs(gameObject.transform.position.x - target.transform.position.x) + Mathf.Abs(gameObject.transform.position.y - target.transform.position.y);
 
             if (distance <= target.GetComponent<Stats>().equippedWeapon.range && target.GetComponent<Stats>().equippedWeapon.rangeOneAndTwo || distance != 1 && distance <= target.GetComponent<Stats>().equippedWeapon.range && !target.GetComponent<Stats>().equippedWeapon.rangeOneAndTwo || target.GetComponent<Stats>().equippedWeapon.counterAll)
             {

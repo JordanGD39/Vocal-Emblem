@@ -12,7 +12,7 @@ public class BattleManager : MonoBehaviour
         cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Cursor>();
     }
 
-    public void Battle(Stats attacker, Stats defender)
+    public void Battle(Stats attacker, Stats defender, float distance)
     {
         Transform battlePanel = cursor.battlePanel.transform;
 
@@ -24,16 +24,17 @@ public class BattleManager : MonoBehaviour
 
                 for (int j = 0; j < uiThing.childCount; j++)
                 {
-                    if (uiThing.GetChild(j).name == "PlayerHealth")
+                    switch (uiThing.GetChild(j).name)
                     {
-                        uiThing.GetChild(j).GetComponentInChildren<Text>().text = attacker.hp.ToString();
-                        uiThing.GetChild(j).GetChild(2).GetComponent<Image>().fillAmount = attacker.hp / attacker.maxHP;
-                    }
-                    else if (uiThing.GetChild(j).name == "EnemyHealth")
-                    {
-                        uiThing.GetChild(j).GetComponentInChildren<Text>().text = defender.hp.ToString();
-                        uiThing.GetChild(j).GetChild(2).GetComponent<Image>().fillAmount = defender.hp / defender.maxHP;
-                    }
+                        case "PlayerHealth":
+                            uiThing.GetChild(j).GetComponentInChildren<Text>().text = attacker.hp.ToString();
+                            uiThing.GetChild(j).GetChild(2).GetComponent<Image>().fillAmount = attacker.hp / attacker.maxHP;
+                            break;
+                        case "EnemyHealth":
+                            uiThing.GetChild(j).GetComponentInChildren<Text>().text = defender.hp.ToString();
+                            uiThing.GetChild(j).GetChild(2).GetComponent<Image>().fillAmount = defender.hp / defender.maxHP;
+                            break;
+                    }                    
                 }
             }
             else if (battlePanel.GetChild(i).name == "Battle")

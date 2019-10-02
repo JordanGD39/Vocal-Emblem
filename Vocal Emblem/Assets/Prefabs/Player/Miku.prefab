@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a3ee9c4f50edc147b0566e5558a2905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  charName: Hatsune Miku
   weapons:
   - {fileID: 11400000, guid: c11e4e42138ea294e868c75c6c2208d3, type: 2}
   equippedWeapon: {fileID: 11400000, guid: c11e4e42138ea294e868c75c6c2208d3, type: 2}
@@ -170,5 +171,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  triangleBonus: 0
+  triangleBonusEnemy: 0
+  distance: 0
   enemies: []
   indexEnemies: 0

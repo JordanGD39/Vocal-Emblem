@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a3ee9c4f50edc147b0566e5558a2905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  charName: Generic Enemy
   weapons:
   - {fileID: 11400000, guid: 9d278100e8743a04aa826c23797b6a3f, type: 2}
   equippedWeapon: {fileID: 11400000, guid: 9d278100e8743a04aa826c23797b6a3f, type: 2}
