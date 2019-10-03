@@ -20,7 +20,7 @@ MonoBehaviour:
   crit: 0
   accuracy: 100
   skillLevel: 1
-  range: 2
+  range: 1
   rangeOneAndTwo: 1
   counterAll: 0
   worth: 320

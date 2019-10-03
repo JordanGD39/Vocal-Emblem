@@ -128,7 +128,6 @@ public class Cursor : MonoBehaviour
                 attackPanel.SetActive(false);
                 currSelectedChar.GetComponent<Attack>().target = null;
                 currSelectedChar.GetComponent<Attack>().indexEnemies = 0;
-                currSelectedChar.GetComponent<Attack>().enemies.Clear();
                 selectPanel.SetActive(true);
                 EventSystem.current.SetSelectedGameObject(null);
                 EventSystem.current.SetSelectedGameObject(selectPanel.transform.GetChild(0).GetChild(0).gameObject);
