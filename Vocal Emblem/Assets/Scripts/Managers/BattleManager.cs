@@ -88,43 +88,43 @@ public class BattleManager : MonoBehaviour
 
         if (playerAttack)
         {
-            Attack(player, player.GetComponent<Attack>().damage, player.GetComponent<Attack>().acc, player.GetComponent<Attack>().crit);//1st player
-            Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit);//1st enemy
+            Attack(player, player.GetComponent<Attack>().damage, player.GetComponent<Attack>().acc, player.GetComponent<Attack>().crit, playerSprite, enemySprite);//1st player
+            Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//1st enemy
             if (player.GetComponent<Attack>().doubling == 2)
             {
-                Attack(player, player.GetComponent<Attack>().damage, player.GetComponent<Attack>().acc, player.GetComponent<Attack>().crit);//2nd player
+                Attack(player, player.GetComponent<Attack>().damage, player.GetComponent<Attack>().acc, player.GetComponent<Attack>().crit, playerSprite, enemySprite);//2nd player
             }
             if (player.GetComponent<Attack>().enemyDoubling == 2)
             {
-                Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit);//2nd enemy
+                Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//2nd enemy
             }
             if(player.GetComponent<Attack>().doubling == 4)
             {
-                Attack(player, player.GetComponent<Attack>().damage, player.GetComponent<Attack>().acc, player.GetComponent<Attack>().crit);//2nd player
+                Attack(player, player.GetComponent<Attack>().damage, player.GetComponent<Attack>().acc, player.GetComponent<Attack>().crit, playerSprite, enemySprite);//2nd player
                 if (player.GetComponent<Attack>().enemyDoubling == 2 || player.GetComponent<Attack>().enemyDoubling == 4)
                 {
-                    Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit);//2nd enemy
+                    Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//2nd enemy
                 }
-                Attack(player, player.GetComponent<Attack>().damage, player.GetComponent<Attack>().acc, player.GetComponent<Attack>().crit);//3rd player
+                Attack(player, player.GetComponent<Attack>().damage, player.GetComponent<Attack>().acc, player.GetComponent<Attack>().crit, playerSprite, enemySprite);//3rd player
                 if (player.GetComponent<Attack>().enemyDoubling == 4)
                 {
-                    Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit);//3rd enemy
+                    Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//3rd enemy
                 }
-                Attack(player, player.GetComponent<Attack>().damage, player.GetComponent<Attack>().acc, player.GetComponent<Attack>().crit);//4th player
+                Attack(player, player.GetComponent<Attack>().damage, player.GetComponent<Attack>().acc, player.GetComponent<Attack>().crit, playerSprite, enemySprite);//4th player
                 if (player.GetComponent<Attack>().enemyDoubling == 4)
                 {
-                    Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit);//4th enemy
+                    Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//4th enemy
                 }
             }
             if (player.GetComponent<Attack>().enemyDoubling == 4 && player.GetComponent<Attack>().doubling != 4)
             {
-                Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit);//2nd enemy
+                Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//2nd enemy
                 if (player.GetComponent<Attack>().doubling == 2)
                 {
-                    Attack(player, player.GetComponent<Attack>().damage, player.GetComponent<Attack>().acc, player.GetComponent<Attack>().crit);//2nd player
+                    Attack(player, player.GetComponent<Attack>().damage, player.GetComponent<Attack>().acc, player.GetComponent<Attack>().crit, playerSprite, enemySprite);//2nd player
                 }
-                Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit);//3rd enemy
-                Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit);//4th enemy
+                Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//3rd enemy
+                Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//4th enemy
             }
         }
         else
@@ -134,10 +134,34 @@ public class BattleManager : MonoBehaviour
         
     }
 
-    private void Attack(Stats attacker, float dmg, float hit, float crit)
+    private void Attack(Stats attacker, float dmg, float hit, float crit, GameObject sprite, GameObject defendSprite)
     {
         bool didHit = Randomizer(hit);
-        bool didCrit = Randomizer(crit);        
+        bool didCrit = Randomizer(crit);
+
+        switch (attacker.equippedWeapon.typeOfWeapon)
+        {
+            case Weapon.WeaponType.SWORD:
+                sprite.GetComponent<Animator>().Play("AttackSword");
+                break;
+            case Weapon.WeaponType.AXE:
+                sprite.GetComponent<Animator>().Play("AttackSword");
+                break;
+            case Weapon.WeaponType.LANCE:
+                sprite.GetComponent<Animator>().Play("AttackSword");
+                break;
+            case Weapon.WeaponType.BOW:
+                sprite.GetComponent<Animator>().Play("AttackSword");
+                break;
+            case Weapon.WeaponType.SCREAM:
+                sprite.GetComponent<Animator>().Play("AttackSword");
+                break;
+        }
+
+        if (!didHit)
+        {
+            defendSprite.GetComponent<Animator>().Play("Evade");
+        }
 
         Debug.Log(attacker.charName + " hit? " + didHit);
         Debug.Log(attacker.charName + " crit? " + didCrit);
