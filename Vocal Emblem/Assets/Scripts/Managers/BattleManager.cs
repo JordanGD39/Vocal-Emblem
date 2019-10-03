@@ -168,6 +168,9 @@ public class BattleManager : MonoBehaviour
     private void Attack(Stats attacker, float dmg, float hit, float crit, GameObject sprite, GameObject defendSprite)
     {
         defendSprite.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled = true;
+
+        defendSprite.GetComponent<AttackingInBattle>().damage = dmg;
+
         bool didHit = Randomizer(hit);
         bool didCrit = Randomizer(crit);
 
@@ -215,5 +218,17 @@ public class BattleManager : MonoBehaviour
         }
 
         return hit;
+    }
+
+    public void CharGotHit(GameObject defender, float dmg)
+    {
+        if (playerBattle.battlePrefab == defender)
+        {
+            playerBattle.hp -= dmg;
+        }
+        else if (enemyBattle.battlePrefab == defender)
+        {
+            enemyBattle.hp -= dmg;
+        }
     }
 }
