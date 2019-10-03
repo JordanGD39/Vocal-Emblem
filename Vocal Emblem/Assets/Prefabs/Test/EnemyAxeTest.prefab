@@ -96,6 +96,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charName: Generic Enemy
+  battlePrefab: {fileID: 5095027964627786535, guid: e70cdc4b3ee9d11409c68d64d846227d,
+    type: 3}
   weapons:
   - {fileID: 11400000, guid: ea3ab53fcd6a7fb44b11985b18922653, type: 2}
   equippedWeapon: {fileID: 11400000, guid: ea3ab53fcd6a7fb44b11985b18922653, type: 2}

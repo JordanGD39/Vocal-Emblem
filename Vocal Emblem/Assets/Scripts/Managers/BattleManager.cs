@@ -12,6 +12,9 @@ public class BattleManager : MonoBehaviour
     private GameObject healthBarPlayer;
     private GameObject healthBarEnemy;
 
+    private GameObject playerSprite;
+    private GameObject enemySprite;
+
     private void Start()
     {
         cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Cursor>();
@@ -67,6 +70,8 @@ public class BattleManager : MonoBehaviour
                     case 1:
                         battlePanel.GetChild(i).GetChild(0).transform.localPosition = new Vector3(-124.8f, -46f, 0);
                         battlePanel.GetChild(i).GetChild(1).transform.localPosition = new Vector3(129.6f, -46f, 0);
+                        playerSprite = Instantiate(player.battlePrefab, battlePanel.GetChild(i), false);
+                        enemySprite = Instantiate(enemy.battlePrefab, battlePanel.GetChild(i), false);
                         break;
                     case 2:
                         battlePanel.GetChild(i).GetChild(0).transform.localPosition = new Vector3(-222, -46f, 0);
@@ -132,7 +137,7 @@ public class BattleManager : MonoBehaviour
     private void Attack(Stats attacker, float dmg, float hit, float crit)
     {
         bool didHit = Randomizer(hit);
-        bool didCrit = Randomizer(crit);
+        bool didCrit = Randomizer(crit);        
 
         Debug.Log(attacker.charName + " hit? " + didHit);
         Debug.Log(attacker.charName + " crit? " + didCrit);
