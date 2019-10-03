@@ -128,6 +128,7 @@ public class Cursor : MonoBehaviour
                 attackPanel.SetActive(false);
                 currSelectedChar.GetComponent<Attack>().target = null;
                 currSelectedChar.GetComponent<Attack>().indexEnemies = 0;
+                currSelectedChar.GetComponent<Attack>().enemies.Clear();
                 selectPanel.SetActive(true);
                 EventSystem.current.SetSelectedGameObject(null);
                 EventSystem.current.SetSelectedGameObject(selectPanel.transform.GetChild(0).GetChild(0).gameObject);
@@ -143,7 +144,7 @@ public class Cursor : MonoBehaviour
 
     public IEnumerator DoneCalcStats()
     {        
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         doneCalc = true;
     }
 

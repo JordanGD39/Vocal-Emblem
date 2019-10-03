@@ -166,7 +166,10 @@ public class TileData : MonoBehaviour
         {
             float p = (100 - rowsMovement[-y].transform.GetChild(x).GetComponent<TileNumber>().moveLoss) / 100;
             float f = mov * p;
-            mov = Mathf.RoundToInt(f) - 1;
+            if (rowsMovement[-y].transform.GetChild(x).GetComponent<TileNumber>().moveLoss != 0)
+            {
+                mov = Mathf.RoundToInt(f) - 1;
+            }            
         }
         CheckNeighbors(-y, x, wall, mov, beginX, beginY, range, 0);
     }

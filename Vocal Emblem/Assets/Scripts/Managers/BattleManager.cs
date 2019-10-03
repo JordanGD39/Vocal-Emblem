@@ -31,15 +31,15 @@ public class BattleManager : MonoBehaviour
         }
         if (healthTextEnemy != null)
         {
-
+            healthTextEnemy.text = enemyBattle.hp.ToString("F0");
         }
         if (healthBarPlayer != null)
         {
-
+            healthBarPlayer.fillAmount = playerBattle.hp / playerBattle.maxHP;
         }
         if (healthBarEnemy != null)
         {
-
+            healthBarEnemy.fillAmount = enemyBattle.hp / enemyBattle.maxHP;
         }
     }
 
@@ -77,6 +77,8 @@ public class BattleManager : MonoBehaviour
                             uiThing.GetChild(j).GetChild(2).GetComponent<Image>().fillAmount = player.hp / player.maxHP;
                             break;
                         case "EnemyHealth":
+                            healthTextEnemy = uiThing.GetChild(j).GetComponentInChildren<Text>();
+                            healthBarEnemy = uiThing.GetChild(j).GetChild(2).GetComponent<Image>();
                             uiThing.GetChild(j).GetComponentInChildren<Text>().text = enemy.hp.ToString();
                             uiThing.GetChild(j).GetChild(2).GetComponent<Image>().fillAmount = enemy.hp / enemy.maxHP;
                             break;
@@ -110,64 +112,110 @@ public class BattleManager : MonoBehaviour
                         battlePanel.GetChild(i).GetChild(1).transform.localPosition = new Vector3(129.6f, -46f, 0);
                         playerSprite = Instantiate(player.battlePrefab, battlePanel.GetChild(i), false);
                         enemySprite = Instantiate(enemy.battlePrefab, battlePanel.GetChild(i), false);
+                        playerSprite.GetComponent<AttackingInBattle>().stats = player;
+                        enemySprite.GetComponent<AttackingInBattle>().stats = enemy;
                         break;
                     case 2:
                         battlePanel.GetChild(i).GetChild(0).transform.localPosition = new Vector3(-222, -46f, 0);
                         battlePanel.GetChild(i).GetChild(1).transform.localPosition = new Vector3(229, -46f, 0);
+                        playerSprite = Instantiate(player.battlePrefab, battlePanel.GetChild(i), false);
+                        enemySprite = Instantiate(enemy.battlePrefab, battlePanel.GetChild(i), false);
+                        playerSprite.GetComponent<AttackingInBattle>().stats = player;
+                        enemySprite.GetComponent<AttackingInBattle>().stats = enemy;
                         break;
                 }
                 if (distance > 2)
                 {
                     battlePanel.GetChild(i).GetChild(0).transform.localPosition = new Vector3(-270, -46f, 0);
                     battlePanel.GetChild(i).GetChild(1).transform.localPosition = new Vector3(274, -46f, 0);
+                    playerSprite = Instantiate(player.battlePrefab, battlePanel.GetChild(i), false);
+                    enemySprite = Instantiate(enemy.battlePrefab, battlePanel.GetChild(i), false);
+                    playerSprite.GetComponent<AttackingInBattle>().stats = player;
+                    enemySprite.GetComponent<AttackingInBattle>().stats = enemy;
                 }
             }
         }
+        StartCoroutine(AttackOrder(player, enemy, damageHolder, playerSprite, enemySprite, distance));             
+    }
 
+    private IEnumerator AttackOrder(Stats player, Stats enemy, Stats damageHolder, GameObject playerSprite, GameObject enemySprite, float distance)
+    {
         Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//1st player
-        Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//1st enemy
-        if (damageHolder.GetComponent<Attack>().doubling == 2)
+        while (!playerSprite.GetComponent<AttackingInBattle>().done)
         {
-            Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//2nd player
+            yield return new WaitForSeconds(0.5f);            
         }
-        if (damageHolder.GetComponent<Attack>().enemyDoubling == 2)
+        playerSprite.GetComponent<Animator>().Play("Idle");
+        if (enemy.hp > 0 && distance <= enemy.equippedWeapon.range && enemy.equippedWeapon.rangeOneAndTwo || distance != 1 && distance <= enemy.equippedWeapon.range && !enemy.equippedWeapon.rangeOneAndTwo || enemy.equippedWeapon.counterAll)
         {
-            Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//2nd enemy
-        }
-        if(damageHolder.GetComponent<Attack>().doubling == 4)
-        {
-            Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//2nd player
-            if (damageHolder.GetComponent<Attack>().enemyDoubling == 2 || damageHolder.GetComponent<Attack>().enemyDoubling == 4)
+            Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//1st enemy
+            while (!enemySprite.GetComponent<AttackingInBattle>().done)
             {
-                Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//2nd enemy
+                yield return new WaitForSeconds(0.5f);                
             }
-            Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//3rd player
-            if (damageHolder.GetComponent<Attack>().enemyDoubling == 4)
+            enemySprite.GetComponent<Animator>().Play("Idle");
+            if (player.hp <= 0)
             {
-                Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//3rd enemy
-            }
-            Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//4th player
-            if (damageHolder.GetComponent<Attack>().enemyDoubling == 4)
-            {
-                Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//4th enemy
+                Destroy(player.gameObject);
             }
         }
-        if (damageHolder.GetComponent<Attack>().enemyDoubling == 4 && damageHolder.GetComponent<Attack>().doubling != 4)
+        else if(enemy.hp <= 0)
         {
-            Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//2nd enemy
-            if (damageHolder.GetComponent<Attack>().doubling == 2)
-            {
-                Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//2nd player
-            }
-            Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//3rd enemy
-            Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//4th enemy
+            TileData tileData = GameObject.FindGameObjectWithTag("TileManager").GetComponent<TileData>();
+            tileData.currMapCharPos[Mathf.RoundToInt(-enemy.transform.position.y + 0.5f), Mathf.RoundToInt(enemy.transform.position.x - 0.5f)] = 0;
+            tileData.enemiesInGame.Remove(enemy.gameObject);
+            Destroy(enemy.gameObject);
         }
-        
+
+        yield return new WaitForSeconds(1);
+        Destroy(playerSprite);
+        Destroy(enemySprite);
+        cursor.battlePanel.SetActive(false);
+        if (damageHolder == player)
+        {
+            GameObject.FindGameObjectWithTag("Canvas").GetComponent<SelectChoices>().Wait();
+        }        
+        //if (damageHolder.GetComponent<Attack>().doubling == 2)
+        //{
+        //    Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//2nd player
+        //}
+        //if (damageHolder.GetComponent<Attack>().enemyDoubling == 2)
+        //{
+        //    Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//2nd enemy
+        //}
+        //if (damageHolder.GetComponent<Attack>().doubling == 4)
+        //{
+        //    Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//2nd player
+        //    if (damageHolder.GetComponent<Attack>().enemyDoubling == 2 || damageHolder.GetComponent<Attack>().enemyDoubling == 4)
+        //    {
+        //        Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//2nd enemy
+        //    }
+        //    Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//3rd player
+        //    if (damageHolder.GetComponent<Attack>().enemyDoubling == 4)
+        //    {
+        //        Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//3rd enemy
+        //    }
+        //    Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//4th player
+        //    if (damageHolder.GetComponent<Attack>().enemyDoubling == 4)
+        //    {
+        //        Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//4th enemy
+        //    }
+        //}
+        //if (damageHolder.GetComponent<Attack>().enemyDoubling == 4 && damageHolder.GetComponent<Attack>().doubling != 4)
+        //{
+        //    Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//2nd enemy
+        //    if (damageHolder.GetComponent<Attack>().doubling == 2)
+        //    {
+        //        Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//2nd player
+        //    }
+        //    Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//3rd enemy
+        //    Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//4th enemy
+        //}        
     }
 
     private void Attack(Stats attacker, float dmg, float hit, float crit, GameObject sprite, GameObject defendSprite)
     {
-        defendSprite.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled = true;
+        defendSprite.GetComponent<BoxCollider2D>().enabled = true;
 
         defendSprite.GetComponent<AttackingInBattle>().damage = dmg;
 
@@ -177,7 +225,7 @@ public class BattleManager : MonoBehaviour
         if (!didHit)
         {
             defendSprite.GetComponentInChildren<Animator>().Play("Evade");
-            defendSprite.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled = false;
+            defendSprite.GetComponent<BoxCollider2D>().enabled = false;
         }
 
         switch (attacker.equippedWeapon.typeOfWeapon)
@@ -220,15 +268,16 @@ public class BattleManager : MonoBehaviour
         return hit;
     }
 
-    public void CharGotHit(GameObject defender, float dmg)
+    public void CharGotHit(GameObject defender, float dmg, Stats stats)
     {
-        if (playerBattle.battlePrefab == defender)
+        if (defender.GetComponent<AttackingInBattle>().stats == playerBattle)
         {
             playerBattle.hp -= dmg;
         }
-        else if (enemyBattle.battlePrefab == defender)
-        {
+        else if (defender.GetComponent<AttackingInBattle>().stats == enemyBattle)
+        {            
             enemyBattle.hp -= dmg;
+            Debug.Log(enemyBattle.hp);
         }
     }
 }

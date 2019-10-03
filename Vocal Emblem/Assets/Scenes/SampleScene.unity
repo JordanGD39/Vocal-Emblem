@@ -3060,7 +3060,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 603428941}
+      - m_Target: {fileID: 1959618722}
         m_MethodName: Items
         m_Mode: 1
         m_Arguments:
@@ -5638,7 +5638,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 603428941}
+      - m_Target: {fileID: 1959618722}
         m_MethodName: Attack
         m_Mode: 1
         m_Arguments:
@@ -7772,7 +7772,6 @@ GameObject:
   - component: {fileID: 603428938}
   - component: {fileID: 603428940}
   - component: {fileID: 603428939}
-  - component: {fileID: 603428941}
   m_Layer: 5
   m_Name: SelectPanel
   m_TagString: Untagged
@@ -7837,18 +7836,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 603428937}
   m_CullTransparentMesh: 0
---- !u!114 &603428941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603428937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d354e7da8d094f44ba7757a87e2936a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &603753194
 GameObject:
   m_ObjectHideFlags: 0
@@ -12228,7 +12215,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 603428941}
+      - m_Target: {fileID: 1959618722}
         m_MethodName: Wait
         m_Mode: 1
         m_Arguments:
@@ -29899,9 +29886,10 @@ GameObject:
   - component: {fileID: 1959618720}
   - component: {fileID: 1959618719}
   - component: {fileID: 1959618718}
+  - component: {fileID: 1959618722}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29988,6 +29976,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1959618722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959618717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d354e7da8d094f44ba7757a87e2936a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1963235820
 GameObject:
   m_ObjectHideFlags: 0

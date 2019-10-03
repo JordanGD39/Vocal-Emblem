@@ -26,8 +26,7 @@ public class Attack : MonoBehaviour
 
     public float distance = 0;
 
-    [SerializeField]
-    private List<GameObject> enemies = new List<GameObject>();
+    [SerializeField] private List<GameObject> enemies = new List<GameObject>();
 
     public int indexEnemies = 0;
 
@@ -42,7 +41,7 @@ public class Attack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (target != null && cursor.GetComponent<Cursor>().attackPanel.activeSelf)
+        if (target != null && cursor.GetComponent<Cursor>().attackPanel.activeSelf && cursor.GetComponent<Cursor>().currSelectedChar == gameObject)
         {
             if (Input.GetButtonDown("Horizontal") && Input.GetAxis("Horizontal") > 0)
             {
@@ -124,11 +123,14 @@ public class Attack : MonoBehaviour
             float enemyCritEvade = CalcCritEvade(target);
             crit = CalcCritHit(critRate, enemyCritEvade);
 
+            enemyDamage = 0;
+            enemyCrit = 0;
             enemyDoubling = 0;
             float enemyHit = 0;
             float evade = 0;
             float enemyCritRate = 0;
             float critEvade = 0;
+            enemyAcc = 0;
 
             distance = Mathf.Abs(gameObject.transform.position.x - target.transform.position.x) + Mathf.Abs(gameObject.transform.position.y - target.transform.position.y);
 
@@ -143,7 +145,7 @@ public class Attack : MonoBehaviour
                 enemyCritRate = CalcCrit(target);
                 critEvade = CalcCritEvade(gameObject);
                 enemyCrit = CalcCritHit(enemyCritRate, critEvade);
-            }           
+            }
 
             for (int i = 0; i < attackPanel.childCount; i++)
             {

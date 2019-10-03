@@ -12,6 +12,7 @@ TagManager:
   - Enemy
   - BM
   - AttackHit
+  - Canvas
   layers:
   - Default
   - TransparentFX

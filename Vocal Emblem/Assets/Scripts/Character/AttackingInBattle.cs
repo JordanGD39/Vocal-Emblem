@@ -5,19 +5,22 @@ using UnityEngine;
 public class AttackingInBattle : MonoBehaviour
 {
     public float damage;
+    public bool done;
 
-    private BattleManager BSM;
+    private BattleManager BM;
+    public Stats stats;
 
     private void Start()
     {
-        BSM = GameObject.FindGameObjectWithTag("BSM").GetComponent<BattleManager>();
+        BM = GameObject.FindGameObjectWithTag("BM").GetComponent<BattleManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("AttackHit"))
         {
-            BSM.CharGotHit(gameObject, damage);
+            Debug.Log("OOOOOFFFFF" + gameObject);
+            BM.CharGotHit(gameObject, damage, stats);
         }
     }
 }
