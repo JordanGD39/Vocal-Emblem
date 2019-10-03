@@ -11,6 +11,7 @@ TagManager:
   - MoveTileRed
   - Enemy
   - BM
+  - AttackHit
   layers:
   - Default
   - TransparentFX

@@ -7,21 +7,46 @@ public class BattleManager : MonoBehaviour
 {
     private Cursor cursor;
 
-    private GameObject healthTextPlayer;
-    private GameObject healthTextEnemy;
-    private GameObject healthBarPlayer;
-    private GameObject healthBarEnemy;
+    private Text healthTextPlayer;
+    private Text healthTextEnemy;
+    private Image healthBarPlayer;
+    private Image healthBarEnemy;
 
     private GameObject playerSprite;
     private GameObject enemySprite;
+
+    private Stats playerBattle;
+    private Stats enemyBattle;
 
     private void Start()
     {
         cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Cursor>();
     }
 
+    private void Update()
+    {
+        if (healthTextPlayer != null)
+        {
+            healthTextPlayer.text = playerBattle.hp.ToString("F0");
+        }
+        if (healthTextEnemy != null)
+        {
+
+        }
+        if (healthBarPlayer != null)
+        {
+
+        }
+        if (healthBarEnemy != null)
+        {
+
+        }
+    }
+
     public void Battle(Stats player, Stats enemy, float distance, bool playerAttack)
     {
+        playerBattle = player;
+        enemyBattle = enemy;
         Transform battlePanel = cursor.battlePanel.transform;
 
         for (int i = 0; i < battlePanel.childCount; i++)
@@ -35,6 +60,8 @@ public class BattleManager : MonoBehaviour
                     switch (uiThing.GetChild(j).name)
                     {
                         case "PlayerHealth":
+                            healthTextPlayer = uiThing.GetChild(j).GetComponentInChildren<Text>();
+                            healthBarPlayer = uiThing.GetChild(j).GetChild(2).GetComponent<Image>();
                             uiThing.GetChild(j).GetComponentInChildren<Text>().text = player.hp.ToString();
                             uiThing.GetChild(j).GetChild(2).GetComponent<Image>().fillAmount = player.hp / player.maxHP;
                             break;
@@ -136,32 +163,34 @@ public class BattleManager : MonoBehaviour
 
     private void Attack(Stats attacker, float dmg, float hit, float crit, GameObject sprite, GameObject defendSprite)
     {
+        defendSprite.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled = true;
         bool didHit = Randomizer(hit);
         bool didCrit = Randomizer(crit);
+
+        if (!didHit)
+        {
+            defendSprite.GetComponentInChildren<Animator>().Play("Evade");
+            defendSprite.transform.GetChild(0).GetComponent<BoxCollider2D>().enabled = false;
+        }
 
         switch (attacker.equippedWeapon.typeOfWeapon)
         {
             case Weapon.WeaponType.SWORD:
-                sprite.GetComponent<Animator>().Play("AttackSword");
+                sprite.GetComponentInChildren<Animator>().Play("AttackSword");
                 break;
             case Weapon.WeaponType.AXE:
-                sprite.GetComponent<Animator>().Play("AttackSword");
+                sprite.GetComponentInChildren<Animator>().Play("AttackSword");
                 break;
             case Weapon.WeaponType.LANCE:
-                sprite.GetComponent<Animator>().Play("AttackSword");
+                sprite.GetComponentInChildren<Animator>().Play("AttackSword");
                 break;
             case Weapon.WeaponType.BOW:
-                sprite.GetComponent<Animator>().Play("AttackSword");
+                sprite.GetComponentInChildren<Animator>().Play("AttackSword");
                 break;
             case Weapon.WeaponType.SCREAM:
-                sprite.GetComponent<Animator>().Play("AttackSword");
+                sprite.GetComponentInChildren<Animator>().Play("AttackSword");
                 break;
-        }
-
-        if (!didHit)
-        {
-            defendSprite.GetComponent<Animator>().Play("Evade");
-        }
+        }        
 
         Debug.Log(attacker.charName + " hit? " + didHit);
         Debug.Log(attacker.charName + " crit? " + didCrit);
