@@ -49,6 +49,17 @@ public class BattleManager : MonoBehaviour
         enemyBattle = enemy;
         Transform battlePanel = cursor.battlePanel.transform;
 
+        Stats damageHolder = null;
+
+        if (playerAttack)
+        {
+            damageHolder = player;
+        }
+        else
+        {
+            damageHolder = enemy;
+        }
+
         for (int i = 0; i < battlePanel.childCount; i++)
         {
             if (battlePanel.GetChild(i).name == "UI")
@@ -70,14 +81,14 @@ public class BattleManager : MonoBehaviour
                             uiThing.GetChild(j).GetChild(2).GetComponent<Image>().fillAmount = enemy.hp / enemy.maxHP;
                             break;
                         case "PlayerStats":
-                            uiThing.GetChild(j).GetChild(2).GetComponent<Text>().text = player.GetComponent<Attack>().damage.ToString("F0");
-                            uiThing.GetChild(j).GetChild(4).GetComponent<Text>().text = player.GetComponent<Attack>().acc.ToString("F0");
-                            uiThing.GetChild(j).GetChild(6).GetComponent<Text>().text = player.GetComponent<Attack>().crit.ToString("F0");
+                            uiThing.GetChild(j).GetChild(2).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().damage.ToString("F0");
+                            uiThing.GetChild(j).GetChild(4).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().acc.ToString("F0");
+                            uiThing.GetChild(j).GetChild(6).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().crit.ToString("F0");
                             break;
                         case "EnemyStats":
-                            uiThing.GetChild(j).GetChild(2).GetComponent<Text>().text = player.GetComponent<Attack>().enemyDamage.ToString("F0");
-                            uiThing.GetChild(j).GetChild(4).GetComponent<Text>().text = player.GetComponent<Attack>().enemyAcc.ToString("F0");
-                            uiThing.GetChild(j).GetChild(6).GetComponent<Text>().text = player.GetComponent<Attack>().enemyCrit.ToString("F0");
+                            uiThing.GetChild(j).GetChild(2).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().enemyDamage.ToString("F0");
+                            uiThing.GetChild(j).GetChild(4).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().enemyAcc.ToString("F0");
+                            uiThing.GetChild(j).GetChild(6).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().enemyCrit.ToString("F0");
                             break;
                         case "PlayerName":
                             uiThing.GetChild(j).GetChild(1).GetComponent<Text>().text = player.charName;
@@ -113,50 +124,43 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-        if (playerAttack)
+        Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//1st player
+        Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//1st enemy
+        if (damageHolder.GetComponent<Attack>().doubling == 2)
         {
-            Attack(player, player.GetComponent<Attack>().damage, player.GetComponent<Attack>().acc, player.GetComponent<Attack>().crit, playerSprite, enemySprite);//1st player
-            Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//1st enemy
-            if (player.GetComponent<Attack>().doubling == 2)
+            Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//2nd player
+        }
+        if (damageHolder.GetComponent<Attack>().enemyDoubling == 2)
+        {
+            Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//2nd enemy
+        }
+        if(damageHolder.GetComponent<Attack>().doubling == 4)
+        {
+            Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//2nd player
+            if (damageHolder.GetComponent<Attack>().enemyDoubling == 2 || damageHolder.GetComponent<Attack>().enemyDoubling == 4)
             {
-                Attack(player, player.GetComponent<Attack>().damage, player.GetComponent<Attack>().acc, player.GetComponent<Attack>().crit, playerSprite, enemySprite);//2nd player
+                Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//2nd enemy
             }
-            if (player.GetComponent<Attack>().enemyDoubling == 2)
+            Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//3rd player
+            if (damageHolder.GetComponent<Attack>().enemyDoubling == 4)
             {
-                Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//2nd enemy
+                Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//3rd enemy
             }
-            if(player.GetComponent<Attack>().doubling == 4)
+            Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//4th player
+            if (damageHolder.GetComponent<Attack>().enemyDoubling == 4)
             {
-                Attack(player, player.GetComponent<Attack>().damage, player.GetComponent<Attack>().acc, player.GetComponent<Attack>().crit, playerSprite, enemySprite);//2nd player
-                if (player.GetComponent<Attack>().enemyDoubling == 2 || player.GetComponent<Attack>().enemyDoubling == 4)
-                {
-                    Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//2nd enemy
-                }
-                Attack(player, player.GetComponent<Attack>().damage, player.GetComponent<Attack>().acc, player.GetComponent<Attack>().crit, playerSprite, enemySprite);//3rd player
-                if (player.GetComponent<Attack>().enemyDoubling == 4)
-                {
-                    Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//3rd enemy
-                }
-                Attack(player, player.GetComponent<Attack>().damage, player.GetComponent<Attack>().acc, player.GetComponent<Attack>().crit, playerSprite, enemySprite);//4th player
-                if (player.GetComponent<Attack>().enemyDoubling == 4)
-                {
-                    Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//4th enemy
-                }
-            }
-            if (player.GetComponent<Attack>().enemyDoubling == 4 && player.GetComponent<Attack>().doubling != 4)
-            {
-                Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//2nd enemy
-                if (player.GetComponent<Attack>().doubling == 2)
-                {
-                    Attack(player, player.GetComponent<Attack>().damage, player.GetComponent<Attack>().acc, player.GetComponent<Attack>().crit, playerSprite, enemySprite);//2nd player
-                }
-                Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//3rd enemy
-                Attack(enemy, player.GetComponent<Attack>().enemyDamage, player.GetComponent<Attack>().enemyAcc, player.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//4th enemy
+                Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//4th enemy
             }
         }
-        else
+        if (damageHolder.GetComponent<Attack>().enemyDoubling == 4 && damageHolder.GetComponent<Attack>().doubling != 4)
         {
-
+            Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//2nd enemy
+            if (damageHolder.GetComponent<Attack>().doubling == 2)
+            {
+                Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//2nd player
+            }
+            Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//3rd enemy
+            Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//4th enemy
         }
         
     }
