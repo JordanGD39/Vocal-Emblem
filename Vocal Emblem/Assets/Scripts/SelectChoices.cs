@@ -6,11 +6,13 @@ public class SelectChoices : MonoBehaviour
 {
     private Cursor cursor;
     private TileData tileData;
+    private BattleStateMachine BSM;
 
     private void Start()
     {
         cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Cursor>();
         tileData = GameObject.FindGameObjectWithTag("TileManager").GetComponent<TileData>();
+        BSM = GameObject.FindGameObjectWithTag("GM").GetComponent<BattleStateMachine>();
     }
 
     public void Attack()
@@ -31,6 +33,7 @@ public class SelectChoices : MonoBehaviour
         tileData.currMapCharPos[Mathf.RoundToInt(-cursor.currSelectedChar.GetComponent<PlayerMovement>().oldPos.y + 0.5f), Mathf.RoundToInt(cursor.currSelectedChar.GetComponent<PlayerMovement>().oldPos.x - 0.5f)] = 0;
         Debug.Log(tileData.currMapCharPos[4,10] + " "+ tileData.currMapCharPos[4, 12]);
         StartCoroutine(WaitForSetActive());
+        BSM.CheckPlayerWait();
         tileData.DeselectMovement();
     }
 

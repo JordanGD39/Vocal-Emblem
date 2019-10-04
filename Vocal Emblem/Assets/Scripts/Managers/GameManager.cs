@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public List<GameObject> playerTeam = new List<GameObject>();
+    public List<GameObject> allyTeam = new List<GameObject>();
+    public List<GameObject> enemies = new List<GameObject>();
     public int playerTeamCount = 0;
 
     public static GameManager instance;

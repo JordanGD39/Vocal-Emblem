@@ -7,9 +7,9 @@ public class TileData : MonoBehaviour
     public GameObject tilePrefab;
     public GameObject mapEmpty;
     public List<GameObject> rowsMovement = new List<GameObject>();
-    public List<GameObject> enemies = new List<GameObject>();
     public List<GameObject> players = new List<GameObject>();
     public List<GameObject> enemiesInGame = new List<GameObject>();
+    public List<GameObject> alliesInGame = new List<GameObject>();
 
     public bool doneLoading = false;
 
@@ -91,33 +91,33 @@ public class TileData : MonoBehaviour
                         GameObject player = Instantiate(GameManager.instance.playerTeam[GameManager.instance.playerTeamCount], new Vector3(x + 0.5f, -y + 0.5f, 0), GameManager.instance.playerTeam[GameManager.instance.playerTeamCount].transform.rotation);
                         break;
                     case 2:
-                        if (enemies.Count > 0)
+                        if (GameManager.instance.enemies.Count > 0)
                         {
-                            GameObject enemy = Instantiate(enemies[0], new Vector3(x + 0.5f, -y + 0.5f, 0), enemies[0].transform.rotation);
+                            GameObject enemy = Instantiate(GameManager.instance.enemies[0], new Vector3(x + 0.5f, -y + 0.5f, 0), GameManager.instance.enemies[0].transform.rotation);
                         }
                         break;
                     case 3:
-                        if (enemies.Count > 0)
+                        if (GameManager.instance.enemies.Count > 0)
                         {
-                            GameObject enemy = Instantiate(enemies[1], new Vector3(x + 0.5f, -y + 0.5f, 0), enemies[1].transform.rotation);
+                            GameObject enemy = Instantiate(GameManager.instance.enemies[1], new Vector3(x + 0.5f, -y + 0.5f, 0), GameManager.instance.enemies[1].transform.rotation);
                         }
                         break;
                     case 4:
-                        if (enemies.Count > 0)
+                        if (GameManager.instance.enemies.Count > 0)
                         {
-                            GameObject enemy = Instantiate(enemies[2], new Vector3(x + 0.5f, -y + 0.5f, 0), enemies[2].transform.rotation);
+                            GameObject enemy = Instantiate(GameManager.instance.enemies[2], new Vector3(x + 0.5f, -y + 0.5f, 0), GameManager.instance.enemies[2].transform.rotation);
                         }
                         break;
                     case 5:
-                        if (enemies.Count > 0)
+                        if (GameManager.instance.enemies.Count > 0)
                         {
-                            GameObject enemy = Instantiate(enemies[3], new Vector3(x + 0.5f, -y + 0.5f, 0), enemies[3].transform.rotation);
+                            GameObject enemy = Instantiate(GameManager.instance.enemies[3], new Vector3(x + 0.5f, -y + 0.5f, 0), GameManager.instance.enemies[3].transform.rotation);
                         }
                         break;
                     case 6:
-                        if (enemies.Count > 0)
+                        if (GameManager.instance.enemies.Count > 0)
                         {
-                            GameObject enemy = Instantiate(enemies[4], new Vector3(x + 0.5f, -y + 0.5f, 0), enemies[4].transform.rotation);
+                            GameObject enemy = Instantiate(GameManager.instance.enemies[4], new Vector3(x + 0.5f, -y + 0.5f, 0), GameManager.instance.enemies[4].transform.rotation);
                         }
                         break;
                 }

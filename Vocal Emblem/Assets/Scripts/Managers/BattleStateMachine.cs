@@ -9,6 +9,8 @@ public class BattleStateMachine : MonoBehaviour
 
     private GameObject cursor;
     private TileData tileData;
+    private bool allAreWaiting;
+    private bool checkingWait = true;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +27,10 @@ public class BattleStateMachine : MonoBehaviour
         {
             case battlePhase.PLAYER:
                 cursor.SetActive(true);
+                if (!checkingWait && allAreWaiting)
+                {
+                    phase = battlePhase.ALLY;
+                }
                 break;
             case battlePhase.ALLY:
                 cursor.SetActive(false);
@@ -35,9 +41,10 @@ public class BattleStateMachine : MonoBehaviour
         }
     }
 
-    public bool CheckPlayerWait()
+    public void CheckPlayerWait()
     {
-        bool allAreWaiting = true;
+        checkingWait = true;
+        allAreWaiting = true;
 
         for (int i = 0; i < tileData.players.Count; i++)
         {
@@ -47,6 +54,6 @@ public class BattleStateMachine : MonoBehaviour
             }
         }
 
-        return allAreWaiting;
+        checkingWait = false;
     }
 }
