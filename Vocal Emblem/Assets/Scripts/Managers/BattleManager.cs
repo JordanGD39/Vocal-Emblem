@@ -18,6 +18,9 @@ public class BattleManager : MonoBehaviour
     private Stats playerBattle;
     private Stats enemyBattle;
 
+    private float playerHPtarget = 99;
+    private float enemyHPtarget = 99;
+
     private void Start()
     {
         cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Cursor>();
@@ -28,10 +31,26 @@ public class BattleManager : MonoBehaviour
         if (healthTextPlayer != null)
         {
             healthTextPlayer.text = playerBattle.hp.ToString("F0");
+            if (playerHPtarget < playerBattle.hp)
+            {
+                playerBattle.hp -= 1;
+            }
+            else
+            {
+                playerBattle.hp = playerHPtarget;
+            }
         }
         if (healthTextEnemy != null)
         {
             healthTextEnemy.text = enemyBattle.hp.ToString("F0");
+            if (enemyHPtarget < enemyBattle.hp)
+            {
+                enemyBattle.hp -= 1;
+            }
+            else
+            {
+                enemyBattle.hp = enemyHPtarget;
+            }
         }
         if (healthBarPlayer != null)
         {
@@ -47,6 +66,8 @@ public class BattleManager : MonoBehaviour
     {
         playerBattle = player;
         enemyBattle = enemy;
+        playerHPtarget = playerBattle.hp;
+        enemyHPtarget = enemyBattle.hp;
         Transform battlePanel = cursor.battlePanel.transform;
 
         Stats damageHolder = null;
@@ -138,15 +159,15 @@ public class BattleManager : MonoBehaviour
 
         if (damageHolder == player)
         {
-            StartCoroutine(AttackOrder(player, enemy, damageHolder, playerSprite, enemySprite, distance, 1));
+            StartCoroutine(AttackOrder(player, enemy, damageHolder, playerSprite, enemySprite, distance, 1, false));
         }
         else if (damageHolder == enemy)
         {
-            StartCoroutine(AttackOrder(enemy, player, damageHolder, playerSprite, enemySprite, distance, 1));
+            StartCoroutine(AttackOrder(enemy, player, damageHolder, playerSprite, enemySprite, distance, 1, false));
         }                     
     }
 
-    private IEnumerator AttackOrder(Stats player, Stats enemy, Stats damageHolder, GameObject playerSprite, GameObject enemySprite, float distance, int i)
+    private IEnumerator AttackOrder(Stats player, Stats enemy, Stats damageHolder, GameObject playerSprite, GameObject enemySprite, float distance, int i, bool twiceFourDoubling)
     {
         playerSprite.GetComponent<AttackingInBattle>().done = false;
         Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//1st player
@@ -179,9 +200,23 @@ public class BattleManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.2f);
 
-        if (damageHolder.GetComponent<Attack>().doubling == 2 && i == 1)
-        {           
-            StartCoroutine(AttackOrder(player, enemy, damageHolder, playerSprite, enemySprite, distance, 2));
+        if (enemy.hp > 0 && damageHolder.GetComponent<Attack>().doubling == 2 && i == 1 || enemy.hp > 0 && damageHolder.GetComponent<Attack>().doubling == 4 && i == 1 || enemy.hp > 0 && damageHolder.GetComponent<Attack>().doubling == 4 && i == 2 || enemy.hp > 0 && damageHolder.GetComponent<Attack>().doubling == 4 && i == 4 && twiceFourDoubling)
+        {
+            int j = 0;
+            switch (i)
+            {
+                case 1:
+                    j = 2;
+                    break;
+                case 2:
+                    j = 4;
+                    twiceFourDoubling = true;
+                    break;
+                case 4:
+                    twiceFourDoubling = false;
+                    break;
+            }
+            StartCoroutine(AttackOrder(player, enemy, damageHolder, playerSprite, enemySprite, distance, j, twiceFourDoubling));
         }
         else
         {
@@ -209,6 +244,10 @@ public class BattleManager : MonoBehaviour
         {
             defendSprite.GetComponentInChildren<Animator>().Play("Evade");
             defendSprite.GetComponent<BoxCollider2D>().enabled = false;
+        }
+        if (didCrit)
+        {
+            defendSprite.GetComponent<AttackingInBattle>().damage *= 3;
         }
 
         switch (attacker.equippedWeapon.typeOfWeapon)
@@ -255,12 +294,21 @@ public class BattleManager : MonoBehaviour
     {
         if (defender.GetComponent<AttackingInBattle>().stats == playerBattle)
         {
-            playerBattle.hp -= dmg;
+            playerHPtarget = playerBattle.hp;
+            playerHPtarget -= dmg;
+            if (playerHPtarget < 0)
+            {
+                playerHPtarget = 0;
+            }
         }
         else if (defender.GetComponent<AttackingInBattle>().stats == enemyBattle)
-        {            
-            enemyBattle.hp -= dmg;
-            Debug.Log(enemyBattle.hp);
+        {
+            enemyHPtarget = enemyBattle.hp;
+            enemyHPtarget -= dmg;
+            if (enemyHPtarget < 0)
+            {
+                enemyHPtarget = 0;
+            }
         }
     }
 }
