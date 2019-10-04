@@ -133,7 +133,7 @@ public class TileData : MonoBehaviour
         doneLoading = true;
     }
 
-    public void RevealTiles(int x, int y, int mov, int range, bool flier)
+    public void RevealTiles(int x, int y, int mov, int range, bool flier, bool showTiles, int allies)
     {
         int wall = 0;
         if (flier)
@@ -171,10 +171,10 @@ public class TileData : MonoBehaviour
                 mov = Mathf.RoundToInt(f) - 1;
             }            
         }
-        CheckNeighbors(-y, x, wall, mov, beginX, beginY, range, 0);
+        CheckNeighbors(-y, x, wall, mov, beginX, beginY, range, 0, showTiles, allies);
     }
 
-    private void CheckNeighbors(int y, int x, int wall, int mov, int beginX, int beginY, int range, int count)
+    private void CheckNeighbors(int y, int x, int wall, int mov, int beginX, int beginY, int range, int count, bool showTiles, int allies)
     {
         GameObject topNeighbor = null;
         GameObject rightNeighbor = null;
@@ -230,11 +230,12 @@ public class TileData : MonoBehaviour
                     //Debug.Log("TOP");
                     topNeighbor.GetComponent<TileNumber>().number = giveCount;
                     topNeighbor.SetActive(true);
+                    topNeighbor.GetComponent<SpriteRenderer>().enabled = showTiles;
                     currentTop = topNeighbor;
                     AddToClosed(topNeighbor);
                     topNeighbor.GetComponent<SpriteRenderer>().color = new Color32(0, 129, 255, 168);
                     topNeighbor.tag = "MoveTile";
-                    CheckNeighbors(y - 1, x, wall, mov, beginX, beginY, range, giveCount);
+                    CheckNeighbors(y - 1, x, wall, mov, beginX, beginY, range, giveCount, showTiles, allies);
                 }
                 if (giveCount > mov && giveCount <= mov + range || currMap[y - 1, x] <= wall || currMapCharPos[y - 1, x] != 0)
                 {
@@ -242,13 +243,14 @@ public class TileData : MonoBehaviour
                     {
                         topNeighbor.GetComponent<TileNumber>().number = giveCount;
                         topNeighbor.SetActive(true);
+                        topNeighbor.GetComponent<SpriteRenderer>().enabled = showTiles;
                         currentTop = topNeighbor;
                         AddToClosed(topNeighbor);
                         topNeighbor.tag = "MoveTileRed";
                         topNeighbor.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
-                        if (currMapCharPos[y - 1, x] == 1)
+                        if (currMapCharPos[y - 1, x] == 1 && allies == 1 || currMapCharPos[y - 1, x] >= 2 && allies == 2)
                         {
-                            CheckNeighbors(y - 1, x, wall, mov, beginX, beginY, range, giveCount);
+                            CheckNeighbors(y - 1, x, wall, mov, beginX, beginY, range, giveCount, showTiles, allies);
                         }
                         if (range > 1)
                         {
@@ -267,11 +269,12 @@ public class TileData : MonoBehaviour
                     // Debug.Log("Bottom");
                     bottomNeighbor.GetComponent<TileNumber>().number = giveCount;
                     bottomNeighbor.SetActive(true);
+                    bottomNeighbor.GetComponent<SpriteRenderer>().enabled = showTiles;
                     currentBottom = bottomNeighbor;
                     AddToClosed(bottomNeighbor);
                     bottomNeighbor.GetComponent<SpriteRenderer>().color = new Color32(0, 129, 255, 168);
                     bottomNeighbor.tag = "MoveTile";
-                    CheckNeighbors(y + 1, x, wall, mov, beginX, beginY, range, giveCount);
+                    CheckNeighbors(y + 1, x, wall, mov, beginX, beginY, range, giveCount, showTiles, allies);
                 }
                 if (giveCount > mov && giveCount <= mov + range || currMap[y + 1, x] <= wall || currMapCharPos[y + 1, x] != 0)
                 {
@@ -279,13 +282,14 @@ public class TileData : MonoBehaviour
                     {
                         bottomNeighbor.GetComponent<TileNumber>().number = giveCount;
                         bottomNeighbor.SetActive(true);
+                        bottomNeighbor.GetComponent<SpriteRenderer>().enabled = showTiles;
                         currentBottom = bottomNeighbor;
                         AddToClosed(bottomNeighbor);
                         bottomNeighbor.tag = "MoveTileRed";
                         bottomNeighbor.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
-                        if (currMapCharPos[y + 1, x] == 1)
+                        if (currMapCharPos[y + 1, x] == 1 && allies == 1 || currMapCharPos[y + 1, x] >= 2 && allies == 2)
                         {
-                            CheckNeighbors(y + 1, x, wall, mov, beginX, beginY, range, giveCount);
+                            CheckNeighbors(y + 1, x, wall, mov, beginX, beginY, range, giveCount, showTiles, allies);
                         }
                         if (range > 1)
                         {
@@ -304,11 +308,12 @@ public class TileData : MonoBehaviour
                     //Debug.Log("Left");
                     leftNeighbor.GetComponent<TileNumber>().number = giveCount;
                     leftNeighbor.SetActive(true);
+                    leftNeighbor.GetComponent<SpriteRenderer>().enabled = showTiles;
                     currentLeft = leftNeighbor;
                     AddToClosed(leftNeighbor);
                     leftNeighbor.GetComponent<SpriteRenderer>().color = new Color32(0, 129, 255, 168);
                     leftNeighbor.tag = "MoveTile";
-                    CheckNeighbors(y, x - 1, wall, mov, beginX, beginY, range, giveCount);
+                    CheckNeighbors(y, x - 1, wall, mov, beginX, beginY, range, giveCount, showTiles, allies);
                 }
                 else if (giveCount > mov && giveCount <= mov + range || currMap[y, x - 1] <= wall || currMapCharPos[y, x - 1] != 0)
                 {
@@ -316,13 +321,14 @@ public class TileData : MonoBehaviour
                     {
                         leftNeighbor.GetComponent<TileNumber>().number = giveCount;
                         leftNeighbor.SetActive(true);
+                        leftNeighbor.GetComponent<SpriteRenderer>().enabled = showTiles;
                         currentLeft = leftNeighbor;
                         AddToClosed(leftNeighbor);
                         leftNeighbor.tag = "MoveTileRed";
                         leftNeighbor.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
-                        if (currMapCharPos[y, x - 1] == 1)
+                        if (currMapCharPos[y, x - 1] == 1 && allies == 1 || currMapCharPos[y, x - 1] >= 2 && allies == 2)
                         {
-                            CheckNeighbors(y, x - 1, wall, mov, beginX, beginY, range, giveCount);
+                            CheckNeighbors(y, x - 1, wall, mov, beginX, beginY, range, giveCount, showTiles, allies);
                         }
                         if (range > 1)
                         {
@@ -341,11 +347,12 @@ public class TileData : MonoBehaviour
                     //Debug.Log("right");
                     rightNeighbor.GetComponent<TileNumber>().number = giveCount;
                     rightNeighbor.SetActive(true);
+                    rightNeighbor.GetComponent<SpriteRenderer>().enabled = showTiles;
                     currentRight = rightNeighbor;
                     AddToClosed(rightNeighbor);
                     rightNeighbor.GetComponent<SpriteRenderer>().color = new Color32(0, 129, 255, 168);
                     rightNeighbor.tag = "MoveTile";
-                    CheckNeighbors(y, x + 1, wall, mov, beginX, beginY, range, giveCount);
+                    CheckNeighbors(y, x + 1, wall, mov, beginX, beginY, range, giveCount, showTiles, allies);
                 }
                 if (giveCount > mov && giveCount <= mov + range || currMap[y, x + 1] <= wall || currMapCharPos[y, x + 1] != 0)
                 {
@@ -353,13 +360,14 @@ public class TileData : MonoBehaviour
                     {
                         rightNeighbor.GetComponent<TileNumber>().number = giveCount;
                         rightNeighbor.SetActive(true);
+                        rightNeighbor.GetComponent<SpriteRenderer>().enabled = showTiles;
                         currentRight = rightNeighbor;
                         AddToClosed(rightNeighbor);
                         rightNeighbor.tag = "MoveTileRed";
                         rightNeighbor.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
-                        if (currMapCharPos[y, x + 1] == 1)
+                        if (currMapCharPos[y, x + 1] == 1 && allies == 1 || currMapCharPos[y, x + 1] >= 2 && allies == 2)
                         {
-                            CheckNeighbors(y, x + 1, wall, mov, beginX, beginY, range, giveCount);
+                            CheckNeighbors(y, x + 1, wall, mov, beginX, beginY, range, giveCount, showTiles, allies);
                         }
                         if (range > 1)
                         {

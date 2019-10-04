@@ -34,9 +34,21 @@ public class BattleStateMachine : MonoBehaviour
                 break;
             case battlePhase.ALLY:
                 cursor.SetActive(false);
+                if (tileData.alliesInGame.Count == 0)
+                {
+                    phase = battlePhase.ENEMY;
+                    RemoveWaitEnemy();
+                    GiveTurnToAI();
+                }
                 break;
             case battlePhase.ENEMY:
                 cursor.SetActive(false);
+                if (tileData.enemiesInGame.Count == 0)
+                {
+                    RemoveWaitPlayer();
+                    allAreWaiting = false;
+                    phase = battlePhase.PLAYER;
+                }
                 break;
         }
     }
@@ -55,5 +67,28 @@ public class BattleStateMachine : MonoBehaviour
         }
 
         checkingWait = false;
+    }
+
+    private void RemoveWaitPlayer()
+    {
+        for (int i = 0; i < tileData.players.Count; i++)
+        {
+            tileData.players[i].GetComponent<PlayerMovement>().wait = false;            
+        }
+    }
+    private void RemoveWaitEnemy()
+    {
+        for (int i = 0; i < tileData.enemiesInGame.Count; i++)
+        {
+            tileData.enemiesInGame[i].GetComponent<EnemyAI>().wait = false;            
+        }
+    }
+
+    private void GiveTurnToAI()
+    {
+        if (tileData.enemiesInGame.Count > 0)
+        {
+            tileData.enemiesInGame[0].GetComponent<EnemyAI>().WalkTowardsTarget();
+        }        
     }
 }
