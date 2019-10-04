@@ -126,7 +126,7 @@ MonoBehaviour:
   maxSkill: 6
   skill: 6
   maxSpd: 7
-  spd: 7
+  spd: 10
   maxLuk: 5
   luk: 5
   maxDef: 3

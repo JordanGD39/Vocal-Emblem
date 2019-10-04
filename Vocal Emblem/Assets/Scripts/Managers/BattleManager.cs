@@ -135,23 +135,33 @@ public class BattleManager : MonoBehaviour
                 }
             }
         }
-        StartCoroutine(AttackOrder(player, enemy, damageHolder, playerSprite, enemySprite, distance));             
+
+        if (damageHolder == player)
+        {
+            StartCoroutine(AttackOrder(player, enemy, damageHolder, playerSprite, enemySprite, distance, 1));
+        }
+        else if (damageHolder == enemy)
+        {
+            StartCoroutine(AttackOrder(enemy, player, damageHolder, playerSprite, enemySprite, distance, 1));
+        }                     
     }
 
-    private IEnumerator AttackOrder(Stats player, Stats enemy, Stats damageHolder, GameObject playerSprite, GameObject enemySprite, float distance)
+    private IEnumerator AttackOrder(Stats player, Stats enemy, Stats damageHolder, GameObject playerSprite, GameObject enemySprite, float distance, int i)
     {
+        playerSprite.GetComponent<AttackingInBattle>().done = false;
         Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//1st player
         while (!playerSprite.GetComponent<AttackingInBattle>().done)
         {
-            yield return new WaitForSeconds(0.5f);            
+            yield return new WaitForSeconds(0.2f);            
         }
         playerSprite.GetComponent<Animator>().Play("Idle");
-        if (enemy.hp > 0 && distance <= enemy.equippedWeapon.range && enemy.equippedWeapon.rangeOneAndTwo || distance != 1 && distance <= enemy.equippedWeapon.range && !enemy.equippedWeapon.rangeOneAndTwo || enemy.equippedWeapon.counterAll)
+        if (damageHolder.GetComponent<Attack>().enemyDoubling == i && enemy.hp > 0 && distance <= enemy.equippedWeapon.range && enemy.equippedWeapon.rangeOneAndTwo || distance != 1 && distance <= enemy.equippedWeapon.range && !enemy.equippedWeapon.rangeOneAndTwo || enemy.equippedWeapon.counterAll)
         {
+            enemySprite.GetComponent<AttackingInBattle>().done = false;
             Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//1st enemy
             while (!enemySprite.GetComponent<AttackingInBattle>().done)
             {
-                yield return new WaitForSeconds(0.5f);                
+                yield return new WaitForSeconds(0.2f);                
             }
             enemySprite.GetComponent<Animator>().Play("Idle");
             if (player.hp <= 0)
@@ -167,50 +177,23 @@ public class BattleManager : MonoBehaviour
             Destroy(enemy.gameObject);
         }
 
-        yield return new WaitForSeconds(1);
-        Destroy(playerSprite);
-        Destroy(enemySprite);
-        cursor.battlePanel.SetActive(false);
-        if (damageHolder == player)
+        yield return new WaitForSeconds(0.2f);
+
+        if (damageHolder.GetComponent<Attack>().doubling == 2 && i == 1)
+        {           
+            StartCoroutine(AttackOrder(player, enemy, damageHolder, playerSprite, enemySprite, distance, 2));
+        }
+        else
         {
-            GameObject.FindGameObjectWithTag("Canvas").GetComponent<SelectChoices>().Wait();
-        }        
-        //if (damageHolder.GetComponent<Attack>().doubling == 2)
-        //{
-        //    Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//2nd player
-        //}
-        //if (damageHolder.GetComponent<Attack>().enemyDoubling == 2)
-        //{
-        //    Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//2nd enemy
-        //}
-        //if (damageHolder.GetComponent<Attack>().doubling == 4)
-        //{
-        //    Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//2nd player
-        //    if (damageHolder.GetComponent<Attack>().enemyDoubling == 2 || damageHolder.GetComponent<Attack>().enemyDoubling == 4)
-        //    {
-        //        Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//2nd enemy
-        //    }
-        //    Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//3rd player
-        //    if (damageHolder.GetComponent<Attack>().enemyDoubling == 4)
-        //    {
-        //        Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//3rd enemy
-        //    }
-        //    Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//4th player
-        //    if (damageHolder.GetComponent<Attack>().enemyDoubling == 4)
-        //    {
-        //        Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//4th enemy
-        //    }
-        //}
-        //if (damageHolder.GetComponent<Attack>().enemyDoubling == 4 && damageHolder.GetComponent<Attack>().doubling != 4)
-        //{
-        //    Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//2nd enemy
-        //    if (damageHolder.GetComponent<Attack>().doubling == 2)
-        //    {
-        //        Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//2nd player
-        //    }
-        //    Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//3rd enemy
-        //    Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//4th enemy
-        //}        
+            yield return new WaitForSeconds(1);
+            Destroy(playerSprite);
+            Destroy(enemySprite);
+            cursor.battlePanel.SetActive(false);
+            if (damageHolder == player)
+            {
+                GameObject.FindGameObjectWithTag("Canvas").GetComponent<SelectChoices>().Wait();
+            }
+        }
     }
 
     private void Attack(Stats attacker, float dmg, float hit, float crit, GameObject sprite, GameObject defendSprite)

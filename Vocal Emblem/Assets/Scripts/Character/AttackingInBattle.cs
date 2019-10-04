@@ -23,4 +23,12 @@ public class AttackingInBattle : MonoBehaviour
             BM.CharGotHit(gameObject, damage, stats);
         }
     }
+
+    public void AnimDone(string message)
+    {
+        if (message.Equals("AnimEnded"))
+        {
+            done = true;
+        }
+    }
 }
