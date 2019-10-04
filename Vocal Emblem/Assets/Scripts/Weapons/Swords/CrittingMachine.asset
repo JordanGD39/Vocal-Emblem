@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94eae39947782b849af71f23eeaa44f3, type: 3}
+  m_Name: CrittingMachine
+  m_EditorClassIdentifier: 
+  weaponName: Critter39000
+  description: Always crits
+  typeOfWeapon: 0
+  mt: 5
+  uses: 42
+  crit: 100
+  accuracy: 100
+  skillLevel: 1
+  range: 1
+  rangeOneAndTwo: 1
+  counterAll: 0
+  worth: 320
+  exp: 1

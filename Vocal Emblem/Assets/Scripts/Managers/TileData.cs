@@ -246,6 +246,10 @@ public class TileData : MonoBehaviour
                         AddToClosed(topNeighbor);
                         topNeighbor.tag = "MoveTileRed";
                         topNeighbor.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
+                        if (currMapCharPos[y - 1, x] == 1)
+                        {
+                            CheckNeighbors(y - 1, x, wall, mov, beginX, beginY, range, giveCount);
+                        }
                         if (range > 1)
                         {
                             AttackCheck(y - 1, x, range, mov);
@@ -279,6 +283,10 @@ public class TileData : MonoBehaviour
                         AddToClosed(bottomNeighbor);
                         bottomNeighbor.tag = "MoveTileRed";
                         bottomNeighbor.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
+                        if (currMapCharPos[y + 1, x] == 1)
+                        {
+                            CheckNeighbors(y + 1, x, wall, mov, beginX, beginY, range, giveCount);
+                        }
                         if (range > 1)
                         {
                             AttackCheck(y + 1, x, range, mov);
@@ -312,6 +320,10 @@ public class TileData : MonoBehaviour
                         AddToClosed(leftNeighbor);
                         leftNeighbor.tag = "MoveTileRed";
                         leftNeighbor.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
+                        if (currMapCharPos[y, x - 1] == 1)
+                        {
+                            CheckNeighbors(y, x - 1, wall, mov, beginX, beginY, range, giveCount);
+                        }
                         if (range > 1)
                         {
                             AttackCheck(y, x - 1, range, mov);
@@ -345,6 +357,10 @@ public class TileData : MonoBehaviour
                         AddToClosed(rightNeighbor);
                         rightNeighbor.tag = "MoveTileRed";
                         rightNeighbor.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
+                        if (currMapCharPos[y, x + 1] == 1)
+                        {
+                            CheckNeighbors(y, x + 1, wall, mov, beginX, beginY, range, giveCount);
+                        }
                         if (range > 1)
                         {
                             AttackCheck(y, x + 1, range, mov);
