@@ -88,7 +88,7 @@ public class BattleStateMachine : MonoBehaviour
     {
         if (tileData.enemiesInGame.Count > 0)
         {
-            tileData.enemiesInGame[0].GetComponent<EnemyAI>().WalkTowardsTarget();
+            tileData.enemiesInGame[0].GetComponent<EnemyAI>().GetTarget();
         }        
     }
 }

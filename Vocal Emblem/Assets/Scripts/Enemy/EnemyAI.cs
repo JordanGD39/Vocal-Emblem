@@ -38,7 +38,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    public void WalkTowardsTarget()
+    public void GetTarget()
     {
         if (!wait)
         {
@@ -51,21 +51,29 @@ public class EnemyAI : MonoBehaviour
 
             target = GetClosestPlayer(tileData.players);
 
-            float distanceTop = 0;
-
-            if (y - 1 > -1 && tileData.rowsMovement[-y - 1].transform.GetChild(x))
-            {
-                distanceTop = Mathf.Abs(transform.position.x - target.position.x) + Mathf.Abs((transform.position.y - 1) - target.position.y);
-            }            
-            float distanceBottom = Mathf.Abs(transform.position.x - target.position.x) + Mathf.Abs((transform.position.y + 1) - target.position.y);
-            float distanceLeft = Mathf.Abs((transform.position.x - 1) - target.position.x) + Mathf.Abs(transform.position.y - target.position.y);
-            float distanceRight = Mathf.Abs((transform.position.x + 1) - target.position.x) + Mathf.Abs(transform.position.y - target.position.y);
-
-            if (distanceTop < distanceBottom && distanceTop < distanceLeft && distanceTop < distanceRight)
-            {
-                transform.position = new Vector2(0, transform.position.y - 1);
-            }
+            WalkingTowardsTarget(x, y);
         }        
+    }
+
+    private void WalkingTowardsTarget(int x, int y)
+    {
+        float distanceTop = 0;
+        float distanceBottom = 0;
+        float distanceLeft = 0;
+        float distanceRight = 0;
+
+        if (y - 1 > -1 && !tileData.rowsMovement[-y - 1].transform.GetChild(x).CompareTag("MoveTileRed"))
+        {
+            distanceTop = Mathf.Abs(transform.position.x - target.position.x) + Mathf.Abs((transform.position.y - 1) - target.position.y);
+        }
+        distanceBottom = Mathf.Abs(transform.position.x - target.position.x) + Mathf.Abs((transform.position.y + 1) - target.position.y);
+        distanceLeft = Mathf.Abs((transform.position.x - 1) - target.position.x) + Mathf.Abs(transform.position.y - target.position.y);
+        distanceRight = Mathf.Abs((transform.position.x + 1) - target.position.x) + Mathf.Abs(transform.position.y - target.position.y);
+
+        if (distanceTop < distanceBottom && distanceTop < distanceLeft && distanceTop < distanceRight)
+        {
+            transform.position = new Vector2(0, transform.position.y - 1);
+        }
     }
 
     private Transform GetClosestPlayer(List<GameObject> players)
