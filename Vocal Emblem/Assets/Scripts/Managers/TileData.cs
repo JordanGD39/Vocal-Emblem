@@ -160,6 +160,7 @@ public class TileData : MonoBehaviour
         current.SetActive(true);
         current.tag = "MoveTile";
         current.GetComponent<SpriteRenderer>().color = new Color32(0, 129, 255, 168);
+        current.GetComponent<SpriteRenderer>().enabled = showTiles;
         int beginX = x;
         int beginY = -y;
         if (!flier)
@@ -254,7 +255,7 @@ public class TileData : MonoBehaviour
                         }
                         if (range > 1)
                         {
-                            AttackCheck(y - 1, x, range, mov);
+                            AttackCheck(y - 1, x, range, mov, showTiles);
                         }
                     }
                 }
@@ -293,7 +294,7 @@ public class TileData : MonoBehaviour
                         }
                         if (range > 1)
                         {
-                            AttackCheck(y + 1, x, range, mov);
+                            AttackCheck(y + 1, x, range, mov, showTiles);
                         }
                     }
                 }
@@ -332,7 +333,7 @@ public class TileData : MonoBehaviour
                         }
                         if (range > 1)
                         {
-                            AttackCheck(y, x - 1, range, mov);
+                            AttackCheck(y, x - 1, range, mov, showTiles);
                         }
                     }
                 }
@@ -371,7 +372,7 @@ public class TileData : MonoBehaviour
                         }
                         if (range > 1)
                         {
-                            AttackCheck(y, x + 1, range, mov);
+                            AttackCheck(y, x + 1, range, mov, showTiles);
                         }
                     }
                 }
@@ -380,7 +381,7 @@ public class TileData : MonoBehaviour
         }
     }
 
-    private void AttackCheck(int y, int x, int range, int mov)
+    private void AttackCheck(int y, int x, int range, int mov, bool showTiles)
     {
         for (int i = 0; i < range; i++)
         {
@@ -388,12 +389,14 @@ public class TileData : MonoBehaviour
             {
                 rowsMovement[y + i].transform.GetChild(x).gameObject.SetActive(true);
                 rowsMovement[y + i].transform.GetChild(x).GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
+                rowsMovement[y + i].transform.GetChild(x).GetComponent<SpriteRenderer>().enabled = showTiles;
                 for (int j = 0; j < range - i; j++)
                 {
                     if (x + j < rowsMovement[y+i].transform.childCount && !rowsMovement[y + i].transform.GetChild(x + j).CompareTag("MoveTile"))
                     {
                         rowsMovement[y + i].transform.GetChild(x + j).gameObject.SetActive(true);
                         rowsMovement[y + i].transform.GetChild(x + j).GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
+                        rowsMovement[y + i].transform.GetChild(x + j).GetComponent<SpriteRenderer>().enabled = showTiles;
                     }                    
                 }
             }
@@ -402,12 +405,14 @@ public class TileData : MonoBehaviour
             {
                 rowsMovement[y - i].transform.GetChild(x).gameObject.SetActive(true);
                 rowsMovement[y - i].transform.GetChild(x).GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
+                rowsMovement[y - i].transform.GetChild(x).GetComponent<SpriteRenderer>().enabled = showTiles;
                 for (int j = 0; j < range - i; j++)
                 {
                     if (x - j > -1 && !rowsMovement[y - i].transform.GetChild(x - j).CompareTag("MoveTile"))
                     {
                         rowsMovement[y - i].transform.GetChild(x - j).gameObject.SetActive(true);
                         rowsMovement[y - i].transform.GetChild(x - j).GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
+                        rowsMovement[y - i].transform.GetChild(x - j).GetComponent<SpriteRenderer>().enabled = showTiles;
                     }                   
                 }
             }     
