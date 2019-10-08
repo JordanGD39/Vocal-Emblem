@@ -51,12 +51,7 @@ public class EnemyAI : MonoBehaviour
 
             target = GetClosestPlayer(tileData.players);
 
-            bool facingUp = false;
-            bool facingDown = false;
-            bool facingLeft = false;
-            bool facingRight = false;
-
-            WalkingTowardsTarget(x, y, facingUp, facingDown, facingLeft, facingRight);
+            WalkingTowardsTarget(x, y, false, false, false, false);
         }        
     }
 
@@ -92,38 +87,22 @@ public class EnemyAI : MonoBehaviour
         if (distanceTop <= distanceBottom && distanceTop <= distanceLeft && distanceTop <= distanceRight && !facingDown)
         {
             transform.position = new Vector2(transform.position.x, transform.position.y + 1);
-            facingUp = true;
-            facingDown = false;
-            facingLeft = false;
-            facingRight = false;
-            WalkingTowardsTarget(x, y - 1, facingUp, facingDown, facingLeft, facingRight);
+            WalkingTowardsTarget(x, y - 1, true, false, false, false);
         }
         else if (distanceBottom < distanceTop && distanceBottom <= distanceLeft && distanceBottom <= distanceRight && !facingUp)
         {
             transform.position = new Vector2(transform.position.x, transform.position.y - 1);
-            facingUp = false;
-            facingDown = true;
-            facingLeft = false;
-            facingRight = false;
-            WalkingTowardsTarget(x, y + 1, facingUp, facingDown, facingLeft, facingRight);
+            WalkingTowardsTarget(x, y + 1, false, true, false, false);
         }
         else if (distanceLeft < distanceBottom && distanceLeft < distanceTop && distanceLeft <= distanceRight && !facingRight)
         {
             transform.position = new Vector2(transform.position.x - 1, transform.position.y);
-            facingUp = false;
-            facingDown = false;
-            facingLeft = true;
-            facingRight = false;
-            WalkingTowardsTarget(x - 1, y, facingUp, facingDown, facingLeft, facingRight);
+            WalkingTowardsTarget(x - 1, y, false, false, true, false);
         }
         else if (distanceRight < distanceBottom && distanceRight < distanceLeft && distanceRight < distanceTop && !facingLeft)
         {
             transform.position = new Vector2(transform.position.x + 1, transform.position.y);
-            facingUp = false;
-            facingDown = false;
-            facingLeft = false;
-            facingRight = true;
-            WalkingTowardsTarget(x + 1, y, facingUp, facingDown, facingLeft, facingRight);
+            WalkingTowardsTarget(x + 1, y, false, false, false, true);
         }
     }
 
