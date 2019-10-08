@@ -57,53 +57,87 @@ public class EnemyAI : MonoBehaviour
 
     private void WalkingTowardsTarget(int x, int y, bool facingUp, bool facingDown, bool facingLeft, bool facingRight)
     {
-        float distanceTop = 99;
+        float distanceTop = 100;
         float distanceBottom = 99;
-        float distanceLeft = 99;
-        float distanceRight = 99;
-        
+        float distanceLeft = 98;
+        float distanceRight = 97;
 
-        if (-y - 1 > -1 && tileData.rowsMovement[-y - 1].transform.GetChild(x).CompareTag("MoveTile"))
+        bool dontGoUp = false;
+        bool dontGoDown = false;
+        bool dontGoLeft = false;
+        bool dontGoRight = false;
+
+        if (-y - 1 > -1)
         {
             distanceTop = Mathf.Abs(transform.position.x - target.position.x) + Mathf.Abs((transform.position.y + 1) - target.position.y);
-            Debug.Log("top " + distanceTop);
+            Debug.Log("top " + distanceTop + -y);
         }
-        if (-y + 1 < tileData.rowsMovement.Count && tileData.rowsMovement[-y + 1].transform.GetChild(x).CompareTag("MoveTile"))
+        if(-y - 1 < 0 || !tileData.rowsMovement[-y - 1].transform.GetChild(x).CompareTag("MoveTile"))
+        {
+            dontGoUp = true;
+        }
+        if (-y + 1 < tileData.rowsMovement.Count)
         {
             distanceBottom = Mathf.Abs(transform.position.x - target.position.x) + Mathf.Abs((transform.position.y - 1) - target.position.y);
             Debug.Log("bottom " + distanceBottom);
         }
-        if (x - 1 > -1 && tileData.rowsMovement[-y].transform.GetChild(x - 1).CompareTag("MoveTile"))
+        if(-y + 1 >= tileData.rowsMovement.Count || !tileData.rowsMovement[-y + 1].transform.GetChild(x).CompareTag("MoveTile"))
+        {
+            dontGoDown = true;
+        }
+        if (x - 1 > -1)
         {
             distanceLeft = Mathf.Abs((transform.position.x - 1) - target.position.x) + Mathf.Abs(transform.position.y - target.position.y);
             Debug.Log("left " + distanceLeft);
         }
-        if (x + 1 < tileData.rowsMovement[-y].transform.childCount && tileData.rowsMovement[-y].transform.GetChild(x - 1).CompareTag("MoveTile"))
+        if(x - 1 < 0 || !tileData.rowsMovement[-y].transform.GetChild(x - 1).CompareTag("MoveTile"))
+        {
+            dontGoLeft = true;
+        }
+        if (x + 1 < tileData.rowsMovement[-y].transform.childCount)
         {
             distanceRight = Mathf.Abs((transform.position.x + 1) - target.position.x) + Mathf.Abs(transform.position.y - target.position.y);
             Debug.Log("right " + distanceRight);
-        }        
+        }
+        if(x + 1 >= tileData.rowsMovement[-y].transform.childCount || !tileData.rowsMovement[-y].transform.GetChild(x + 1).CompareTag("MoveTile"))
+        {
+            dontGoRight = true;
+        }
 
-        if (distanceTop <= distanceBottom && distanceTop <= distanceLeft && distanceTop <= distanceRight && !facingDown)
+        if (distanceTop >= stats.equippedWeapon.range && distanceBottom >= stats.equippedWeapon.range && distanceLeft >= stats.equippedWeapon.range && distanceRight >= stats.equippedWeapon.range && !dontGoDown && !dontGoLeft && !dontGoRight && !dontGoUp)
         {
-            transform.position = new Vector2(transform.position.x, transform.position.y + 1);
-            WalkingTowardsTarget(x, y - 1, true, false, false, false);
+            if (distanceTop <= distanceBottom && distanceTop <= distanceLeft && distanceTop <= distanceRight && !facingDown && !dontGoUp)
+            {
+                transform.position = new Vector2(transform.position.x, transform.position.y + 1);
+                StartCoroutine(DelayMovement(x, y + 1, true, false, false, false));
+            }
+            else if (distanceBottom < distanceTop && distanceBottom <= distanceLeft && distanceBottom <= distanceRight && !facingUp && !dontGoDown)
+            {
+                transform.position = new Vector2(transform.position.x, transform.position.y - 1);
+                StartCoroutine(DelayMovement(x, y - 1, false, true, false, false));
+            }
+            else if (distanceLeft < distanceBottom && distanceLeft < distanceTop && distanceLeft <= distanceRight && !facingRight && !dontGoLeft)
+            {
+                transform.position = new Vector2(transform.position.x - 1, transform.position.y);
+                StartCoroutine(DelayMovement(x - 1, y, false, false, true, false));
+            }
+            else if (distanceRight < distanceBottom && distanceRight < distanceLeft && distanceRight < distanceTop && !facingLeft && !dontGoRight)
+            {
+                transform.position = new Vector2(transform.position.x + 1, transform.position.y);
+                StartCoroutine(DelayMovement(x + 1, y, false, false, false, true));
+            }
         }
-        else if (distanceBottom < distanceTop && distanceBottom <= distanceLeft && distanceBottom <= distanceRight && !facingUp)
+        else
         {
-            transform.position = new Vector2(transform.position.x, transform.position.y - 1);
-            WalkingTowardsTarget(x, y + 1, false, true, false, false);
+            tileData.DeselectMovement();
+            wait = true;
         }
-        else if (distanceLeft < distanceBottom && distanceLeft < distanceTop && distanceLeft <= distanceRight && !facingRight)
-        {
-            transform.position = new Vector2(transform.position.x - 1, transform.position.y);
-            WalkingTowardsTarget(x - 1, y, false, false, true, false);
-        }
-        else if (distanceRight < distanceBottom && distanceRight < distanceLeft && distanceRight < distanceTop && !facingLeft)
-        {
-            transform.position = new Vector2(transform.position.x + 1, transform.position.y);
-            WalkingTowardsTarget(x + 1, y, false, false, false, true);
-        }
+    }
+
+    private IEnumerator DelayMovement(int x, int y, bool facingUp, bool facingDown, bool facingLeft, bool facingRight)
+    {
+        yield return new WaitForSeconds(0.4f);
+        WalkingTowardsTarget(x, y, facingUp, facingDown, facingLeft, facingRight);
     }
 
     private Transform GetClosestPlayer(List<GameObject> players)
