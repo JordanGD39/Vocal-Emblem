@@ -57,22 +57,52 @@ public class EnemyAI : MonoBehaviour
 
     private void WalkingTowardsTarget(int x, int y)
     {
-        float distanceTop = 0;
-        float distanceBottom = 0;
-        float distanceLeft = 0;
-        float distanceRight = 0;
+        float distanceTop = 99;
+        float distanceBottom = 99;
+        float distanceLeft = 99;
+        float distanceRight = 99;
 
-        if (y - 1 > -1 && !tileData.rowsMovement[-y - 1].transform.GetChild(x).CompareTag("MoveTileRed"))
+        bool facingUp = false;
+        bool facingDown = false;
+        bool facingLeft = false;
+        bool facingRight = false;
+
+        if (y - 1 > -1 && tileData.rowsMovement[-y - 1].transform.GetChild(x).CompareTag("MoveTile"))
         {
             distanceTop = Mathf.Abs(transform.position.x - target.position.x) + Mathf.Abs((transform.position.y - 1) - target.position.y);
         }
-        distanceBottom = Mathf.Abs(transform.position.x - target.position.x) + Mathf.Abs((transform.position.y + 1) - target.position.y);
-        distanceLeft = Mathf.Abs((transform.position.x - 1) - target.position.x) + Mathf.Abs(transform.position.y - target.position.y);
-        distanceRight = Mathf.Abs((transform.position.x + 1) - target.position.x) + Mathf.Abs(transform.position.y - target.position.y);
-
-        if (distanceTop < distanceBottom && distanceTop < distanceLeft && distanceTop < distanceRight)
+        if (y + 1 < tileData.rowsMovement.Count && tileData.rowsMovement[-y + 1].transform.GetChild(x).CompareTag("MoveTile"))
         {
-            transform.position = new Vector2(0, transform.position.y - 1);
+            distanceBottom = Mathf.Abs(transform.position.x - target.position.x) + Mathf.Abs((transform.position.y + 1) - target.position.y);
+        }
+        if (x - 1 > -1 && tileData.rowsMovement[-y].transform.GetChild(x - 1).CompareTag("MoveTile"))
+        {
+            distanceLeft = Mathf.Abs((transform.position.x - 1) - target.position.x) + Mathf.Abs(transform.position.y - target.position.y);
+        }
+        if (x + 1 < tileData.rowsMovement[-y].transform.childCount && tileData.rowsMovement[-y].transform.GetChild(x - 1).CompareTag("MoveTile"))
+        {
+            distanceRight = Mathf.Abs((transform.position.x + 1) - target.position.x) + Mathf.Abs(transform.position.y - target.position.y);
+        }        
+
+        if (distanceTop < distanceBottom && distanceTop < distanceLeft && distanceTop < distanceRight && !facingDown)
+        {
+            transform.position = new Vector2(transform.position.x, transform.position.y - 1);
+            facingUp = true;
+        }
+        if (distanceBottom < distanceTop && distanceBottom < distanceLeft && distanceBottom < distanceRight && !facingUp)
+        {
+            transform.position = new Vector2(transform.position.x, transform.position.y + 1);
+            facingDown = true;
+        }
+        if (distanceLeft < distanceBottom && distanceLeft < distanceTop && distanceLeft < distanceRight && !facingRight)
+        {
+            transform.position = new Vector2(transform.position.x - 1, transform.position.y);
+            facingLeft = true;
+        }
+        if (distanceRight < distanceBottom && distanceRight < distanceLeft && distanceRight < distanceTop && !facingLeft)
+        {
+            transform.position = new Vector2(transform.position.x + 1, transform.position.y);
+            facingRight = true;
         }
     }
 
