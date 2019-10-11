@@ -82,7 +82,7 @@ public class BattleStateMachine : MonoBehaviour
     {
         for (int i = 0; i < tileData.enemiesInGame.Count; i++)
         {
-            tileData.enemiesInGame[i].GetComponent<EnemyAI>().wait = false;            
+            tileData.enemiesInGame[i].GetComponent<EnemyAI>().wait = false;
         }
     }
 
@@ -96,6 +96,7 @@ public class BattleStateMachine : MonoBehaviour
         {
             RemoveWaitPlayer();
             allAreWaiting = false;
+            enemyIndex = 0;
             phase = battlePhase.PLAYER;
         }
     }

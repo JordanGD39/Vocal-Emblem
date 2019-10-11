@@ -100,6 +100,7 @@ public class EnemyAI : MonoBehaviour
         }
         if (tileData.currMap[-y - 1, x] > wall && tileData.currMapCharPos[-y - 1, x] == 0 && tileData.rowsMovement[-y - 1].transform.GetChild(x).CompareTag("MoveTileRed"))
         {
+            Debug.Log("BlockU");
             dontGoUp = true;
             dontGoDown = true;
             dontGoLeft = true;
@@ -115,10 +116,11 @@ public class EnemyAI : MonoBehaviour
         {
             dontGoDown = true;
             distanceBottom = 99;
-            Debug.Log("D " + distanceBottom);
+            Debug.Log("D");
         }
         if (tileData.currMap[-y + 1, x] > wall && tileData.currMapCharPos[-y + 1, x] == 0 && tileData.rowsMovement[-y + 1].transform.GetChild(x).CompareTag("MoveTileRed"))
         {
+            Debug.Log("BlockD");
             dontGoUp = true;
             dontGoDown = true;
             dontGoLeft = true;

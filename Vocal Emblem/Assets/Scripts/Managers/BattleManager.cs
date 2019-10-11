@@ -211,6 +211,17 @@ public class BattleManager : MonoBehaviour
             enemySprite.GetComponent<Animator>().Play("Idle");
             if (player.hp <= 0)
             {
+                tileData.currMapCharPos[Mathf.RoundToInt(-player.transform.position.y + 0.5f), Mathf.RoundToInt(player.transform.position.x - 0.5f)] = 0;
+
+                if (damageHolder == playerBattle)
+                {
+                    tileData.players.Remove(player.gameObject);
+                }
+                else
+                {
+                    tileData.enemiesInGame.Remove(player.gameObject);
+                }
+
                 Destroy(player.gameObject);
 
                 yield return new WaitForSeconds(1);
@@ -221,7 +232,6 @@ public class BattleManager : MonoBehaviour
                 if(damageHolder == enemyBattle)
                 {
                     tileData.DeselectMovement();
-                    BSM.enemyIndex++;
                     BSM.GiveTurnToAI();
                 }
             }
@@ -243,7 +253,6 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         if (damageHolder != null)
         {
-
             if (player.hp > 0 && enemy.hp > 0 && damageHolder.GetComponent<Attack>().doubling == 2 && i == 1 || enemy.hp > 0 && damageHolder.GetComponent<Attack>().doubling == 4 && i == 1 || enemy.hp > 0 && damageHolder.GetComponent<Attack>().doubling == 4 && i == 2 || enemy.hp > 0 && damageHolder.GetComponent<Attack>().doubling == 4 && i == 4 && twiceFourDoubling)
             {
                 int j = 0;
