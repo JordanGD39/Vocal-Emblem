@@ -6,8 +6,11 @@ public class EnemyAI : MonoBehaviour
 {
     public bool wait = false;
     public bool current = false;
+    private int wall = 0;
+    public int charId = 2;
 
     private TileData tileData;
+    private BattleStateMachine BSM;
     private Stats stats;
 
     [SerializeField] private Transform target;
@@ -16,6 +19,7 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         tileData = GameObject.FindGameObjectWithTag("TileManager").GetComponent<TileData>();
+        BSM = GameManager.instance.GetComponent<BattleStateMachine>();
         stats = GetComponent<Stats>();
         stats.equippedWeapon = stats.weapons[0];
     }
@@ -23,7 +27,14 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        if (stats.typeMovement == Stats.movementType.FLIER)
+        {
+            wall = -20;
+        }
+        else
+        {
+            wall = 0;
+        }
     }
 
     public void Selected()
@@ -50,17 +61,25 @@ public class EnemyAI : MonoBehaviour
             Selected();
 
             target = GetClosestPlayer(tileData.players);
-
-            WalkingTowardsTarget(x, y, false, false, false, false);
+            if (target != null)
+            {
+                WalkingTowardsTarget(x, y, false, false, false, false);
+            }
         }        
     }
 
     private void WalkingTowardsTarget(int x, int y, bool facingUp, bool facingDown, bool facingLeft, bool facingRight)
     {
+        bool inRange = false;
+
         float distanceTop = 100;
         float distanceBottom = 99;
         float distanceLeft = 98;
         float distanceRight = 97;
+        float distanceTopAbs = 100;
+        float distanceBottomAbs = 99;
+        float distanceLeftAbs = 98;
+        float distanceRightAbs = 97;
 
         bool dontGoUp = false;
         bool dontGoDown = false;
@@ -70,68 +89,111 @@ public class EnemyAI : MonoBehaviour
         if (-y - 1 > -1)
         {
             distanceTop = Mathf.Abs(transform.position.x - target.position.x) + Mathf.Abs((transform.position.y + 1) - target.position.y);
+            distanceTopAbs = distanceTop;
             Debug.Log("top " + distanceTop + -y);
         }
-        if(-y - 1 < 0 || !tileData.rowsMovement[-y - 1].transform.GetChild(x).CompareTag("MoveTile"))
+        if(-y - 1 < 0 || !tileData.rowsMovement[-y - 1].transform.GetChild(x).CompareTag("MoveTile") || facingDown)
         {
             dontGoUp = true;
+            distanceTop = 100;
+            Debug.Log("U");
+        }
+        if (tileData.currMap[-y - 1, x] > wall && tileData.currMapCharPos[-y - 1, x] == 0 && tileData.rowsMovement[-y - 1].transform.GetChild(x).CompareTag("MoveTileRed"))
+        {
+            dontGoUp = true;
+            dontGoDown = true;
+            dontGoLeft = true;
+            dontGoRight = true;
         }
         if (-y + 1 < tileData.rowsMovement.Count)
         {
             distanceBottom = Mathf.Abs(transform.position.x - target.position.x) + Mathf.Abs((transform.position.y - 1) - target.position.y);
+            distanceBottomAbs = distanceBottom;
             Debug.Log("bottom " + distanceBottom);
         }
-        if(-y + 1 >= tileData.rowsMovement.Count || !tileData.rowsMovement[-y + 1].transform.GetChild(x).CompareTag("MoveTile"))
+        if(-y + 1 >= tileData.rowsMovement.Count || !tileData.rowsMovement[-y + 1].transform.GetChild(x).CompareTag("MoveTile") || facingUp)
         {
             dontGoDown = true;
+            distanceBottom = 99;
+            Debug.Log("D " + distanceBottom);
+        }
+        if (tileData.currMap[-y + 1, x] > wall && tileData.currMapCharPos[-y + 1, x] == 0 && tileData.rowsMovement[-y + 1].transform.GetChild(x).CompareTag("MoveTileRed"))
+        {
+            dontGoUp = true;
+            dontGoDown = true;
+            dontGoLeft = true;
+            dontGoRight = true;
         }
         if (x - 1 > -1)
         {
             distanceLeft = Mathf.Abs((transform.position.x - 1) - target.position.x) + Mathf.Abs(transform.position.y - target.position.y);
+            distanceLeftAbs = distanceLeft;
             Debug.Log("left " + distanceLeft);
         }
-        if(x - 1 < 0 || !tileData.rowsMovement[-y].transform.GetChild(x - 1).CompareTag("MoveTile"))
+        if(x - 1 < 0 || !tileData.rowsMovement[-y].transform.GetChild(x - 1).CompareTag("MoveTile") || facingRight)
         {
             dontGoLeft = true;
+            distanceLeft = 98;
+            Debug.Log("L");
         }
         if (x + 1 < tileData.rowsMovement[-y].transform.childCount)
         {
             distanceRight = Mathf.Abs((transform.position.x + 1) - target.position.x) + Mathf.Abs(transform.position.y - target.position.y);
+            distanceRightAbs = distanceRight;
             Debug.Log("right " + distanceRight);
         }
-        if(x + 1 >= tileData.rowsMovement[-y].transform.childCount || !tileData.rowsMovement[-y].transform.GetChild(x + 1).CompareTag("MoveTile"))
+        if(x + 1 >= tileData.rowsMovement[-y].transform.childCount || !tileData.rowsMovement[-y].transform.GetChild(x + 1).CompareTag("MoveTile") || facingLeft)
         {
             dontGoRight = true;
+            distanceRight = 97;
+            Debug.Log("R");
         }
 
-        if (distanceTop >= stats.equippedWeapon.range && distanceBottom >= stats.equippedWeapon.range && distanceLeft >= stats.equippedWeapon.range && distanceRight >= stats.equippedWeapon.range && !dontGoDown && !dontGoLeft && !dontGoRight && !dontGoUp)
+        if (distanceTopAbs < stats.equippedWeapon.range || distanceBottomAbs < stats.equippedWeapon.range || distanceLeftAbs < stats.equippedWeapon.range || distanceRightAbs < stats.equippedWeapon.range)
+        {
+            inRange = true;
+            tileData.DeselectMovement();
+            GetComponent<Attack>().CheckAttackRange();            
+        }
+
+        if (distanceTop >= stats.equippedWeapon.range && distanceBottom >= stats.equippedWeapon.range && distanceLeft >= stats.equippedWeapon.range && distanceRight >= stats.equippedWeapon.range && !inRange)
         {
             if (distanceTop <= distanceBottom && distanceTop <= distanceLeft && distanceTop <= distanceRight && !facingDown && !dontGoUp)
             {
-                transform.position = new Vector2(transform.position.x, transform.position.y + 1);
+                tileData.currMapCharPos[-y, x] = 0;
+                tileData.currMapCharPos[-y - 1, x] = charId;
+                transform.position = new Vector2(transform.position.x, transform.position.y + 1);                
                 StartCoroutine(DelayMovement(x, y + 1, true, false, false, false));
             }
             else if (distanceBottom < distanceTop && distanceBottom <= distanceLeft && distanceBottom <= distanceRight && !facingUp && !dontGoDown)
             {
+                tileData.currMapCharPos[-y, x] = 0;
                 transform.position = new Vector2(transform.position.x, transform.position.y - 1);
+                tileData.currMapCharPos[-y + 1, x] = charId;
                 StartCoroutine(DelayMovement(x, y - 1, false, true, false, false));
             }
             else if (distanceLeft < distanceBottom && distanceLeft < distanceTop && distanceLeft <= distanceRight && !facingRight && !dontGoLeft)
             {
+                tileData.currMapCharPos[-y, x] = 0;
                 transform.position = new Vector2(transform.position.x - 1, transform.position.y);
+                tileData.currMapCharPos[-y, x - 1] = charId;
                 StartCoroutine(DelayMovement(x - 1, y, false, false, true, false));
             }
             else if (distanceRight < distanceBottom && distanceRight < distanceLeft && distanceRight < distanceTop && !facingLeft && !dontGoRight)
             {
+                tileData.currMapCharPos[-y, x] = 0;
                 transform.position = new Vector2(transform.position.x + 1, transform.position.y);
+                tileData.currMapCharPos[-y, x + 1] = charId;
                 StartCoroutine(DelayMovement(x + 1, y, false, false, false, true));
             }
-        }
-        else
-        {
+        }       
+
+        if (dontGoDown && dontGoLeft && dontGoRight && dontGoUp && !tileData.rowsMovement[-Mathf.RoundToInt(target.position.y + 0.5f)].transform.GetChild(Mathf.RoundToInt(target.position.x - 0.5f)).CompareTag("MoveTileRed") && !inRange)
+        {            
             tileData.DeselectMovement();
-            wait = true;
-        }
+            BSM.enemyIndex++;
+            BSM.GiveTurnToAI();
+        }             
     }
 
     private IEnumerator DelayMovement(int x, int y, bool facingUp, bool facingDown, bool facingLeft, bool facingRight)
@@ -143,15 +205,19 @@ public class EnemyAI : MonoBehaviour
     private Transform GetClosestPlayer(List<GameObject> players)
     {
         Transform tMin = null;
-        float minDist = Mathf.Infinity;
-        Vector3 currentPos = transform.position;
-        foreach (GameObject t in players)
+
+        if (players.Count > 0)
         {
-            float dist = Vector3.Distance(t.transform.position, currentPos);
-            if (dist < minDist)
+            float minDist = Mathf.Infinity;
+            Vector3 currentPos = transform.position;
+            foreach (GameObject t in players)
             {
-                tMin = t.transform;
-                minDist = dist;
+                float dist = Vector3.Distance(t.transform.position, currentPos);
+                if (dist < minDist)
+                {
+                    tMin = t.transform;
+                    minDist = dist;
+                }
             }
         }
         return tMin;

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4350054987513650380}
   - component: {fileID: 8224248689031234775}
   - component: {fileID: 993514386999784897}
+  - component: {fileID: 5783335043989060182}
   m_Layer: 0
   m_Name: EnemyAxeTest
   m_TagString: Enemy
@@ -158,3 +159,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wait: 0
+  current: 0
+  target: {fileID: 0}
+--- !u!114 &5783335043989060182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4350054987513650352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbabe8492e5bead428d68683076fdb0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  triangleBonus: 0
+  triangleBonusEnemy: 0
+  damage: 0
+  acc: 0
+  crit: 0
+  doubling: 0
+  enemyDamage: 0
+  enemyAcc: 0
+  enemyCrit: 0
+  enemyDoubling: 0
+  distance: 0
+  enemies: []
+  indexEnemies: 0

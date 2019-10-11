@@ -141,6 +141,12 @@ public class Cursor : MonoBehaviour
         }
     }
 
+    public void EnemyFight(GameObject enemy)
+    {
+        battlePanel.SetActive(true);
+        BM.Battle(enemy.GetComponent<Attack>().target.GetComponent<Stats>(), enemy.GetComponent<Stats>(), enemy.GetComponent<Attack>().distance, false);
+    }
+
     public IEnumerator DoneCalcStats()
     {        
         yield return new WaitForSeconds(0.2f);

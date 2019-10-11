@@ -22497,6 +22497,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTeam:
   - {fileID: 5688887431750110, guid: 7498ab7d77cd5804db0829db952a8029, type: 3}
+  - {fileID: 5430091063341046885, guid: a4dbef6c135e8414b898f5bd5f539fe6, type: 3}
   allyTeam: []
   enemies:
   - {fileID: 3883678266622189149, guid: dd33ae1ca6c189a458923e9a5d427a42, type: 3}
@@ -22518,6 +22519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   phase: 0
+  enemyIndex: 0
 --- !u!1 &1526976131
 GameObject:
   m_ObjectHideFlags: 0

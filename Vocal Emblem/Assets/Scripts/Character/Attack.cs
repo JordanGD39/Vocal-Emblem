@@ -41,7 +41,7 @@ public class Attack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (target != null && cursor.GetComponent<Cursor>().attackPanel.activeSelf && cursor.GetComponent<Cursor>().currSelectedChar == gameObject)
+        if (target != null && cursor.GetComponent<Cursor>().attackPanel.activeSelf && cursor.GetComponent<Cursor>().currSelectedChar == gameObject && gameObject.CompareTag("Player"))
         {
             if (Input.GetButtonDown("Horizontal") && Input.GetAxis("Horizontal") > 0)
             {
@@ -87,13 +87,25 @@ public class Attack : MonoBehaviour
 
     public void CheckAttackRange()
     {
-        enemies = tileData.CheckEnemiesInRange(Mathf.RoundToInt(transform.position.x - 0.5f), Mathf.RoundToInt(transform.position.y - 0.5f), stats.equippedWeapon.range, stats.equippedWeapon.rangeOneAndTwo);
+        if (gameObject.CompareTag("Player"))
+        {
+            enemies = tileData.CheckEnemiesInRange(Mathf.RoundToInt(transform.position.x - 0.5f), Mathf.RoundToInt(transform.position.y - 0.5f), stats.equippedWeapon.range, stats.equippedWeapon.rangeOneAndTwo, true);
+        }
+        else
+        {
+            enemies = tileData.CheckEnemiesInRange(Mathf.RoundToInt(transform.position.x - 0.5f), Mathf.RoundToInt(transform.position.y - 0.5f), stats.equippedWeapon.range, stats.equippedWeapon.rangeOneAndTwo, false);
+        }
+
         if (enemies.Count > 0)
         {
             cursor.transform.position = enemies[indexEnemies].transform.position;
             target = enemies[indexEnemies];
-            cursor.GetComponent<Cursor>().selectPanel.SetActive(false);
-            cursor.GetComponent<Cursor>().attackPanel.SetActive(true);
+
+            if (gameObject.CompareTag("Player"))
+            {
+                cursor.GetComponent<Cursor>().selectPanel.SetActive(false);
+                cursor.GetComponent<Cursor>().attackPanel.SetActive(true);
+            }
 
             Transform attackPanel = cursor.GetComponent<Cursor>().attackPanel.transform;            
             Transform statsPanel = null;
@@ -147,314 +159,321 @@ public class Attack : MonoBehaviour
                 enemyCrit = CalcCritHit(enemyCritRate, critEvade);
             }
 
-            for (int i = 0; i < attackPanel.childCount; i++)
+            if (gameObject.CompareTag("Player"))
             {
-                if (attackPanel.GetChild(i).name == "Stats")
+                for (int i = 0; i < attackPanel.childCount; i++)
                 {
-                    statsPanel = attackPanel.GetChild(i);
-                    Debug.Log("StatsFound");
-                }
-                else if (attackPanel.GetChild(i).name == "Weapon")
-                {
-                    weaponPanel = attackPanel.GetChild(i);
-
-                    for (int j = 0; j < weaponPanel.childCount; j++)
+                    if (attackPanel.GetChild(i).name == "Stats")
                     {
-                        if (weaponPanel.GetChild(j).name == "Weapon")
-                        {
-                            Transform weaponEmpty = weaponPanel.GetChild(j);
+                        statsPanel = attackPanel.GetChild(i);
+                        Debug.Log("StatsFound");
+                    }
+                    else if (attackPanel.GetChild(i).name == "Weapon")
+                    {
+                        weaponPanel = attackPanel.GetChild(i);
 
-                            for (int k = 0; k < weaponEmpty.childCount; k++)
+                        for (int j = 0; j < weaponPanel.childCount; j++)
+                        {
+                            if (weaponPanel.GetChild(j).name == "Weapon")
                             {
-                                if (weaponEmpty.GetChild(k).name == "Text")
+                                Transform weaponEmpty = weaponPanel.GetChild(j);
+
+                                for (int k = 0; k < weaponEmpty.childCount; k++)
                                 {
-                                    weaponEmpty.GetChild(k).GetComponent<Text>().text = stats.equippedWeapon.weaponName;
+                                    if (weaponEmpty.GetChild(k).name == "Text")
+                                    {
+                                        weaponEmpty.GetChild(k).GetComponent<Text>().text = stats.equippedWeapon.weaponName;
+                                    }
+                                    else if (weaponEmpty.GetChild(k).name == "Dur")
+                                    {
+                                        weaponEmpty.GetChild(k).GetComponent<Text>().text = stats.equippedWeapon.uses.ToString();
+                                    }
                                 }
-                                else if (weaponEmpty.GetChild(k).name == "Dur")
+                            }
+                            else if (weaponPanel.GetChild(j).name == "Arrow")
+                            {
+                                Image arrow = weaponPanel.GetChild(j).GetComponent<Image>();
+
+                                if (triangleBonus == 15)
                                 {
-                                    weaponEmpty.GetChild(k).GetComponent<Text>().text = stats.equippedWeapon.uses.ToString();
+                                    arrow.gameObject.SetActive(true);
+                                    arrow.transform.rotation = Quaternion.Euler(0, 0, 0);
+                                    arrow.color = new Color32(105, 255, 102, 255);
                                 }
-                            }                            
+                                else if (triangleBonus == 0)
+                                {
+                                    arrow.gameObject.SetActive(false);
+                                }
+                                else if (triangleBonus == -15)
+                                {
+                                    arrow.gameObject.SetActive(true);
+                                    arrow.transform.rotation = Quaternion.Euler(0, 0, 180);
+                                    arrow.color = new Color32(255, 104, 102, 255);
+                                }
+                            }
                         }
-                        else if (weaponPanel.GetChild(j).name == "Arrow")
-                        {
-                            Image arrow = weaponPanel.GetChild(j).GetComponent<Image>();
+                    }
+                    else if (attackPanel.GetChild(i).name == "EnemyWeapon")
+                    {
+                        weaponPanel = attackPanel.GetChild(i);
 
-                            if (triangleBonus == 15)
+                        for (int j = 0; j < weaponPanel.childCount; j++)
+                        {
+                            if (weaponPanel.GetChild(j).name == "Weapon")
                             {
-                                arrow.gameObject.SetActive(true);
-                                arrow.transform.rotation = Quaternion.Euler(0, 0, 0);
-                                arrow.color = new Color32(105,255,102,255);
+                                Transform weaponEmpty = weaponPanel.GetChild(j);
+
+                                weaponEmpty.GetComponentInChildren<Text>().text = target.GetComponent<Stats>().equippedWeapon.weaponName;
                             }
-                            else if (triangleBonus == 0)
+                            else if (weaponPanel.GetChild(j).name == "Arrow")
                             {
-                                arrow.gameObject.SetActive(false);
-                            }
-                            else if(triangleBonus == -15)
-                            {
-                                arrow.gameObject.SetActive(true);
-                                arrow.transform.rotation = Quaternion.Euler(0, 0, 180);
-                                arrow.color = new Color32(255, 104, 102, 255);
+                                Image arrow = weaponPanel.GetChild(j).GetComponent<Image>();
+
+                                if (triangleBonusEnemy == 15)
+                                {
+                                    arrow.gameObject.SetActive(true);
+                                    arrow.transform.rotation = Quaternion.Euler(0, 0, 0);
+                                    arrow.color = new Color32(105, 255, 102, 255);
+                                }
+                                else if (triangleBonusEnemy == 0)
+                                {
+                                    arrow.gameObject.SetActive(false);
+                                }
+                                else if (triangleBonusEnemy == -15)
+                                {
+                                    arrow.gameObject.SetActive(true);
+                                    arrow.transform.rotation = Quaternion.Euler(0, 0, 180);
+                                    arrow.color = new Color32(255, 104, 102, 255);
+                                }
                             }
                         }
                     }
                 }
-                else if (attackPanel.GetChild(i).name == "EnemyWeapon")
+
+                for (int i = 0; i < statsPanel.childCount; i++)
                 {
-                    weaponPanel = attackPanel.GetChild(i);
-
-                    for (int j = 0; j < weaponPanel.childCount; j++)
+                    switch (statsPanel.GetChild(i).name)
                     {
-                        if (weaponPanel.GetChild(j).name == "Weapon")
-                        {
-                            Transform weaponEmpty = weaponPanel.GetChild(j);
+                        case "HP":
+                            hpPanel = statsPanel.GetChild(i);
 
-                            weaponEmpty.GetComponentInChildren<Text>().text = target.GetComponent<Stats>().equippedWeapon.weaponName;
-                        }
-                        else if (weaponPanel.GetChild(j).name == "Arrow")
-                        {
-                            Image arrow = weaponPanel.GetChild(j).GetComponent<Image>();
+                            for (int j = 0; j < hpPanel.childCount; j++)
+                            {
+                                if (hpPanel.GetChild(j).name == "PlayerHPbar")
+                                {
+                                    Debug.Log(hpPanel.GetChild(j));
+                                    for (int k = 0; k < hpPanel.GetChild(j).childCount; k++)
+                                    {
+                                        if (hpPanel.GetChild(j).GetChild(k).name == "Health")
+                                        {
+                                            Image bar = hpPanel.GetChild(j).GetChild(k).GetComponent<Image>();
+                                            bar.fillAmount = stats.hp / stats.maxHP;
+                                        }
+                                        else if (hpPanel.GetChild(j).GetChild(k).name == "HealthAfterAttack")
+                                        {
+                                            float healthAfterAttack = stats.hp - (enemyDamage * enemyDoubling);
+                                            if (healthAfterAttack < 0)
+                                            {
+                                                healthAfterAttack = 0;
+                                            }
 
-                            if (triangleBonusEnemy == 15)
-                            {
-                                arrow.gameObject.SetActive(true);
-                                arrow.transform.rotation = Quaternion.Euler(0, 0, 0);
-                                arrow.color = new Color32(105, 255, 102, 255);
+                                            Image bar = hpPanel.GetChild(j).GetChild(k).GetComponent<Image>();
+                                            bar.fillAmount = healthAfterAttack / stats.maxHP;
+                                        }
+                                        else if (hpPanel.GetChild(j).GetChild(k).name == "Text")
+                                        {
+                                            Text hp = hpPanel.GetChild(j).GetChild(k).GetComponent<Text>();
+                                            hp.text = stats.hp.ToString();
+                                        }
+                                        else if (hpPanel.GetChild(j).GetChild(k).name == "TextAfterAttack")
+                                        {
+                                            float healthAfterAttack = stats.hp - (enemyDamage * enemyDoubling);
+                                            if (healthAfterAttack < 0)
+                                            {
+                                                healthAfterAttack = 0;
+                                            }
+
+                                            Text hp = hpPanel.GetChild(j).GetChild(k).GetComponent<Text>();
+                                            hp.text = healthAfterAttack.ToString();
+                                        }
+                                    }
+                                }
+                                else if (hpPanel.GetChild(j).name == "EnemyHPbar")
+                                {
+                                    for (int k = 0; k < hpPanel.GetChild(j).childCount; k++)
+                                    {
+                                        if (hpPanel.GetChild(j).GetChild(k).name == "Health")
+                                        {
+                                            Image bar = hpPanel.GetChild(j).GetChild(k).GetComponent<Image>();
+                                            bar.fillAmount = target.GetComponent<Stats>().hp / target.GetComponent<Stats>().maxHP;
+                                        }
+                                        else if (hpPanel.GetChild(j).GetChild(k).name == "HealthAfterAttack")
+                                        {
+                                            float healthAfterAttack = target.GetComponent<Stats>().hp - (damage * doubling);
+                                            if (healthAfterAttack < 0)
+                                            {
+                                                healthAfterAttack = 0;
+                                            }
+
+                                            Image bar = hpPanel.GetChild(j).GetChild(k).GetComponent<Image>();
+                                            bar.fillAmount = healthAfterAttack / target.GetComponent<Stats>().maxHP;
+                                        }
+                                        else if (hpPanel.GetChild(j).GetChild(k).name == "Text")
+                                        {
+                                            Text hp = hpPanel.GetChild(j).GetChild(k).GetComponent<Text>();
+                                            hp.text = target.GetComponent<Stats>().hp.ToString();
+                                        }
+                                        else if (hpPanel.GetChild(j).GetChild(k).name == "TextAfterAttack")
+                                        {
+                                            float healthAfterAttack = target.GetComponent<Stats>().hp - (damage * doubling);
+                                            if (healthAfterAttack < 0)
+                                            {
+                                                healthAfterAttack = 0;
+                                            }
+
+                                            Text hp = hpPanel.GetChild(j).GetChild(k).GetComponent<Text>();
+                                            hp.text = healthAfterAttack.ToString("F0");
+                                        }
+                                    }
+                                }
                             }
-                            else if (triangleBonusEnemy == 0)
+                            break;
+                        case "MT":
+                            mtPanel = statsPanel.GetChild(i);
+
+                            for (int j = 0; j < mtPanel.childCount; j++)
                             {
-                                arrow.gameObject.SetActive(false);
+                                if (mtPanel.GetChild(j).name == "PlayerMT")
+                                {
+                                    Debug.Log(mtPanel.GetChild(j));
+                                    for (int k = 0; k < mtPanel.GetChild(j).childCount; k++)
+                                    {
+                                        if (mtPanel.GetChild(j).GetChild(k).name == "Text")
+                                        {
+                                            Text mt = mtPanel.GetChild(j).GetChild(k).GetComponent<Text>();
+                                            mt.text = damage.ToString();
+                                            Debug.Log("Damage: " + damage);
+                                        }
+                                        else if (mtPanel.GetChild(j).GetChild(k).name == "X2")
+                                        {
+                                            GameObject x2 = mtPanel.GetChild(j).GetChild(k).gameObject;
+                                            x2.SetActive(false);
+
+                                            switch (doubling)
+                                            {
+                                                case 2:
+                                                    x2.SetActive(true);
+                                                    break;
+                                                case 4:
+                                                    x2.SetActive(true);
+                                                    x2.GetComponentInChildren<Text>().text = "x4";
+                                                    break;
+                                            }
+                                        }
+                                    }
+                                }
+                                else if (mtPanel.GetChild(j).name == "EnemyMT")
+                                {
+                                    Debug.Log(mtPanel.GetChild(j));
+                                    for (int k = 0; k < mtPanel.GetChild(j).childCount; k++)
+                                    {
+                                        if (mtPanel.GetChild(j).GetChild(k).name == "Text")
+                                        {
+                                            Text mt = mtPanel.GetChild(j).GetChild(k).GetComponent<Text>();
+                                            mt.text = enemyDamage.ToString();
+                                            Debug.Log("EnemyDamage: " + enemyDamage);
+                                        }
+                                        else if (mtPanel.GetChild(j).GetChild(k).name == "X2")
+                                        {
+                                            GameObject x2 = mtPanel.GetChild(j).GetChild(k).gameObject;
+                                            x2.SetActive(false);
+
+                                            switch (enemyDoubling)
+                                            {
+                                                case 2:
+                                                    x2.SetActive(true);
+                                                    break;
+                                                case 4:
+                                                    x2.SetActive(true);
+                                                    x2.GetComponentInChildren<Text>().text = "x4";
+                                                    break;
+                                            }
+                                        }
+                                    }
+                                }
                             }
-                            else if (triangleBonusEnemy == -15)
+                            break;
+                        case "Hit":
+                            hitPanel = statsPanel.GetChild(i);
+
+                            for (int j = 0; j < hitPanel.childCount; j++)
                             {
-                                arrow.gameObject.SetActive(true);
-                                arrow.transform.rotation = Quaternion.Euler(0, 0, 180);
-                                arrow.color = new Color32(255, 104, 102, 255);
+                                if (hitPanel.GetChild(j).name == "Player")
+                                {
+                                    Debug.Log(hitPanel.GetChild(j));
+                                    for (int k = 0; k < hitPanel.GetChild(j).childCount; k++)
+                                    {
+                                        if (hitPanel.GetChild(j).GetChild(k).name == "Text")
+                                        {
+                                            Text hitTxt = hitPanel.GetChild(j).GetChild(k).GetComponent<Text>();
+                                            hitTxt.text = acc.ToString("F0");
+                                        }
+                                    }
+                                }
+                                else if (hitPanel.GetChild(j).name == "Enemy")
+                                {
+                                    Debug.Log(hitPanel.GetChild(j));
+                                    for (int k = 0; k < hitPanel.GetChild(j).childCount; k++)
+                                    {
+                                        if (hitPanel.GetChild(j).GetChild(k).name == "Text")
+                                        {
+                                            Text hitTxt = hitPanel.GetChild(j).GetChild(k).GetComponent<Text>();
+                                            hitTxt.text = enemyAcc.ToString("F0");
+                                        }
+                                    }
+                                }
                             }
-                        }
+                            break;
+                        case "Crit":
+                            critPanel = statsPanel.GetChild(i);
+
+                            for (int j = 0; j < critPanel.childCount; j++)
+                            {
+                                if (critPanel.GetChild(j).name == "Player")
+                                {
+                                    Debug.Log(critPanel.GetChild(j));
+                                    for (int k = 0; k < critPanel.GetChild(j).childCount; k++)
+                                    {
+                                        if (critPanel.GetChild(j).GetChild(k).name == "Text")
+                                        {
+                                            Text critTxt = critPanel.GetChild(j).GetChild(k).GetComponent<Text>();
+                                            critTxt.text = crit.ToString("F0");
+                                        }
+                                    }
+                                }
+                                else if (critPanel.GetChild(j).name == "Enemy")
+                                {
+                                    Debug.Log(critPanel.GetChild(j));
+                                    for (int k = 0; k < critPanel.GetChild(j).childCount; k++)
+                                    {
+                                        if (critPanel.GetChild(j).GetChild(k).name == "Text")
+                                        {
+                                            Text critTxt = critPanel.GetChild(j).GetChild(k).GetComponent<Text>();
+                                            critTxt.text = enemyCrit.ToString("F0");
+                                        }
+                                    }
+                                }
+                            }
+                            break;
                     }
                 }
             }
-
-            for (int i = 0; i < statsPanel.childCount; i++)
-            {
-                switch (statsPanel.GetChild(i).name)
-                {
-                    case "HP":
-                        hpPanel = statsPanel.GetChild(i);
-
-                        for (int j = 0; j < hpPanel.childCount; j++)
-                        {
-                            if (hpPanel.GetChild(j).name == "PlayerHPbar")
-                            {
-                                Debug.Log(hpPanel.GetChild(j));
-                                for (int k = 0; k < hpPanel.GetChild(j).childCount; k++)
-                                {
-                                    if (hpPanel.GetChild(j).GetChild(k).name == "Health")
-                                    {
-                                        Image bar = hpPanel.GetChild(j).GetChild(k).GetComponent<Image>();
-                                        bar.fillAmount = stats.hp / stats.maxHP;
-                                    }
-                                    else if(hpPanel.GetChild(j).GetChild(k).name == "HealthAfterAttack")
-                                    {
-                                        float healthAfterAttack = stats.hp - (enemyDamage * enemyDoubling);
-                                        if (healthAfterAttack < 0)
-                                        {
-                                            healthAfterAttack = 0;
-                                        }
-
-                                        Image bar = hpPanel.GetChild(j).GetChild(k).GetComponent<Image>();
-                                        bar.fillAmount = healthAfterAttack / stats.maxHP;
-                                    }
-                                    else if(hpPanel.GetChild(j).GetChild(k).name == "Text")
-                                    {
-                                        Text hp = hpPanel.GetChild(j).GetChild(k).GetComponent<Text>();
-                                        hp.text = stats.hp.ToString();
-                                    }
-                                    else if(hpPanel.GetChild(j).GetChild(k).name == "TextAfterAttack")
-                                    {
-                                        float healthAfterAttack = stats.hp - (enemyDamage * enemyDoubling);
-                                        if (healthAfterAttack < 0)
-                                        {
-                                            healthAfterAttack = 0;
-                                        }
-
-                                        Text hp = hpPanel.GetChild(j).GetChild(k).GetComponent<Text>();
-                                        hp.text = healthAfterAttack.ToString();
-                                    }
-                                }                                
-                            }
-                            else if (hpPanel.GetChild(j).name == "EnemyHPbar")
-                            {
-                                for (int k = 0; k < hpPanel.GetChild(j).childCount; k++)
-                                {
-                                    if (hpPanel.GetChild(j).GetChild(k).name == "Health")
-                                    {
-                                        Image bar = hpPanel.GetChild(j).GetChild(k).GetComponent<Image>();
-                                        bar.fillAmount = target.GetComponent<Stats>().hp / target.GetComponent<Stats>().maxHP;
-                                    }
-                                    else if (hpPanel.GetChild(j).GetChild(k).name == "HealthAfterAttack")
-                                    {
-                                        float healthAfterAttack = target.GetComponent<Stats>().hp - (damage * doubling);
-                                        if (healthAfterAttack < 0)
-                                        {
-                                            healthAfterAttack = 0;
-                                        }
-
-                                        Image bar = hpPanel.GetChild(j).GetChild(k).GetComponent<Image>();
-                                        bar.fillAmount = healthAfterAttack / target.GetComponent<Stats>().maxHP;
-                                    }
-                                    else if (hpPanel.GetChild(j).GetChild(k).name == "Text")
-                                    {
-                                        Text hp = hpPanel.GetChild(j).GetChild(k).GetComponent<Text>();
-                                        hp.text = target.GetComponent<Stats>().hp.ToString();
-                                    }
-                                    else if (hpPanel.GetChild(j).GetChild(k).name == "TextAfterAttack")
-                                    {
-                                        float healthAfterAttack = target.GetComponent<Stats>().hp - (damage * doubling);
-                                        if (healthAfterAttack < 0)
-                                        {
-                                            healthAfterAttack = 0;
-                                        }
-
-                                        Text hp = hpPanel.GetChild(j).GetChild(k).GetComponent<Text>();
-                                        hp.text = healthAfterAttack.ToString("F0");
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case "MT":
-                        mtPanel = statsPanel.GetChild(i);
-
-                        for (int j = 0; j < mtPanel.childCount; j++)
-                        {
-                            if (mtPanel.GetChild(j).name == "PlayerMT")
-                            {
-                                Debug.Log(mtPanel.GetChild(j));
-                                for (int k = 0; k < mtPanel.GetChild(j).childCount; k++)
-                                {
-                                    if (mtPanel.GetChild(j).GetChild(k).name == "Text")
-                                    {
-                                        Text mt = mtPanel.GetChild(j).GetChild(k).GetComponent<Text>();
-                                        mt.text = damage.ToString();
-                                        Debug.Log("Damage: " + damage);
-                                    }
-                                    else if (mtPanel.GetChild(j).GetChild(k).name == "X2")
-                                    {
-                                        GameObject x2 = mtPanel.GetChild(j).GetChild(k).gameObject;
-                                        x2.SetActive(false);
-
-                                        switch (doubling)
-                                        {
-                                            case 2:
-                                                x2.SetActive(true);
-                                                break;
-                                            case 4:
-                                                x2.SetActive(true);
-                                                x2.GetComponentInChildren<Text>().text = "x4";
-                                                break;
-                                        }
-                                    }
-                                }
-                            }
-                            else if (mtPanel.GetChild(j).name == "EnemyMT")
-                            {
-                                Debug.Log(mtPanel.GetChild(j));
-                                for (int k = 0; k < mtPanel.GetChild(j).childCount; k++)
-                                {
-                                    if (mtPanel.GetChild(j).GetChild(k).name == "Text")
-                                    {
-                                        Text mt = mtPanel.GetChild(j).GetChild(k).GetComponent<Text>();                                        
-                                        mt.text = enemyDamage.ToString();
-                                        Debug.Log("EnemyDamage: " + enemyDamage);
-                                    }
-                                    else if (mtPanel.GetChild(j).GetChild(k).name == "X2")
-                                    {
-                                        GameObject x2 = mtPanel.GetChild(j).GetChild(k).gameObject;
-                                        x2.SetActive(false);
-
-                                        switch (enemyDoubling)
-                                        {
-                                            case 2:
-                                                x2.SetActive(true);
-                                                break;
-                                            case 4:
-                                                x2.SetActive(true);
-                                                x2.GetComponentInChildren<Text>().text = "x4";
-                                                break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case "Hit":
-                        hitPanel = statsPanel.GetChild(i);
-
-                        for (int j = 0; j < hitPanel.childCount; j++)
-                        {
-                            if (hitPanel.GetChild(j).name == "Player")
-                            {
-                                Debug.Log(hitPanel.GetChild(j));
-                                for (int k = 0; k < hitPanel.GetChild(j).childCount; k++)
-                                {
-                                    if (hitPanel.GetChild(j).GetChild(k).name == "Text")
-                                    {
-                                        Text hitTxt = hitPanel.GetChild(j).GetChild(k).GetComponent<Text>();
-                                        hitTxt.text = acc.ToString("F0");
-                                    }                                  
-                                }
-                            }
-                            else if (hitPanel.GetChild(j).name == "Enemy")
-                            {
-                                Debug.Log(hitPanel.GetChild(j));
-                                for (int k = 0; k < hitPanel.GetChild(j).childCount; k++)
-                                {
-                                    if (hitPanel.GetChild(j).GetChild(k).name == "Text")
-                                    {
-                                        Text hitTxt = hitPanel.GetChild(j).GetChild(k).GetComponent<Text>();
-                                        hitTxt.text = enemyAcc.ToString("F0");
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case "Crit":
-                        critPanel = statsPanel.GetChild(i);
-
-                        for (int j = 0; j < critPanel.childCount; j++)
-                        {
-                            if (critPanel.GetChild(j).name == "Player")
-                            {
-                                Debug.Log(critPanel.GetChild(j));
-                                for (int k = 0; k < critPanel.GetChild(j).childCount; k++)
-                                {
-                                    if (critPanel.GetChild(j).GetChild(k).name == "Text")
-                                    {
-                                        Text critTxt = critPanel.GetChild(j).GetChild(k).GetComponent<Text>();
-                                        critTxt.text = crit.ToString("F0");
-                                    }
-                                }
-                            }
-                            else if (critPanel.GetChild(j).name == "Enemy")
-                            {
-                                Debug.Log(critPanel.GetChild(j));
-                                for (int k = 0; k < critPanel.GetChild(j).childCount; k++)
-                                {
-                                    if (critPanel.GetChild(j).GetChild(k).name == "Text")
-                                    {
-                                        Text critTxt = critPanel.GetChild(j).GetChild(k).GetComponent<Text>();
-                                        critTxt.text = enemyCrit.ToString("F0");
-                                    }
-                                }
-                            }
-                        }
-                        break;                    
-                }
-            }
-
             StartCoroutine(cursor.GetComponent<Cursor>().DoneCalcStats());
+
+            if (gameObject.CompareTag("Enemy"))
+            {
+                cursor.GetComponent<Cursor>().EnemyFight(gameObject);                
+            }
         }
     }
 

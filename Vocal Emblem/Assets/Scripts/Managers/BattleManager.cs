@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class BattleManager : MonoBehaviour
 {
     private Cursor cursor;
+    private TileData tileData;
+    private BattleStateMachine BSM;
 
     private Text healthTextPlayer;
     private Text healthTextEnemy;
@@ -24,6 +26,8 @@ public class BattleManager : MonoBehaviour
     private void Start()
     {
         cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Cursor>();
+        tileData = GameObject.FindGameObjectWithTag("TileManager").GetComponent<TileData>();
+        BSM = GameManager.instance.GetComponent<BattleStateMachine>();
     }
 
     private void Update()
@@ -104,14 +108,32 @@ public class BattleManager : MonoBehaviour
                             uiThing.GetChild(j).GetChild(2).GetComponent<Image>().fillAmount = enemy.hp / enemy.maxHP;
                             break;
                         case "PlayerStats":
-                            uiThing.GetChild(j).GetChild(2).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().damage.ToString("F0");
-                            uiThing.GetChild(j).GetChild(4).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().acc.ToString("F0");
-                            uiThing.GetChild(j).GetChild(6).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().crit.ToString("F0");
+                            if (damageHolder == player)
+                            {
+                                uiThing.GetChild(j).GetChild(2).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().damage.ToString("F0");
+                                uiThing.GetChild(j).GetChild(4).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().acc.ToString("F0");
+                                uiThing.GetChild(j).GetChild(6).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().crit.ToString("F0");
+                            }
+                            else
+                            {
+                                uiThing.GetChild(j).GetChild(2).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().enemyDamage.ToString("F0");
+                                uiThing.GetChild(j).GetChild(4).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().enemyAcc.ToString("F0");
+                                uiThing.GetChild(j).GetChild(6).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().enemyCrit.ToString("F0");
+                            }                            
                             break;
                         case "EnemyStats":
-                            uiThing.GetChild(j).GetChild(2).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().enemyDamage.ToString("F0");
-                            uiThing.GetChild(j).GetChild(4).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().enemyAcc.ToString("F0");
-                            uiThing.GetChild(j).GetChild(6).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().enemyCrit.ToString("F0");
+                            if (damageHolder == enemy)
+                            {
+                                uiThing.GetChild(j).GetChild(2).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().damage.ToString("F0");
+                                uiThing.GetChild(j).GetChild(4).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().acc.ToString("F0");
+                                uiThing.GetChild(j).GetChild(6).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().crit.ToString("F0");
+                            }
+                            else
+                            {
+                                uiThing.GetChild(j).GetChild(2).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().enemyDamage.ToString("F0");
+                                uiThing.GetChild(j).GetChild(4).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().enemyAcc.ToString("F0");
+                                uiThing.GetChild(j).GetChild(6).GetComponent<Text>().text = damageHolder.GetComponent<Attack>().enemyCrit.ToString("F0");
+                            }
                             break;
                         case "PlayerName":
                             uiThing.GetChild(j).GetChild(1).GetComponent<Text>().text = player.charName;
@@ -163,13 +185,14 @@ public class BattleManager : MonoBehaviour
         }
         else if (damageHolder == enemy)
         {
-            StartCoroutine(AttackOrder(enemy, player, damageHolder, playerSprite, enemySprite, distance, 1, false));
+            StartCoroutine(AttackOrder(enemy, player, damageHolder, enemySprite, playerSprite, distance, 1, false));
         }                     
     }
 
     private IEnumerator AttackOrder(Stats player, Stats enemy, Stats damageHolder, GameObject playerSprite, GameObject enemySprite, float distance, int i, bool twiceFourDoubling)
     {
         playerSprite.GetComponent<AttackingInBattle>().done = false;
+        enemySprite.GetComponent<AttackingInBattle>().done = false;
         Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//1st player
         while (!playerSprite.GetComponent<AttackingInBattle>().done)
         {
@@ -179,6 +202,7 @@ public class BattleManager : MonoBehaviour
         if (damageHolder.GetComponent<Attack>().enemyDoubling == i && enemy.hp > 0 && distance <= enemy.equippedWeapon.range && enemy.equippedWeapon.rangeOneAndTwo || distance != 1 && distance <= enemy.equippedWeapon.range && !enemy.equippedWeapon.rangeOneAndTwo || enemy.equippedWeapon.counterAll)
         {
             enemySprite.GetComponent<AttackingInBattle>().done = false;
+            playerSprite.GetComponent<AttackingInBattle>().done = false;
             Attack(enemy, damageHolder.GetComponent<Attack>().enemyDamage, damageHolder.GetComponent<Attack>().enemyAcc, damageHolder.GetComponent<Attack>().enemyCrit, enemySprite, playerSprite);//1st enemy
             while (!enemySprite.GetComponent<AttackingInBattle>().done)
             {
@@ -188,45 +212,74 @@ public class BattleManager : MonoBehaviour
             if (player.hp <= 0)
             {
                 Destroy(player.gameObject);
+
+                yield return new WaitForSeconds(1);
+                Destroy(playerSprite);
+                Destroy(enemySprite);
+                cursor.battlePanel.SetActive(false);
+
+                if(damageHolder == enemyBattle)
+                {
+                    tileData.DeselectMovement();
+                    BSM.enemyIndex++;
+                    BSM.GiveTurnToAI();
+                }
             }
         }
         else if(enemy.hp <= 0)
         {
-            TileData tileData = GameObject.FindGameObjectWithTag("TileManager").GetComponent<TileData>();
-            tileData.currMapCharPos[Mathf.RoundToInt(-enemy.transform.position.y + 0.5f), Mathf.RoundToInt(enemy.transform.position.x - 0.5f)] = 0;
-            tileData.enemiesInGame.Remove(enemy.gameObject);
+            tileData.currMapCharPos[Mathf.RoundToInt(-enemy.transform.position.y + 0.5f), Mathf.RoundToInt(enemy.transform.position.x - 0.5f)] = 0;            
+            if (damageHolder == playerBattle)
+            {
+                tileData.enemiesInGame.Remove(enemy.gameObject);
+            }
+            else
+            {
+                tileData.players.Remove(enemy.gameObject);
+            }
             Destroy(enemy.gameObject);
         }
 
         yield return new WaitForSeconds(0.2f);
+        if (damageHolder != null)
+        {
 
-        if (enemy.hp > 0 && damageHolder.GetComponent<Attack>().doubling == 2 && i == 1 || enemy.hp > 0 && damageHolder.GetComponent<Attack>().doubling == 4 && i == 1 || enemy.hp > 0 && damageHolder.GetComponent<Attack>().doubling == 4 && i == 2 || enemy.hp > 0 && damageHolder.GetComponent<Attack>().doubling == 4 && i == 4 && twiceFourDoubling)
-        {
-            int j = 0;
-            switch (i)
+            if (player.hp > 0 && enemy.hp > 0 && damageHolder.GetComponent<Attack>().doubling == 2 && i == 1 || enemy.hp > 0 && damageHolder.GetComponent<Attack>().doubling == 4 && i == 1 || enemy.hp > 0 && damageHolder.GetComponent<Attack>().doubling == 4 && i == 2 || enemy.hp > 0 && damageHolder.GetComponent<Attack>().doubling == 4 && i == 4 && twiceFourDoubling)
             {
-                case 1:
-                    j = 2;
-                    break;
-                case 2:
-                    j = 4;
-                    twiceFourDoubling = true;
-                    break;
-                case 4:
-                    twiceFourDoubling = false;
-                    break;
+                int j = 0;
+                switch (i)
+                {
+                    case 1:
+                        j = 2;
+                        break;
+                    case 2:
+                        j = 4;
+                        twiceFourDoubling = true;
+                        break;
+                    case 4:
+                        twiceFourDoubling = false;
+                        break;
+                }
+                StartCoroutine(AttackOrder(player, enemy, damageHolder, playerSprite, enemySprite, distance, j, twiceFourDoubling));
             }
-            StartCoroutine(AttackOrder(player, enemy, damageHolder, playerSprite, enemySprite, distance, j, twiceFourDoubling));
-        }
-        else
-        {
-            yield return new WaitForSeconds(1);
-            Destroy(playerSprite);
-            Destroy(enemySprite);
-            cursor.battlePanel.SetActive(false);
-            if (damageHolder == player)
+            else
             {
-                GameObject.FindGameObjectWithTag("Canvas").GetComponent<SelectChoices>().Wait();
+                yield return new WaitForSeconds(1);
+                Destroy(playerSprite);
+                Destroy(enemySprite);
+                cursor.battlePanel.SetActive(false);
+
+                if (damageHolder == playerBattle)
+                {
+                    GameObject.FindGameObjectWithTag("Canvas").GetComponent<SelectChoices>().Wait();
+                }
+                else
+                {
+                    enemyBattle.GetComponent<EnemyAI>().wait = true;
+                    tileData.DeselectMovement();
+                    BSM.enemyIndex++;
+                    BSM.GiveTurnToAI();
+                }
             }
         }
     }

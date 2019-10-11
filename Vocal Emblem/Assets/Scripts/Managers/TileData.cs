@@ -89,42 +89,47 @@ public class TileData : MonoBehaviour
                 {
                     case 1:
                         GameObject player = Instantiate(GameManager.instance.playerTeam[GameManager.instance.playerTeamCount], new Vector3(x + 0.5f, -y + 0.5f, 0), GameManager.instance.playerTeam[GameManager.instance.playerTeamCount].transform.rotation);
+                        if (GameManager.instance.playerTeamCount < GameManager.instance.playerTeam.Count - 1)
+                        {
+                            GameManager.instance.playerTeamCount++;
+                        }
                         break;
                     case 2:
                         if (GameManager.instance.enemies.Count > 0)
                         {
                             GameObject enemy = Instantiate(GameManager.instance.enemies[0], new Vector3(x + 0.5f, -y + 0.5f, 0), GameManager.instance.enemies[0].transform.rotation);
+                            enemy.GetComponent<EnemyAI>().charId = 2;
                         }
                         break;
                     case 3:
                         if (GameManager.instance.enemies.Count > 0)
                         {
                             GameObject enemy = Instantiate(GameManager.instance.enemies[1], new Vector3(x + 0.5f, -y + 0.5f, 0), GameManager.instance.enemies[1].transform.rotation);
+                            enemy.GetComponent<EnemyAI>().charId = 3;
                         }
                         break;
                     case 4:
                         if (GameManager.instance.enemies.Count > 0)
                         {
                             GameObject enemy = Instantiate(GameManager.instance.enemies[2], new Vector3(x + 0.5f, -y + 0.5f, 0), GameManager.instance.enemies[2].transform.rotation);
+                            enemy.GetComponent<EnemyAI>().charId = 4;
                         }
                         break;
                     case 5:
                         if (GameManager.instance.enemies.Count > 0)
                         {
                             GameObject enemy = Instantiate(GameManager.instance.enemies[3], new Vector3(x + 0.5f, -y + 0.5f, 0), GameManager.instance.enemies[3].transform.rotation);
+                            enemy.GetComponent<EnemyAI>().charId = 5;
                         }
                         break;
                     case 6:
                         if (GameManager.instance.enemies.Count > 0)
                         {
                             GameObject enemy = Instantiate(GameManager.instance.enemies[4], new Vector3(x + 0.5f, -y + 0.5f, 0), GameManager.instance.enemies[4].transform.rotation);
+                            enemy.GetComponent<EnemyAI>().charId = 6;
                         }
                         break;
-                }
-                if (GameManager.instance.playerTeamCount < GameManager.instance.playerTeam.Count - 1)
-                {
-                    GameManager.instance.playerTeamCount++;
-                }
+                }                
             }
         }        
         players.AddRange(GameObject.FindGameObjectsWithTag("Player"));
@@ -425,9 +430,20 @@ public class TileData : MonoBehaviour
         closedList.Add(tile);
     }
 
-    public List<GameObject> CheckEnemiesInRange(int x, int y, int range, bool oneTwo)
+    public List<GameObject> CheckEnemiesInRange(int x, int y, int range, bool oneTwo, bool player)
     {
         List<GameObject> enemiesFound = new List<GameObject>();        
+
+        List<GameObject> targets = new List<GameObject>();
+
+        if (player)
+        {
+            targets = enemiesInGame;
+        }
+        else
+        {
+            targets = players;
+        }
 
         for (int i = 0; i < range + 1; i++)
         { 
@@ -444,36 +460,36 @@ public class TileData : MonoBehaviour
 
                 if (-y + i < rowsMovement.Count && x + j < rowsMovement[-y + i].transform.childCount)
                 {
-                    for (int k = 0; k < enemiesInGame.Count; k++)
+                    for (int k = 0; k < targets.Count; k++)
                     {
                         rowsMovement[-y + i].transform.GetChild(x + j).GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
                         rowsMovement[-y + i].transform.GetChild(x + j).gameObject.SetActive(true);
 
-                        //Debug.Log("down right " + (x + j) + " X: " + (enemiesInGame[k].transform.position.x - 0.5f) + " " + (-y + i) + " Y: " + (-enemiesInGame[k].transform.position.y + 0.5f));
+                        //Debug.Log("down right " + (x + j) + " X: " + (targets[k].transform.position.x - 0.5f) + " " + (-y + i) + " Y: " + (-targets[k].transform.position.y + 0.5f));
 
-                        if (x + j == enemiesInGame[k].transform.position.x - 0.5f && -y + i == -enemiesInGame[k].transform.position.y + 0.5f)
+                        if (x + j == targets[k].transform.position.x - 0.5f && -y + i == -targets[k].transform.position.y + 0.5f)
                         {
-                            if (!enemiesFound.Contains(enemiesInGame[k]))
+                            if (!enemiesFound.Contains(targets[k]))
                             {
-                                enemiesFound.Add(enemiesInGame[k]);
+                                enemiesFound.Add(targets[k]);
                             }
                         }
                     }
                 }
                 if (-y - i > -1 && x + j < rowsMovement[-y - i].transform.childCount && i != 0) //Up
                 {
-                    for (int k = 0; k < enemiesInGame.Count; k++)
+                    for (int k = 0; k < targets.Count; k++)
                     {
                         rowsMovement[-y - i].transform.GetChild(x + j).GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
                         rowsMovement[-y - i].transform.GetChild(x + j).gameObject.SetActive(true);
 
-                        //Debug.Log("up right " + (x + j) + " X: " + (enemiesInGame[k].transform.position.x - 0.5f) + " " + (-y - i) + " Y: " + (-enemiesInGame[k].transform.position.y + 0.5f));
+                        //Debug.Log("up right " + (x + j) + " X: " + (targets[k].transform.position.x - 0.5f) + " " + (-y - i) + " Y: " + (-targets[k].transform.position.y + 0.5f));
 
-                        if (x + j == enemiesInGame[k].transform.position.x - 0.5f && -y - i == -enemiesInGame[k].transform.position.y + 0.5f)
+                        if (x + j == targets[k].transform.position.x - 0.5f && -y - i == -targets[k].transform.position.y + 0.5f)
                         {
-                            if (!enemiesFound.Contains(enemiesInGame[k]))
+                            if (!enemiesFound.Contains(targets[k]))
                             {
-                                enemiesFound.Add(enemiesInGame[k]);
+                                enemiesFound.Add(targets[k]);
                             }
                         }
                     }
@@ -496,36 +512,36 @@ public class TileData : MonoBehaviour
 
                 if (-y - i > -1 && x - j > -1)
                 {
-                    for (int k = 0; k < enemiesInGame.Count; k++)
+                    for (int k = 0; k < targets.Count; k++)
                     {
                         rowsMovement[-y - i].transform.GetChild(x - j).GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
                         rowsMovement[-y - i].transform.GetChild(x - j).gameObject.SetActive(true);
 
-                        //Debug.Log("up left "+(x - j) + " X: " + (enemiesInGame[k].transform.position.x - 0.5f) + " " + (-y - i) + " Y: " + (-enemiesInGame[k].transform.position.y + 0.5f));
+                        //Debug.Log("up left "+(x - j) + " X: " + (targets[k].transform.position.x - 0.5f) + " " + (-y - i) + " Y: " + (-targets[k].transform.position.y + 0.5f));
 
-                        if (x - j == enemiesInGame[k].transform.position.x - 0.5f && -y - i == -enemiesInGame[k].transform.position.y + 0.5f)
+                        if (x - j == targets[k].transform.position.x - 0.5f && -y - i == -targets[k].transform.position.y + 0.5f)
                         {
-                            if (!enemiesFound.Contains(enemiesInGame[k]))
+                            if (!enemiesFound.Contains(targets[k]))
                             {
-                                enemiesFound.Add(enemiesInGame[k]);
+                                enemiesFound.Add(targets[k]);
                             }
                         }
                     }
                 }
                 if (-y + i < rowsMovement.Count && x - j > -1 && i != 0) //Down
                 {
-                    for (int k = 0; k < enemiesInGame.Count; k++)
+                    for (int k = 0; k < targets.Count; k++)
                     {
                         rowsMovement[-y + i].transform.GetChild(x - j).GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
                         rowsMovement[-y + i].transform.GetChild(x - j).gameObject.SetActive(true);
 
-                        //Debug.Log("down Left " + (x - j) + " X: " + (enemiesInGame[k].transform.position.x - 0.5f) + " " + (-y + i) + " Y: " + (-enemiesInGame[k].transform.position.y + 0.5f));
+                        //Debug.Log("down Left " + (x - j) + " X: " + (targets[k].transform.position.x - 0.5f) + " " + (-y + i) + " Y: " + (-targets[k].transform.position.y + 0.5f));
 
-                        if (x - j == enemiesInGame[k].transform.position.x - 0.5f && -y + i == -enemiesInGame[k].transform.position.y + 0.5f)
+                        if (x - j == targets[k].transform.position.x - 0.5f && -y + i == -targets[k].transform.position.y + 0.5f)
                         {
-                            if (!enemiesFound.Contains(enemiesInGame[k]))
+                            if (!enemiesFound.Contains(targets[k]))
                             {
-                                enemiesFound.Add(enemiesInGame[k]);
+                                enemiesFound.Add(targets[k]);
                             }
                         }
                     }

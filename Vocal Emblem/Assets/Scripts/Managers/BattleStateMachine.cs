@@ -12,6 +12,8 @@ public class BattleStateMachine : MonoBehaviour
     private bool allAreWaiting;
     private bool checkingWait = true;
 
+    public int enemyIndex = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -84,11 +86,17 @@ public class BattleStateMachine : MonoBehaviour
         }
     }
 
-    private void GiveTurnToAI()
+    public void GiveTurnToAI()
     {
-        if (tileData.enemiesInGame.Count > 0)
+        if (tileData.enemiesInGame.Count > 0 && enemyIndex < tileData.enemiesInGame.Count)
         {
-            tileData.enemiesInGame[0].GetComponent<EnemyAI>().GetTarget();
-        }        
+            tileData.enemiesInGame[enemyIndex].GetComponent<EnemyAI>().GetTarget();
+        }    
+        else
+        {
+            RemoveWaitPlayer();
+            allAreWaiting = false;
+            phase = battlePhase.PLAYER;
+        }
     }
 }
