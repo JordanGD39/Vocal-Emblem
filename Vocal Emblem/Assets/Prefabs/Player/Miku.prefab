@@ -114,8 +114,8 @@ MonoBehaviour:
   battlePrefab: {fileID: 3201748953326532878, guid: 0a64875807204f34da7925fe75700f59,
     type: 3}
   weapons:
-  - {fileID: 11400000, guid: c11e4e42138ea294e868c75c6c2208d3, type: 2}
-  equippedWeapon: {fileID: 11400000, guid: c11e4e42138ea294e868c75c6c2208d3, type: 2}
+  - {fileID: 11400000, guid: 7dcfee683bdae4d48a9647cfc28206dd, type: 2}
+  equippedWeapon: {fileID: 11400000, guid: 7dcfee683bdae4d48a9647cfc28206dd, type: 2}
   typeMovement: 0
   maxHP: 20
   hp: 20
