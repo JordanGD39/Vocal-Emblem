@@ -151,6 +151,37 @@ public class EnemyAI : MonoBehaviour
             Debug.Log("R");
         }
 
+        if (distanceTopAbs == 0 || distanceBottomAbs == 0 || distanceLeftAbs == 0 || distanceRightAbs == 0)
+        {
+            if (!stats.equippedWeapon.rangeOneAndTwo)
+            {
+                if (!dontGoUp)
+                {
+                    tileData.currMapCharPos[-y, x] = 0;
+                    tileData.currMapCharPos[-y - 1, x] = charId;
+                    transform.position = new Vector2(transform.position.x, transform.position.y + 1);
+                }
+                else if(!dontGoDown)
+                {
+                    tileData.currMapCharPos[-y, x] = 0;
+                    transform.position = new Vector2(transform.position.x, transform.position.y - 1);
+                    tileData.currMapCharPos[-y + 1, x] = charId;
+                }
+                else if(!dontGoLeft)
+                {
+                    tileData.currMapCharPos[-y, x] = 0;
+                    transform.position = new Vector2(transform.position.x - 1, transform.position.y);
+                    tileData.currMapCharPos[-y, x - 1] = charId;
+                }
+                else if(!dontGoRight)
+                {
+                    tileData.currMapCharPos[-y, x] = 0;
+                    transform.position = new Vector2(transform.position.x + 1, transform.position.y);
+                    tileData.currMapCharPos[-y, x + 1] = charId;
+                }
+            }
+        }
+
         if (distanceTopAbs < stats.equippedWeapon.range || distanceBottomAbs < stats.equippedWeapon.range || distanceLeftAbs < stats.equippedWeapon.range || distanceRightAbs < stats.equippedWeapon.range)
         {
             inRange = true;
