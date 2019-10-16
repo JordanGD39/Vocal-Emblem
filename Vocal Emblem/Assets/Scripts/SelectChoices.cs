@@ -8,6 +8,8 @@ public class SelectChoices : MonoBehaviour
     private TileData tileData;
     private BattleStateMachine BSM;
 
+    public GameObject healChoice; 
+
     private void Start()
     {
         cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Cursor>();
@@ -30,7 +32,7 @@ public class SelectChoices : MonoBehaviour
 
     public void Heal()
     {
-
+        healChoice.SetActive(true);
     }
 
     public void Wait()

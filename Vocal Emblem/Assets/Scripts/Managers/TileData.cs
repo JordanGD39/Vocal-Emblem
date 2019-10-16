@@ -430,8 +430,15 @@ public class TileData : MonoBehaviour
         closedList.Add(tile);
     }
 
-    public List<GameObject> CheckEnemiesInRange(int x, int y, int range, bool oneTwo, bool player)
+    public List<GameObject> CheckEnemiesInRange(int x, int y, int range, bool oneTwo, bool player, bool green)
     {
+        Color32 color = new Color32(255, 0, 0, 168);
+
+        if (green)
+        {
+            color = new Color32(0, 255, 0, 168);
+        }
+
         List<GameObject> enemiesFound = new List<GameObject>();        
 
         List<GameObject> targets = new List<GameObject>();
@@ -462,7 +469,7 @@ public class TileData : MonoBehaviour
                 {
                     for (int k = 0; k < targets.Count; k++)
                     {
-                        rowsMovement[-y + i].transform.GetChild(x + j).GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
+                        rowsMovement[-y + i].transform.GetChild(x + j).GetComponent<SpriteRenderer>().color = color;
                         rowsMovement[-y + i].transform.GetChild(x + j).gameObject.SetActive(true);
 
                         //Debug.Log("down right " + (x + j) + " X: " + (targets[k].transform.position.x - 0.5f) + " " + (-y + i) + " Y: " + (-targets[k].transform.position.y + 0.5f));
@@ -480,7 +487,7 @@ public class TileData : MonoBehaviour
                 {
                     for (int k = 0; k < targets.Count; k++)
                     {
-                        rowsMovement[-y - i].transform.GetChild(x + j).GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
+                        rowsMovement[-y - i].transform.GetChild(x + j).GetComponent<SpriteRenderer>().color = color;
                         rowsMovement[-y - i].transform.GetChild(x + j).gameObject.SetActive(true);
 
                         //Debug.Log("up right " + (x + j) + " X: " + (targets[k].transform.position.x - 0.5f) + " " + (-y - i) + " Y: " + (-targets[k].transform.position.y + 0.5f));
@@ -514,7 +521,7 @@ public class TileData : MonoBehaviour
                 {
                     for (int k = 0; k < targets.Count; k++)
                     {
-                        rowsMovement[-y - i].transform.GetChild(x - j).GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
+                        rowsMovement[-y - i].transform.GetChild(x - j).GetComponent<SpriteRenderer>().color = color;
                         rowsMovement[-y - i].transform.GetChild(x - j).gameObject.SetActive(true);
 
                         //Debug.Log("up left "+(x - j) + " X: " + (targets[k].transform.position.x - 0.5f) + " " + (-y - i) + " Y: " + (-targets[k].transform.position.y + 0.5f));
@@ -532,7 +539,7 @@ public class TileData : MonoBehaviour
                 {
                     for (int k = 0; k < targets.Count; k++)
                     {
-                        rowsMovement[-y + i].transform.GetChild(x - j).GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
+                        rowsMovement[-y + i].transform.GetChild(x - j).GetComponent<SpriteRenderer>().color = color;
                         rowsMovement[-y + i].transform.GetChild(x - j).gameObject.SetActive(true);
 
                         //Debug.Log("down Left " + (x - j) + " X: " + (targets[k].transform.position.x - 0.5f) + " " + (-y + i) + " Y: " + (-targets[k].transform.position.y + 0.5f));

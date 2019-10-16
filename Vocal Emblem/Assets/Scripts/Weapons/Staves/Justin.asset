@@ -22,6 +22,6 @@ MonoBehaviour:
   skillLevel: 1
   range: 1
   rangeOneAndTwo: 1
-  counterAll: 0
+  counterAll: 1
   worth: 999999
   exp: 1

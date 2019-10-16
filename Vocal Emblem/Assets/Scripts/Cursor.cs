@@ -96,7 +96,10 @@ public class Cursor : MonoBehaviour
                         {
                             currSelectedChar.GetComponent<PlayerMovement>().oldPos = currSelectedChar.transform.position;
                             currSelectedChar.transform.position = hit.collider.transform.position;
-                            currSelectedChar.transform.position = new Vector3(transform.position.x, Mathf.Round(currSelectedChar.transform.position.y) - 0.5f);                            
+                            currSelectedChar.transform.position = new Vector3(transform.position.x, Mathf.Round(currSelectedChar.transform.position.y) - 0.5f);
+
+                            CheckHealRange();
+
                             selectPanel.SetActive(true);
                             EventSystem.current.SetSelectedGameObject(null);
                             EventSystem.current.SetSelectedGameObject(selectPanel.transform.GetChild(0).GetChild(0).gameObject);
@@ -138,6 +141,30 @@ public class Cursor : MonoBehaviour
                 battlePanel.SetActive(true);
                 BM.Battle(currSelectedChar.GetComponent<Stats>(), currSelectedChar.GetComponent<Attack>().target.GetComponent<Stats>(), currSelectedChar.GetComponent<Attack>().distance, true);
             }
+        }
+    }
+
+    private void CheckHealRange()
+    {
+        bool hasStaff = false;
+
+        for (int i = 0; i < currSelectedChar.GetComponent<Stats>().weapons.Count; i++)
+        {
+            if (currSelectedChar.GetComponent<Stats>().weapons[i].typeOfWeapon == Weapon.WeaponType.STAFF)
+            {
+                hasStaff = true;
+            }            
+        }
+
+        if (currSelectedChar != null && hasStaff)
+        {
+            List<GameObject> allies = tileData.CheckEnemiesInRange(Mathf.RoundToInt(currSelectedChar.transform.position.x - 0.5f), Mathf.RoundToInt(currSelectedChar.transform.position.y - 0.5f), currSelectedChar.GetComponent<Stats>().equippedWeapon.range, currSelectedChar.GetComponent<Stats>().equippedWeapon.rangeOneAndTwo, false, true);
+
+            currSelectedChar.GetComponent<Heal>().SetAllies(allies);
+        }
+        else if (!hasStaff)
+        {
+            GameObject.FindGameObjectWithTag("Canvas").GetComponent<SelectChoices>().healChoice.SetActive(false);
         }
     }
 
