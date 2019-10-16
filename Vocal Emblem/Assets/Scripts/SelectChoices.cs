@@ -22,7 +22,7 @@ public class SelectChoices : MonoBehaviour
         cursor.doneCalc = false;
         tileData.DeselectMovement();
         cursor.currSelectedChar.GetComponent<Attack>().indexEnemies = 0;
-        cursor.currSelectedChar.GetComponent<Attack>().CheckAttackRange();        
+        cursor.currSelectedChar.GetComponent<Attack>().CheckAttackRange(false);        
     }
 
     public void Items()
@@ -32,7 +32,7 @@ public class SelectChoices : MonoBehaviour
 
     public void Heal()
     {
-        healChoice.SetActive(true);
+        
     }
 
     public void Wait()

@@ -160,7 +160,23 @@ public class Cursor : MonoBehaviour
         {
             List<GameObject> allies = tileData.CheckEnemiesInRange(Mathf.RoundToInt(currSelectedChar.transform.position.x - 0.5f), Mathf.RoundToInt(currSelectedChar.transform.position.y - 0.5f), currSelectedChar.GetComponent<Stats>().equippedWeapon.range, currSelectedChar.GetComponent<Stats>().equippedWeapon.rangeOneAndTwo, false, true);
 
-            currSelectedChar.GetComponent<Heal>().SetAllies(allies);
+            List<GameObject> alliesCount = new List<GameObject>();
+
+            for (int i = 0; i < allies.Count; i++)
+            {
+                Debug.Log(allies[i]);
+                if (allies[i].GetComponent<Stats>().maxHP > allies[i].GetComponent<Stats>().hp && allies[i] != currSelectedChar)
+                {
+                    alliesCount.Add(allies[i]);
+                }
+            }
+
+            if (alliesCount.Count > 0)
+            {
+                currSelectedChar.GetComponent<Heal>().SetAllies(alliesCount);
+
+                GameObject.FindGameObjectWithTag("Canvas").GetComponent<SelectChoices>().healChoice.SetActive(true);
+            }
         }
         else if (!hasStaff)
         {

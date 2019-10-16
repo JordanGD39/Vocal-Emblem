@@ -8,6 +8,7 @@ public class Attack : MonoBehaviour
 {
     private TileData tileData;
     private Stats stats;
+    private Heal heal;
     private GameObject cursor;
     public GameObject target;
 
@@ -30,11 +31,14 @@ public class Attack : MonoBehaviour
 
     public int indexEnemies = 0;
 
+    private bool greenTiles = false;
+
     // Start is called before the first frame update
     void Start()
     {
         tileData = GameObject.FindGameObjectWithTag("TileManager").GetComponent<TileData>();
         stats = GetComponent<Stats>();
+        heal = GetComponent<Heal>();
         cursor = GameObject.FindGameObjectWithTag("Cursor");
     }
 
@@ -52,7 +56,7 @@ public class Attack : MonoBehaviour
                     indexEnemies = 0;
                 }
 
-                CheckAttackRange();
+                CheckAttackRange(greenTiles);
             }
             else if (Input.GetButtonDown("Horizontal") && (Input.GetAxis("Horizontal") < 0))
             {
@@ -61,7 +65,7 @@ public class Attack : MonoBehaviour
                 {
                     indexEnemies = enemies.Count - 1;
                 }
-                CheckAttackRange();
+                CheckAttackRange(greenTiles);
             }
 
             if (Input.GetButtonDown("Vertical") && Input.GetAxis("Vertical") > 0)
@@ -71,7 +75,7 @@ public class Attack : MonoBehaviour
                 {
                     indexEnemies = 0;
                 }
-                CheckAttackRange();
+                CheckAttackRange(greenTiles);
             }
             else if (Input.GetButtonDown("Vertical") && (Input.GetAxis("Vertical") < 0))
             {
@@ -80,26 +84,37 @@ public class Attack : MonoBehaviour
                 {
                     indexEnemies = enemies.Count - 1;
                 }
-                CheckAttackRange();
+                CheckAttackRange(greenTiles);
             }
         }
     }
 
-    public void CheckAttackRange()
+    public void CheckAttackRange(bool healing)
     {
-        if (gameObject.CompareTag("Player"))
+        if (gameObject.CompareTag("Player") && !healing)
         {
             enemies = tileData.CheckEnemiesInRange(Mathf.RoundToInt(transform.position.x - 0.5f), Mathf.RoundToInt(transform.position.y - 0.5f), stats.equippedWeapon.range, stats.equippedWeapon.rangeOneAndTwo, true, false);
         }
-        else
+        else if(gameObject.CompareTag("Enemy") && !healing)
         {
             enemies = tileData.CheckEnemiesInRange(Mathf.RoundToInt(transform.position.x - 0.5f), Mathf.RoundToInt(transform.position.y - 0.5f), stats.equippedWeapon.range, stats.equippedWeapon.rangeOneAndTwo, false, false);
         }
 
-        if (enemies.Count > 0)
-        {
-            cursor.transform.position = enemies[indexEnemies].transform.position;
-            target = enemies[indexEnemies];
+        if (enemies.Count > 0 || heal.GetAllies().Count > 0)
+        {            
+            if (!healing)
+            {
+                greenTiles = false;
+                target = enemies[indexEnemies];
+                cursor.transform.position = enemies[indexEnemies].transform.position;
+            }
+            else
+            {
+                greenTiles = true;
+                List<GameObject>allies = heal.GetAllies();
+                target = allies[indexEnemies];
+                cursor.transform.position = allies[indexEnemies].transform.position;
+            }
 
             if (gameObject.CompareTag("Player"))
             {
@@ -124,40 +139,51 @@ public class Attack : MonoBehaviour
             //MT calc
             triangleBonus = 0;
             triangleBonusEnemy = 0;
-            damage = CalcDamage(gameObject, target);
-            doubling = CalcSpeed(gameObject, target);
-            //Hit calc
-            float hit = CalcHit(gameObject);
-            float enemyEvade = CalcEvade(target, xEnemy, yEnemy);
-            acc = CalcAccuracy(hit, enemyEvade, gameObject);
-            //Crit calc
-            float critRate = CalcCrit(gameObject);
-            float enemyCritEvade = CalcCritEvade(target);
-            crit = CalcCritHit(critRate, enemyCritEvade);
 
-            enemyDamage = 0;
-            enemyCrit = 0;
-            enemyDoubling = 0;
-            float enemyHit = 0;
-            float evade = 0;
-            float enemyCritRate = 0;
-            float critEvade = 0;
-            enemyAcc = 0;
-
-            distance = Mathf.Abs(gameObject.transform.position.x - target.transform.position.x) + Mathf.Abs(gameObject.transform.position.y - target.transform.position.y);
-
-            if (distance <= target.GetComponent<Stats>().equippedWeapon.range && target.GetComponent<Stats>().equippedWeapon.rangeOneAndTwo || distance != 1 && distance <= target.GetComponent<Stats>().equippedWeapon.range && !target.GetComponent<Stats>().equippedWeapon.rangeOneAndTwo || target.GetComponent<Stats>().equippedWeapon.counterAll)
+            if (!healing)
             {
-                enemyDamage = CalcDamage(target, gameObject);
-                enemyDoubling = CalcSpeed(target, gameObject);
-                enemyHit = CalcHit(target);
-                evade = CalcEvade(gameObject, x, y);
-                enemyAcc = CalcAccuracy(enemyHit, evade, target);
+                damage = CalcDamage(gameObject, target);
+                doubling = CalcSpeed(gameObject, target);
 
-                enemyCritRate = CalcCrit(target);
-                critEvade = CalcCritEvade(gameObject);
-                enemyCrit = CalcCritHit(enemyCritRate, critEvade);
+                //Hit calc
+                float hit = CalcHit(gameObject);
+                float enemyEvade = CalcEvade(target, xEnemy, yEnemy);
+                acc = CalcAccuracy(hit, enemyEvade, gameObject);
+                //Crit calc
+                float critRate = CalcCrit(gameObject);
+                float enemyCritEvade = CalcCritEvade(target);
+                crit = CalcCritHit(critRate, enemyCritEvade);
+
+                enemyDamage = 0;
+                enemyCrit = 0;
+                enemyDoubling = 0;
+                float enemyHit = 0;
+                float evade = 0;
+                float enemyCritRate = 0;
+                float critEvade = 0;
+                enemyAcc = 0;
+
+                distance = Mathf.Abs(gameObject.transform.position.x - target.transform.position.x) + Mathf.Abs(gameObject.transform.position.y - target.transform.position.y);
+
+                if (distance <= target.GetComponent<Stats>().equippedWeapon.range && target.GetComponent<Stats>().equippedWeapon.rangeOneAndTwo || distance != 1 && distance <= target.GetComponent<Stats>().equippedWeapon.range && !target.GetComponent<Stats>().equippedWeapon.rangeOneAndTwo || target.GetComponent<Stats>().equippedWeapon.counterAll)
+                {
+                    enemyDamage = CalcDamage(target, gameObject);
+                    enemyDoubling = CalcSpeed(target, gameObject);
+                    enemyHit = CalcHit(target);
+                    evade = CalcEvade(gameObject, x, y);
+                    enemyAcc = CalcAccuracy(enemyHit, evade, target);
+
+                    enemyCritRate = CalcCrit(target);
+                    critEvade = CalcCritEvade(gameObject);
+                    enemyCrit = CalcCritHit(enemyCritRate, critEvade);
+                }
             }
+            else
+            {
+                damage = stats.scr + 10;
+                acc = 100;
+                crit = 0;
+            }            
 
             if (gameObject.CompareTag("Player"))
             {

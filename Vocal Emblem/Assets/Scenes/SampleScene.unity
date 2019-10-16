@@ -3194,7 +3194,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1959618722}
-        m_MethodName: Attack
+        m_MethodName: Heal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -30224,7 +30224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d354e7da8d094f44ba7757a87e2936a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healChoice: {fileID: 0}
+  healChoice: {fileID: 187740252}
 --- !u!1 &1963235820
 GameObject:
   m_ObjectHideFlags: 0

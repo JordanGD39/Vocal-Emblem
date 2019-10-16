@@ -181,7 +181,7 @@ public class EnemyAI : MonoBehaviour
         {
             inRange = true;
             tileData.DeselectMovement();
-            GetComponent<Attack>().CheckAttackRange();            
+            GetComponent<Attack>().CheckAttackRange(false);            
         }
 
         if (distanceTop >= stats.equippedWeapon.range && distanceBottom >= stats.equippedWeapon.range && distanceLeft >= stats.equippedWeapon.range && distanceRight >= stats.equippedWeapon.range && !inRange)

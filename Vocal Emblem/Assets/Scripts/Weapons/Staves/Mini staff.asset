@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponName: Mini staff
   description: Heals 10 HP
   typeOfWeapon: 5
-  mt: -10
+  mt: 0
   uses: 42
   crit: 0
   accuracy: 100
