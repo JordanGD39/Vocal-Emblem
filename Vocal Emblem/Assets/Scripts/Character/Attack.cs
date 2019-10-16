@@ -119,9 +119,8 @@ public class Attack : MonoBehaviour
             else
             {
                 greenTiles = true;
-                List<GameObject>allies = heal.GetAllies();
-                target = allies[indexEnemies];
-                cursor.transform.position = allies[indexEnemies].transform.position;
+                target = heal.GetAllies()[indexEnemies];
+                cursor.transform.position = heal.GetAllies()[indexEnemies].transform.position;
             }
 
             if (gameObject.CompareTag("Player"))
