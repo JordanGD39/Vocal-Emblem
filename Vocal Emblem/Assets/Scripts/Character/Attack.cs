@@ -108,7 +108,7 @@ public class Attack : MonoBehaviour
             enemies = tileData.CheckEnemiesInRange(Mathf.RoundToInt(transform.position.x - 0.5f), Mathf.RoundToInt(transform.position.y - 0.5f), stats.equippedWeapon.range, stats.equippedWeapon.rangeOneAndTwo, false, false);
         }
 
-        if (enemies.Count > 0 || heal.GetAllies().Count > 0)
+        if (enemies.Count > 0  && !healing|| heal.GetAllies().Count > 0 && healing)
         {            
             if (!healing)
             {
@@ -175,23 +175,39 @@ public class Attack : MonoBehaviour
 
                 if (distance <= target.GetComponent<Stats>().equippedWeapon.range && target.GetComponent<Stats>().equippedWeapon.rangeOneAndTwo || distance != 1 && distance <= target.GetComponent<Stats>().equippedWeapon.range && !target.GetComponent<Stats>().equippedWeapon.rangeOneAndTwo || target.GetComponent<Stats>().equippedWeapon.counterAll)
                 {
-                    enemyDamage = CalcDamage(target, gameObject);
-                    enemyDoubling = CalcSpeed(target, gameObject);
-                    enemyHit = CalcHit(target);
-                    evade = CalcEvade(gameObject, x, y);
-                    enemyAcc = CalcAccuracy(enemyHit, evade, target);
+                    if (target.GetComponent<Stats>().equippedWeapon.typeOfWeapon != Weapon.WeaponType.STAFF)
+                    {
+                        enemyDamage = CalcDamage(target, gameObject);
+                        enemyDoubling = CalcSpeed(target, gameObject);
+                        enemyHit = CalcHit(target);
+                        evade = CalcEvade(gameObject, x, y);
+                        enemyAcc = CalcAccuracy(enemyHit, evade, target);
 
-                    enemyCritRate = CalcCrit(target);
-                    critEvade = CalcCritEvade(gameObject);
-                    enemyCrit = CalcCritHit(enemyCritRate, critEvade);
+                        enemyCritRate = CalcCrit(target);
+                        critEvade = CalcCritEvade(gameObject);
+                        enemyCrit = CalcCritHit(enemyCritRate, critEvade);
+                    }
+                    else
+                    {
+                        enemyDamage = 0;
+                        enemyAcc = 0;
+                        enemyDoubling = 1;
+                        enemyCrit = 0;
+                    }
                 }
             }
             else
             {
                 distance = Mathf.Abs(gameObject.transform.position.x - target.transform.position.x) + Mathf.Abs(gameObject.transform.position.y - target.transform.position.y);
                 damage = stats.scr + 10;
+                doubling = 1;
                 acc = 100;
                 crit = 0;
+
+                enemyDamage = 0;
+                enemyDoubling = 0;
+                enemyAcc = 0;
+                enemyCrit = 0;
             }            
 
             if (gameObject.CompareTag("Player"))
@@ -326,7 +342,7 @@ public class Attack : MonoBehaviour
                                             if (healthAfterAttack < 0)
                                             {
                                                 healthAfterAttack = 0;
-                                            }
+                                            }                                            
 
                                             Text hp = hpPanel.GetChild(j).GetChild(k).GetComponent<Text>();
                                             hp.text = healthAfterAttack.ToString();
@@ -339,19 +355,46 @@ public class Attack : MonoBehaviour
                                     {
                                         if (hpPanel.GetChild(j).GetChild(k).name == "Health")
                                         {
-                                            Image bar = hpPanel.GetChild(j).GetChild(k).GetComponent<Image>();
-                                            bar.fillAmount = target.GetComponent<Stats>().hp / target.GetComponent<Stats>().maxHP;
+                                            float healthAfterAttack = 0;
+                                            
+                                            if (healing)
+                                            {
+                                                healthAfterAttack = target.GetComponent<Stats>().hp + damage;
+                                                if (healthAfterAttack > target.GetComponent<Stats>().maxHP)
+                                                {
+                                                    healthAfterAttack = target.GetComponent<Stats>().maxHP;
+                                                }
+
+                                                Image bar = hpPanel.GetChild(j).GetChild(k).GetComponent<Image>();
+                                                bar.fillAmount = healthAfterAttack / target.GetComponent<Stats>().maxHP;
+                                            }
+                                            else
+                                            {
+                                                Image bar = hpPanel.GetChild(j).GetChild(k).GetComponent<Image>();
+                                                bar.fillAmount = target.GetComponent<Stats>().hp / target.GetComponent<Stats>().maxHP;
+                                            }
                                         }
                                         else if (hpPanel.GetChild(j).GetChild(k).name == "HealthAfterAttack")
                                         {
-                                            float healthAfterAttack = target.GetComponent<Stats>().hp - (damage * doubling);
-                                            if (healthAfterAttack < 0)
-                                            {
-                                                healthAfterAttack = 0;
-                                            }
+                                            float healthAfterAttack = 0;
 
-                                            Image bar = hpPanel.GetChild(j).GetChild(k).GetComponent<Image>();
-                                            bar.fillAmount = healthAfterAttack / target.GetComponent<Stats>().maxHP;
+                                            if (!healing)
+                                            {
+                                                healthAfterAttack = target.GetComponent<Stats>().hp - (damage * doubling);
+                                                if (healthAfterAttack < 0)
+                                                {
+                                                    healthAfterAttack = 0;
+                                                }
+
+                                                Image bar = hpPanel.GetChild(j).GetChild(k).GetComponent<Image>();
+                                                bar.fillAmount = healthAfterAttack / target.GetComponent<Stats>().maxHP;
+                                            }
+                                            else
+                                            {
+                                                Image bar = hpPanel.GetChild(j).GetChild(k).GetComponent<Image>();
+                                                bar.fillAmount = target.GetComponent<Stats>().hp / target.GetComponent<Stats>().maxHP;
+                                            }
+                                            
                                         }
                                         else if (hpPanel.GetChild(j).GetChild(k).name == "Text")
                                         {
@@ -360,11 +403,20 @@ public class Attack : MonoBehaviour
                                         }
                                         else if (hpPanel.GetChild(j).GetChild(k).name == "TextAfterAttack")
                                         {
-                                            float healthAfterAttack = target.GetComponent<Stats>().hp - (damage * doubling);
-                                            if (healthAfterAttack < 0)
+                                            float healthAfterAttack = 0;
+                                            if (!healing)
                                             {
-                                                healthAfterAttack = 0;
+                                                healthAfterAttack = target.GetComponent<Stats>().hp - (damage * doubling);
                                             }
+                                            else
+                                            {
+                                                healthAfterAttack = target.GetComponent<Stats>().hp + damage;
+
+                                                if (healthAfterAttack > target.GetComponent<Stats>().maxHP)
+                                                {
+                                                    healthAfterAttack = target.GetComponent<Stats>().maxHP;
+                                                }
+                                            }                                            
 
                                             Text hp = hpPanel.GetChild(j).GetChild(k).GetComponent<Text>();
                                             hp.text = healthAfterAttack.ToString("F0");

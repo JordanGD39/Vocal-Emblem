@@ -376,6 +376,10 @@ public class BattleManager : MonoBehaviour
             {
                 playerHPtarget = 0;
             }
+            else if (playerHPtarget > playerBattle.maxHP)
+            {
+                playerHPtarget = playerBattle.maxHP;
+            }
         }
         else if (defender.GetComponent<AttackingInBattle>().stats == enemyBattle)
         {
@@ -384,6 +388,10 @@ public class BattleManager : MonoBehaviour
             if (enemyHPtarget < 0)
             {
                 enemyHPtarget = 0;
+            }
+            else if (enemyHPtarget > enemyBattle.maxHP)
+            {
+                enemyHPtarget = enemyBattle.maxHP;
             }
         }
     }
