@@ -8,7 +8,7 @@ public class Weapon : ScriptableObject
 {
     public string weaponName = "";
     public string description = "";
-    public enum WeaponType {SWORD, AXE, LANCE, BOW, SCREAM};
+    public enum WeaponType {SWORD, AXE, LANCE, BOW, SCREAM, STAFF};
     public WeaponType typeOfWeapon;
     public int mt = 5;
     public int uses = 42;

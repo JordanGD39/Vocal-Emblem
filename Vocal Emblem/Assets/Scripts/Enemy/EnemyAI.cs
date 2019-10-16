@@ -27,24 +27,19 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (stats.typeMovement == Stats.movementType.FLIER)
-        {
-            wall = -20;
-        }
-        else
-        {
-            wall = 0;
-        }
+        
     }
 
     public void Selected()
     {
         if (stats.typeMovement == Stats.movementType.FLIER)
         {
+            wall = -20;
             tileData.RevealTiles(Mathf.RoundToInt(transform.position.x - 0.5f), Mathf.RoundToInt(transform.position.y - 0.5f), Mathf.RoundToInt(stats.mov), stats.equippedWeapon.range, true, true, 2);
         }
         else
         {
+            wall = 0;
             tileData.RevealTiles(Mathf.RoundToInt(transform.position.x - 0.5f), Mathf.RoundToInt(transform.position.y - 0.5f), Mathf.RoundToInt(stats.mov), stats.equippedWeapon.range, false, true, 2);
         }
     }

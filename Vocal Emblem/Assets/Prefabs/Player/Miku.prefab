@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5688887431750050}
   - component: {fileID: -5296774186595225541}
   - component: {fileID: 8771815226094199406}
+  - component: {fileID: 7160930305704771437}
   m_Layer: 0
   m_Name: Miku
   m_TagString: Player
@@ -114,8 +115,8 @@ MonoBehaviour:
   battlePrefab: {fileID: 3201748953326532878, guid: 0a64875807204f34da7925fe75700f59,
     type: 3}
   weapons:
-  - {fileID: 11400000, guid: 7dcfee683bdae4d48a9647cfc28206dd, type: 2}
-  equippedWeapon: {fileID: 11400000, guid: 7dcfee683bdae4d48a9647cfc28206dd, type: 2}
+  - {fileID: 11400000, guid: c11e4e42138ea294e868c75c6c2208d3, type: 2}
+  equippedWeapon: {fileID: 11400000, guid: c11e4e42138ea294e868c75c6c2208d3, type: 2}
   typeMovement: 0
   maxHP: 20
   hp: 20
@@ -186,3 +187,15 @@ MonoBehaviour:
   distance: 0
   enemies: []
   indexEnemies: 0
+--- !u!114 &7160930305704771437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5688887431750110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50480a4b138426841b0d77e011f498fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

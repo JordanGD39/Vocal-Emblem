@@ -22,10 +22,17 @@ public class SelectChoices : MonoBehaviour
         cursor.currSelectedChar.GetComponent<Attack>().indexEnemies = 0;
         cursor.currSelectedChar.GetComponent<Attack>().CheckAttackRange();        
     }
+
     public void Items()
     {
 
     }
+
+    public void Heal()
+    {
+
+    }
+
     public void Wait()
     {
         cursor.currSelectedChar.GetComponent<PlayerMovement>().wait = true;

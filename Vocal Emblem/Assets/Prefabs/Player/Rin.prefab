@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5430091063341046809}
   - component: {fileID: 9021179540431850880}
   - component: {fileID: 3671566705060683733}
+  - component: {fileID: 7236658818979535472}
   m_Layer: 0
   m_Name: Rin
   m_TagString: Player
@@ -119,20 +120,20 @@ MonoBehaviour:
   typeMovement: 0
   maxHP: 18
   hp: 18
-  maxStr: 10
-  str: 10
-  maxScr: 5
-  scr: 5
-  maxSkill: 7
-  skill: 7
-  maxSpd: 6
-  spd: 6
-  maxLuk: 4
-  luk: 4
-  maxDef: 4
-  def: 4
-  maxRes: 2
-  res: 2
+  maxStr: 4
+  str: 4
+  maxScr: 4
+  scr: 4
+  maxSkill: 8
+  skill: 8
+  maxSpd: 8
+  spd: 8
+  maxLuk: 6
+  luk: 6
+  maxDef: 3
+  def: 3
+  maxRes: 3
+  res: 3
   mov: 5
 --- !u!61 &9021179540431850880
 BoxCollider2D:
@@ -186,3 +187,15 @@ MonoBehaviour:
   distance: 0
   enemies: []
   indexEnemies: 0
+--- !u!114 &7236658818979535472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5430091063341046885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50480a4b138426841b0d77e011f498fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
