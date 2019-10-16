@@ -51,7 +51,7 @@ public class Attack : MonoBehaviour
             {
                 indexEnemies++;                       
 
-                if (indexEnemies >= enemies.Count)
+                if (indexEnemies >= enemies.Count && !greenTiles || indexEnemies >= heal.GetAllies().Count && greenTiles)
                 {
                     indexEnemies = 0;
                 }
@@ -61,9 +61,13 @@ public class Attack : MonoBehaviour
             else if (Input.GetButtonDown("Horizontal") && (Input.GetAxis("Horizontal") < 0))
             {
                 indexEnemies--;
-                if (indexEnemies <= -1)
+                if (indexEnemies <= -1 && !greenTiles)
                 {
                     indexEnemies = enemies.Count - 1;
+                }
+                else if (indexEnemies <= -1 && greenTiles)
+                {
+                    indexEnemies = heal.GetAllies().Count - 1;
                 }
                 CheckAttackRange(greenTiles);
             }
@@ -71,7 +75,7 @@ public class Attack : MonoBehaviour
             if (Input.GetButtonDown("Vertical") && Input.GetAxis("Vertical") > 0)
             {
                 indexEnemies++;
-                if (indexEnemies >= enemies.Count)
+                if (indexEnemies >= enemies.Count && !greenTiles || indexEnemies >= heal.GetAllies().Count && greenTiles)
                 {
                     indexEnemies = 0;
                 }
@@ -80,9 +84,13 @@ public class Attack : MonoBehaviour
             else if (Input.GetButtonDown("Vertical") && (Input.GetAxis("Vertical") < 0))
             {
                 indexEnemies--;
-                if (indexEnemies <= -1)
+                if (indexEnemies <= -1 && !greenTiles)
                 {
                     indexEnemies = enemies.Count - 1;
+                }
+                else if (indexEnemies <= -1 && greenTiles)
+                {
+                    indexEnemies = heal.GetAllies().Count - 1;
                 }
                 CheckAttackRange(greenTiles);
             }
@@ -180,6 +188,7 @@ public class Attack : MonoBehaviour
             }
             else
             {
+                distance = Mathf.Abs(gameObject.transform.position.x - target.transform.position.x) + Mathf.Abs(gameObject.transform.position.y - target.transform.position.y);
                 damage = stats.scr + 10;
                 acc = 100;
                 crit = 0;

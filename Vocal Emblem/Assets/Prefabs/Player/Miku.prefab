@@ -119,7 +119,7 @@ MonoBehaviour:
   equippedWeapon: {fileID: 11400000, guid: c11e4e42138ea294e868c75c6c2208d3, type: 2}
   typeMovement: 0
   maxHP: 20
-  hp: 20
+  hp: 2
   maxStr: 8
   str: 8
   maxScr: 6
@@ -199,3 +199,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50480a4b138426841b0d77e011f498fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allies: []

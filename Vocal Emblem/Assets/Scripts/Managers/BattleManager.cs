@@ -156,7 +156,9 @@ public class BattleManager : MonoBehaviour
                         playerSprite = Instantiate(player.battlePrefab, battlePanel.GetChild(i), false);
                         enemySprite = Instantiate(enemy.battlePrefab, battlePanel.GetChild(i), false);
                         playerSprite.GetComponent<AttackingInBattle>().stats = player;
+                        playerSprite.transform.localPosition = new Vector3(-135.3f, -0.5f, 0);
                         enemySprite.GetComponent<AttackingInBattle>().stats = enemy;
+                        enemySprite.transform.localPosition = new Vector3(126.2f, -0.5f, 0);
                         break;
                     case 2:
                         battlePanel.GetChild(i).GetChild(0).transform.localPosition = new Vector3(-222, -46f, 0);
@@ -165,6 +167,8 @@ public class BattleManager : MonoBehaviour
                         enemySprite = Instantiate(enemy.battlePrefab, battlePanel.GetChild(i), false);
                         playerSprite.GetComponent<AttackingInBattle>().stats = player;
                         enemySprite.GetComponent<AttackingInBattle>().stats = enemy;
+                        playerSprite.transform.localPosition = new Vector3(-232, -0.5f, 0);
+                        enemySprite.transform.localPosition = new Vector3(226, -0.5f, 0);
                         break;
                 }
                 if (distance > 2)
@@ -175,6 +179,8 @@ public class BattleManager : MonoBehaviour
                     enemySprite = Instantiate(enemy.battlePrefab, battlePanel.GetChild(i), false);
                     playerSprite.GetComponent<AttackingInBattle>().stats = player;
                     enemySprite.GetComponent<AttackingInBattle>().stats = enemy;
+                    playerSprite.transform.localPosition = new Vector3(-280, -0.5f, 0);
+                    enemySprite.transform.localPosition = new Vector3(271, -0.5f, 0);
                 }
             }
         }
@@ -191,6 +197,8 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator AttackOrder(Stats player, Stats enemy, Stats damageHolder, GameObject playerSprite, GameObject enemySprite, float distance, int i, bool twiceFourDoubling)
     {
+        Debug.Log(playerSprite);
+        Debug.Log(enemySprite);
         playerSprite.GetComponent<AttackingInBattle>().done = false;
         enemySprite.GetComponent<AttackingInBattle>().done = false;
         Attack(player, damageHolder.GetComponent<Attack>().damage, damageHolder.GetComponent<Attack>().acc, damageHolder.GetComponent<Attack>().crit, playerSprite, enemySprite);//1st player
@@ -211,6 +219,7 @@ public class BattleManager : MonoBehaviour
             enemySprite.GetComponent<Animator>().Play("Idle");
             if (player.hp <= 0)
             {
+                tileData.currMapCharPos[Mathf.RoundToInt(-player.GetComponent<PlayerMovement>().oldPos.y + 0.5f), Mathf.RoundToInt(player.GetComponent<PlayerMovement>().oldPos.x - 0.5f)] = 0;
                 tileData.currMapCharPos[Mathf.RoundToInt(-player.transform.position.y + 0.5f), Mathf.RoundToInt(player.transform.position.x - 0.5f)] = 0;
 
                 if (damageHolder == playerBattle)
@@ -228,6 +237,7 @@ public class BattleManager : MonoBehaviour
                 Destroy(playerSprite);
                 Destroy(enemySprite);
                 cursor.battlePanel.SetActive(false);
+                tileData.DeselectMovement();
 
                 if(damageHolder == enemyBattle)
                 {
@@ -328,6 +338,10 @@ public class BattleManager : MonoBehaviour
                 break;
             case Weapon.WeaponType.SCREAM:
                 sprite.GetComponentInChildren<Animator>().Play("AttackSword");
+                break;
+            case Weapon.WeaponType.STAFF:
+                sprite.GetComponentInChildren<Animator>().Play("AttackSword");
+                defendSprite.GetComponent<AttackingInBattle>().damage = -dmg;
                 break;
         }        
 
