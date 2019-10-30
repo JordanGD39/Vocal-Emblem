@@ -111,8 +111,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a3ee9c4f50edc147b0566e5558a2905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charName: Kagamine Rin
-  battlePrefab: {fileID: 4319281673267862910, guid: f10f8ac9e311b7f48a49b0a22e39bd79,
+  charName: Kagamine Len
+  battlePrefab: {fileID: 1045615545935149521, guid: 5ed548d249dbff949bf99f26ccb177e5,
     type: 3}
   weapons:
   - {fileID: 11400000, guid: ea3ab53fcd6a7fb44b11985b18922653, type: 2}

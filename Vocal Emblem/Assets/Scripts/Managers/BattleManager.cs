@@ -17,8 +17,8 @@ public class BattleManager : MonoBehaviour
     private GameObject playerSprite;
     private GameObject enemySprite;
 
-    private Stats playerBattle;
-    private Stats enemyBattle;
+    [SerializeField] private Stats playerBattle;
+    [SerializeField] private Stats enemyBattle;
 
     private float playerHPtarget = 99;
     private float enemyHPtarget = 99;
@@ -219,16 +219,18 @@ public class BattleManager : MonoBehaviour
             enemySprite.GetComponent<Animator>().Play("Idle");
             if (player.hp <= 0)
             {
-                tileData.currMapCharPos[Mathf.RoundToInt(-player.GetComponent<PlayerMovement>().oldPos.y + 0.5f), Mathf.RoundToInt(player.GetComponent<PlayerMovement>().oldPos.x - 0.5f)] = 0;
-                tileData.currMapCharPos[Mathf.RoundToInt(-player.transform.position.y + 0.5f), Mathf.RoundToInt(player.transform.position.x - 0.5f)] = 0;
+                Debug.Log("Taampje " + player);                
 
                 if (damageHolder == playerBattle)
                 {
                     tileData.players.Remove(player.gameObject);
+                    tileData.currMapCharPos[Mathf.RoundToInt(-player.GetComponent<PlayerMovement>().oldPos.y + 0.5f), Mathf.RoundToInt(player.GetComponent<PlayerMovement>().oldPos.x - 0.5f)] = 0;
+                    tileData.currMapCharPos[Mathf.RoundToInt(-player.transform.position.y + 0.5f), Mathf.RoundToInt(player.transform.position.x - 0.5f)] = 0;
                 }
                 else
                 {
                     tileData.enemiesInGame.Remove(player.gameObject);
+                    tileData.currMapCharPos[Mathf.RoundToInt(-player.transform.position.y + 0.5f), Mathf.RoundToInt(player.transform.position.x - 0.5f)] = 0;
                 }
 
                 Destroy(player.gameObject);

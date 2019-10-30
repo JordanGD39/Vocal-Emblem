@@ -198,7 +198,7 @@ public class Attack : MonoBehaviour
             else
             {
                 distance = Mathf.Abs(gameObject.transform.position.x - target.transform.position.x) + Mathf.Abs(gameObject.transform.position.y - target.transform.position.y);
-                damage = stats.scr + 10;
+                damage = stats.scr + stats.equippedWeapon.heal;
                 doubling = 1;
                 acc = 100;
                 crit = 0;
@@ -406,6 +406,10 @@ public class Attack : MonoBehaviour
                                             if (!healing)
                                             {
                                                 healthAfterAttack = target.GetComponent<Stats>().hp - (damage * doubling);
+                                                if (healthAfterAttack < 0)
+                                                {
+                                                    healthAfterAttack = 0;
+                                                }
                                             }
                                             else
                                             {

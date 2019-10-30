@@ -15,6 +15,7 @@ public class Cursor : MonoBehaviour
     public GameObject selectPanel;
     public GameObject attackPanel;
     public GameObject battlePanel;
+    public GameObject itemPanel;
 
     private List<GameObject> openList = new List<GameObject>();
     private List<GameObject> closedList = new List<GameObject>();
@@ -29,6 +30,7 @@ public class Cursor : MonoBehaviour
         attackPanel.SetActive(false);
         selectPanel.SetActive(false);
         battlePanel.SetActive(false);
+        itemPanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -50,7 +52,7 @@ public class Cursor : MonoBehaviour
 
     private void Controls(RaycastHit2D hit)
     {
-        if (!selectPanel.activeSelf && !attackPanel.activeSelf)
+        if (!selectPanel.activeSelf && !attackPanel.activeSelf && !itemPanel.activeSelf)
         {
             if (Input.GetButtonDown("Horizontal") && Input.GetAxis("Horizontal") > 0)
             {
@@ -141,6 +143,22 @@ public class Cursor : MonoBehaviour
                 battlePanel.SetActive(true);
 
                 BM.Battle(currSelectedChar.GetComponent<Stats>(), currSelectedChar.GetComponent<Attack>().target.GetComponent<Stats>(), currSelectedChar.GetComponent<Attack>().distance, true);
+            }
+        }
+        else if (itemPanel.activeSelf && currSelectedChar != null)
+        {
+            if (Input.GetButtonDown("Cancel"))
+            {
+                foreach (Transform child in itemPanel.transform.GetChild(0))
+                {
+                    Destroy(child.gameObject);
+                }
+
+                itemPanel.SetActive(false);
+                selectPanel.SetActive(true);
+
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(selectPanel.transform.GetChild(0).GetChild(0).gameObject);
             }
         }
     }

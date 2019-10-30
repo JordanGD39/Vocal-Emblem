@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class SelectChoices : MonoBehaviour
 {
     private Cursor cursor;
     private TileData tileData;
     private BattleStateMachine BSM;
+
+    [SerializeField] private GameObject itemButtonPrefab;
 
     public GameObject healChoice; 
 
@@ -27,7 +31,22 @@ public class SelectChoices : MonoBehaviour
 
     public void Items()
     {
+        cursor.itemPanel.SetActive(true);
+        cursor.selectPanel.SetActive(false);
 
+        for (int i = 0; i < cursor.currSelectedChar.GetComponent<Stats>().weapons.Count; i++)
+        {
+            GameObject button = Instantiate(itemButtonPrefab, cursor.itemPanel.transform.GetChild(0), false);
+
+            button.GetComponent<ItemButtonScript>().index = i;
+
+            button.transform.GetChild(0).GetComponent<Text>().text = cursor.currSelectedChar.GetComponent<Stats>().weapons[i].weaponName;
+            button.transform.GetChild(2).GetComponent<Text>().text = cursor.currSelectedChar.GetComponent<Stats>().weapons[i].uses.ToString();
+            //button.transform.GetComponentInChildren<Image>()            
+        }
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(cursor.itemPanel.transform.GetChild(0).GetChild(0).gameObject);
     }
 
     public void Heal()
@@ -47,6 +66,11 @@ public class SelectChoices : MonoBehaviour
         StartCoroutine(WaitForSetActive());
         BSM.CheckPlayerWait();
         tileData.DeselectMovement();
+    }
+
+    public void SetCurrentItem(int i)
+    {
+        cursor.currSelectedChar.GetComponent<Stats>().equippedWeapon = cursor.currSelectedChar.GetComponent<Stats>().weapons[i];
     }
 
     private IEnumerator WaitForSetActive()

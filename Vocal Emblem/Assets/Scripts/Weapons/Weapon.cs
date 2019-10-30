@@ -11,6 +11,7 @@ public class Weapon : ScriptableObject
     public enum WeaponType {SWORD, AXE, LANCE, BOW, SCREAM, STAFF};
     public WeaponType typeOfWeapon;
     public int mt = 5;
+    public int heal = 0;
     public int uses = 42;
     public int crit = 0;
     public int accuracy = 100;

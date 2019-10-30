@@ -16,6 +16,7 @@ MonoBehaviour:
   description: Heals 10 HP
   typeOfWeapon: 5
   mt: 0
+  heal: 10
   uses: 42
   crit: 0
   accuracy: 100
