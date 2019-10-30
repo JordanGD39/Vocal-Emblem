@@ -48,6 +48,10 @@ public class EnemyAI : MonoBehaviour
     {
         if (!wait)
         {
+            bool targetInRange = false;
+
+            List<GameObject> targets = new List<GameObject>();
+
             int x = Mathf.RoundToInt(transform.position.x - 0.5f);
             int y = Mathf.RoundToInt(transform.position.y - 0.5f);
 
@@ -55,7 +59,49 @@ public class EnemyAI : MonoBehaviour
             tileData.DeselectMovement();
             Selected();
 
-            target = GetClosestPlayer(tileData.players);
+            //Target priority
+            for (int i = 0; i < tileData.players.Count; i++)
+            {
+                if (tileData.rowsMovement[Mathf.RoundToInt(transform.position.y - 0.5f)].transform.GetChild(Mathf.RoundToInt(transform.position.x - 0.5f)).CompareTag("MoveTile") || tileData.rowsMovement[Mathf.RoundToInt(transform.position.y - 0.5f)].transform.GetChild(Mathf.RoundToInt(transform.position.x - 0.5f)).CompareTag("MoveTileRed"))
+                {
+                    targetInRange = true;
+                    targets.Add(tileData.players[i]);
+                }
+            }
+
+            if (!targetInRange)
+            {
+                target = GetClosestPlayer(tileData.players);
+            }
+            else
+            {
+                float bestDamage = 0;
+
+                for (int i = 0; i < targets.Count; i++)
+                {
+                    int xEnemy = Mathf.RoundToInt(targets[i].transform.position.x - 0.5f);
+                    int yEnemy = Mathf.RoundToInt(targets[i].transform.position.y - 0.5f);
+
+                    Attack attack = GetComponent<Attack>();
+                        
+                    //Damage calc
+                    float damage = attack.CalcDamage(gameObject, targets[i]);
+
+                    //Hit calc
+                    float hit = attack.CalcHit(gameObject);
+                    float enemyEvade = attack.CalcEvade(targets[i], xEnemy, yEnemy);
+                    float acc = attack.CalcAccuracy(hit, enemyEvade, gameObject);
+
+                    if (damage > bestDamage)
+                    {
+                        if (acc > 70)
+                        {
+                            bestDamage = damage;
+                        }                       
+                    }
+                }
+            }
+            
             if (target != null)
             {
                 WalkingTowardsTarget(x, y, false, false, false, false);

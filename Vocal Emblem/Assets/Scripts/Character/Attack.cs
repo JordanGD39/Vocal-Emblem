@@ -609,7 +609,7 @@ public class Attack : MonoBehaviour
         return crit;
     }
 
-    private float CalcAccuracy(float hit, float evasion, GameObject character)
+    public float CalcAccuracy(float hit, float evasion, GameObject character)
     {
         float triangle = 0;
         if (character == gameObject)
@@ -634,7 +634,7 @@ public class Attack : MonoBehaviour
         return accuracy;
     }
 
-    private float CalcEvade(GameObject character, int x, int y)
+    public float CalcEvade(GameObject character, int x, int y)
     {
         float evasion = 0;
 
@@ -642,7 +642,7 @@ public class Attack : MonoBehaviour
         return evasion;
     }
 
-    private float CalcDamage(GameObject firstChar, GameObject otherChar)
+    public float CalcDamage(GameObject firstChar, GameObject otherChar)
     {
         float damage = 0;
 
@@ -742,7 +742,7 @@ public class Attack : MonoBehaviour
         return i;
     }
 
-    private float CalcHit(GameObject character)
+    public float CalcHit(GameObject character)
     {
         float hitRate = 0;
 
