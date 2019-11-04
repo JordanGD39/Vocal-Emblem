@@ -1,0 +1,1421 @@
+fileFormatVersion: 2
+guid: 20fdd456674f50b43a6d96bc7024ed97
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1284545119337188256
+    second: PC Computer - Miku n Pop - Luka Megurine_0
+  - first:
+      213: 4521462740316875032
+    second: PC Computer - Miku n Pop - Luka Megurine_1
+  - first:
+      213: 6652202819812212515
+    second: PC Computer - Miku n Pop - Luka Megurine_2
+  - first:
+      213: -7964843154027043598
+    second: PC Computer - Miku n Pop - Luka Megurine_3
+  - first:
+      213: -5011685074824695795
+    second: PC Computer - Miku n Pop - Luka Megurine_4
+  - first:
+      213: 7540978520238045303
+    second: PC Computer - Miku n Pop - Luka Megurine_5
+  - first:
+      213: -481423488556802551
+    second: PC Computer - Miku n Pop - Luka Megurine_6
+  - first:
+      213: -2715498228681991354
+    second: PC Computer - Miku n Pop - Luka Megurine_7
+  - first:
+      213: 2280195510769277439
+    second: PC Computer - Miku n Pop - Luka Megurine_8
+  - first:
+      213: 5018909562185137756
+    second: PC Computer - Miku n Pop - Luka Megurine_9
+  - first:
+      213: -8600872167184205194
+    second: PC Computer - Miku n Pop - Luka Megurine_10
+  - first:
+      213: 267037694809862683
+    second: PC Computer - Miku n Pop - Luka Megurine_11
+  - first:
+      213: 4593801217392834670
+    second: PC Computer - Miku n Pop - Luka Megurine_12
+  - first:
+      213: -8886525569578108648
+    second: PC Computer - Miku n Pop - Luka Megurine_13
+  - first:
+      213: 2905122027985647250
+    second: PC Computer - Miku n Pop - Luka Megurine_14
+  - first:
+      213: -8149096336166241703
+    second: PC Computer - Miku n Pop - Luka Megurine_15
+  - first:
+      213: -5469723484425285894
+    second: PC Computer - Miku n Pop - Luka Megurine_16
+  - first:
+      213: 8843989579076505044
+    second: PC Computer - Miku n Pop - Luka Megurine_17
+  - first:
+      213: -3555782686972322730
+    second: PC Computer - Miku n Pop - Luka Megurine_18
+  - first:
+      213: -8423729294077667124
+    second: PC Computer - Miku n Pop - Luka Megurine_19
+  - first:
+      213: -7551199525860344069
+    second: PC Computer - Miku n Pop - Luka Megurine_20
+  - first:
+      213: 8685456019501511137
+    second: PC Computer - Miku n Pop - Luka Megurine_21
+  - first:
+      213: 1358558839661537484
+    second: PC Computer - Miku n Pop - Luka Megurine_22
+  - first:
+      213: -7493190174362516562
+    second: PC Computer - Miku n Pop - Luka Megurine_23
+  - first:
+      213: 591995736458551669
+    second: PC Computer - Miku n Pop - Luka Megurine_24
+  - first:
+      213: -1393572758472030576
+    second: PC Computer - Miku n Pop - Luka Megurine_25
+  - first:
+      213: 6559947366518639823
+    second: PC Computer - Miku n Pop - Luka Megurine_26
+  - first:
+      213: -1755884218548530333
+    second: PC Computer - Miku n Pop - Luka Megurine_27
+  - first:
+      213: -609825747941864016
+    second: PC Computer - Miku n Pop - Luka Megurine_28
+  - first:
+      213: 793914703470853379
+    second: PC Computer - Miku n Pop - Luka Megurine_29
+  - first:
+      213: -1843083327837355227
+    second: PC Computer - Miku n Pop - Luka Megurine_30
+  - first:
+      213: 6865965732247794644
+    second: PC Computer - Miku n Pop - Luka Megurine_31
+  - first:
+      213: -7654636771794867395
+    second: PC Computer - Miku n Pop - Luka Megurine_32
+  - first:
+      213: 205701198646913984
+    second: PC Computer - Miku n Pop - Luka Megurine_33
+  - first:
+      213: 5209670503786088592
+    second: PC Computer - Miku n Pop - Luka Megurine_34
+  - first:
+      213: 2895342611609743296
+    second: PC Computer - Miku n Pop - Luka Megurine_35
+  - first:
+      213: 932328465150126063
+    second: PC Computer - Miku n Pop - Luka Megurine_36
+  - first:
+      213: 6869967334207691235
+    second: PC Computer - Miku n Pop - Luka Megurine_37
+  - first:
+      213: 1781864247719345730
+    second: PC Computer - Miku n Pop - Luka Megurine_38
+  - first:
+      213: -3703484654581768398
+    second: PC Computer - Miku n Pop - Luka Megurine_39
+  - first:
+      213: 1456908146238490595
+    second: PC Computer - Miku n Pop - Luka Megurine_40
+  - first:
+      213: 6555191585506590795
+    second: PC Computer - Miku n Pop - Luka Megurine_41
+  - first:
+      213: -8145567631582153566
+    second: PC Computer - Miku n Pop - Luka Megurine_42
+  - first:
+      213: 6441816625196718374
+    second: PC Computer - Miku n Pop - Luka Megurine_43
+  - first:
+      213: -6679189750392185636
+    second: PC Computer - Miku n Pop - Luka Megurine_44
+  - first:
+      213: -7355421783717511849
+    second: PC Computer - Miku n Pop - Luka Megurine_45
+  - first:
+      213: 5514921095319808944
+    second: PC Computer - Miku n Pop - Luka Megurine_46
+  - first:
+      213: -7283338456911644146
+    second: PC Computer - Miku n Pop - Luka Megurine_47
+  - first:
+      213: -4568063727800418262
+    second: PC Computer - Miku n Pop - Luka Megurine_48
+  - first:
+      213: 941115863599742825
+    second: PC Computer - Miku n Pop - Luka Megurine_49
+  - first:
+      213: -2035902258960438510
+    second: PC Computer - Miku n Pop - Luka Megurine_50
+  - first:
+      213: -5032625547590318262
+    second: PC Computer - Miku n Pop - Luka Megurine_51
+  - first:
+      213: 2078275332405116524
+    second: PC Computer - Miku n Pop - Luka Megurine_52
+  - first:
+      213: -8500525446027793026
+    second: PC Computer - Miku n Pop - Luka Megurine_53
+  - first:
+      213: 4438996561288143151
+    second: PC Computer - Miku n Pop - Luka Megurine_54
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 404
+        width: 38
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae2a0809824618045b733cfa8d424dd8
+      internalID: -1284545119337188256
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_1
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 404
+        width: 38
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22c0d3ea1f6da994c8feb8a1e5e06087
+      internalID: 4521462740316875032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_2
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 404
+        width: 38
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fa5b51b40845614a98308b00d736afa
+      internalID: 6652202819812212515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_3
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 404
+        width: 38
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a34d29114c832b48ab434aff98ad0be
+      internalID: -7964843154027043598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_4
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 337
+        width: 38
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b52ddefd6a6f7f45820929adf11984a
+      internalID: -5011685074824695795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_5
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 337
+        width: 39
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffb9a196a9bc0954b8cfa5137f82a71d
+      internalID: 7540978520238045303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_6
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 337
+        width: 44
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aee1cdcf68242a14f864fef3429e9dc0
+      internalID: -481423488556802551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_7
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 337
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79f7673e68a2ca149aa28f3e2f7381c5
+      internalID: -2715498228681991354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_8
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 337
+        width: 42
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77aebe8ce917c4c40a430001abcc796e
+      internalID: 2280195510769277439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_9
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 337
+        width: 38
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfd1fff02529edd4894e9c20dea4e3f3
+      internalID: 5018909562185137756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_10
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 337
+        width: 39
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ee9a5065be012d4b8f25fd9e5261406
+      internalID: -8600872167184205194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_11
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 337
+        width: 39
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28d3485492698d54eb60a1fe0e25f149
+      internalID: 267037694809862683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_12
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 337
+        width: 38
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70c34fa5047b48248925180d64aa2ac9
+      internalID: 4593801217392834670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_13
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 337
+        width: 39
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d5f20f121109f84886e52c725fb9c5b
+      internalID: -8886525569578108648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_14
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 337
+        width: 44
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88f744d92292b5849ac64a17741c57d6
+      internalID: 2905122027985647250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_15
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 337
+        width: 48
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eef7df3e484687c409d9dccabbe6be37
+      internalID: -8149096336166241703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_16
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 337
+        width: 42
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc20b17380b3f5343b6ca05fdac14bcf
+      internalID: -5469723484425285894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_17
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 337
+        width: 38
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a8c4ef53b60b1c4cbcf71f6f1e48bc1
+      internalID: 8843989579076505044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_18
+      rect:
+        serializedVersion: 2
+        x: 706
+        y: 337
+        width: 39
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4c228c3caa99c347a7a48b446733027
+      internalID: -3555782686972322730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_19
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 337
+        width: 39
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a64aaffb127c0b40861a4755218485d
+      internalID: -8423729294077667124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_20
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 270
+        width: 45
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18c0895420fa5df4ab1db1ef823943eb
+      internalID: -7551199525860344069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_21
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 270
+        width: 44
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47e170ed014a656438b45d6304ec7233
+      internalID: 8685456019501511137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_22
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 270
+        width: 42
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b920a02edc2b2bf4abfe9b352499cc2f
+      internalID: 1358558839661537484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_23
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 270
+        width: 40
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16ccbaa7dcecbab40a775435189cfd11
+      internalID: -7493190174362516562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_24
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 270
+        width: 41
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5dfd83ca31fff146aadca68aa400544
+      internalID: 591995736458551669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_25
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 271
+        width: 41
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a69f34001d90982478752cfb67bf0dfe
+      internalID: -1393572758472030576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_26
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 271
+        width: 44
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65f497dcd60586e47ba1b5f07638c988
+      internalID: 6559947366518639823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_27
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 271
+        width: 47
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db2d34b65c785f74e9598628392b2a49
+      internalID: -1755884218548530333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_28
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 204
+        width: 39
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb6edf776078a914abc4a3e1fc17e2df
+      internalID: -609825747941864016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_29
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 201
+        width: 37
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3202ded63fd1a945a93a3f016700f2d
+      internalID: 793914703470853379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_30
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 201
+        width: 40
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab2062b9539711246a7738690bbc1f0c
+      internalID: -1843083327837355227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_31
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 202
+        width: 42
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e50c3d30568d1343b81f108fdde1761
+      internalID: 6865965732247794644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_32
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 202
+        width: 52
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76c477e5554a36645b7b00643e929613
+      internalID: -7654636771794867395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_33
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 202
+        width: 57
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12b3220441d33584ea236254defef5ec
+      internalID: 205701198646913984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_34
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 202
+        width: 60
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cce996bf7a84f534090a5253485e2daa
+      internalID: 5209670503786088592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_35
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 204
+        width: 47
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a195b38760c88e2439ab15deac4078fb
+      internalID: 2895342611609743296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_36
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 204
+        width: 46
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2eb1ec991a9b0444ba5cdc6cd0874240
+      internalID: 932328465150126063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_37
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 137
+        width: 40
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff0b7984247dbd74ba053068f2be529c
+      internalID: 6869967334207691235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_38
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 137
+        width: 43
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4dc2226524bcb4f45970c87c8162672a
+      internalID: 1781864247719345730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_39
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 137
+        width: 41
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cd26a6627a15804394bc5dc54505127
+      internalID: -3703484654581768398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_40
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 137
+        width: 47
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc9d885044c05934fae25170488e520d
+      internalID: 1456908146238490595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_41
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 138
+        width: 67
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66a9ce41969b6fe4097ab74fc9b89e15
+      internalID: 6555191585506590795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_42
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 138
+        width: 71
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ed6e46491308ed42bece0d836358dc1
+      internalID: -8145567631582153566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_43
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 136
+        width: 41
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a19a54ed2a3bde49ba91cf7292391c5
+      internalID: 6441816625196718374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_44
+      rect:
+        serializedVersion: 2
+        x: 539
+        y: 136
+        width: 40
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78d20a3ceccbf17449cbe3ddd266a8e6
+      internalID: -6679189750392185636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_45
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 137
+        width: 42
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b4576d99f57cdc488046122280df470
+      internalID: -7355421783717511849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_46
+      rect:
+        serializedVersion: 2
+        x: 679
+        y: 137
+        width: 42
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c976b4aab92b0440ab2bfe66e994358
+      internalID: 5514921095319808944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_47
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 70
+        width: 41
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e783e10e5fb4b5f4180c58b7f3124435
+      internalID: -7283338456911644146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_48
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 69
+        width: 51
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 633e7683956efed4db55406363cccfde
+      internalID: -4568063727800418262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_49
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 74
+        width: 63
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 679942868f547354d8e257843ad3fa39
+      internalID: 941115863599742825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_50
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 67
+        width: 66
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f3cdca4a006fde4e9f8d25f744a4285
+      internalID: -2035902258960438510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_51
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 1
+        width: 39
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d18f0974b9478484b810a56756efba52
+      internalID: -5032625547590318262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_52
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 1
+        width: 43
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc3b4bad5bc98d647bd12fba5cf06f25
+      internalID: 2078275332405116524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_53
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 1
+        width: 43
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93bf4eb3d23e760428f7bb1d5823265f
+      internalID: -8500525446027793026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC Computer - Miku n Pop - Luka Megurine_54
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 1
+        width: 43
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8365f761646083846809641cb7ed3bd4
+      internalID: 4438996561288143151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: f22fd4351d0aadf4282d84a2336de787
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
