@@ -160,6 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wait: 0
   current: 0
+  charId: 2
   target: {fileID: 0}
 --- !u!114 &5783335043989060182
 MonoBehaviour:

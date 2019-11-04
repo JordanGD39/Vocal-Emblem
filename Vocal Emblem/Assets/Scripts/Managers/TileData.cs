@@ -256,7 +256,12 @@ public class TileData : MonoBehaviour
                         topNeighbor.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
                         if (currMapCharPos[y - 1, x] == 1 && allies == 1 || currMapCharPos[y - 1, x] >= 2 && allies == 2)
                         {
-                            CheckNeighbors(y - 1, x, wall, mov, beginX, beginY, range, giveCount, showTiles, allies);
+                            if (giveCount <= mov)
+                            {
+                                topNeighbor.GetComponent<SpriteRenderer>().color = new Color32(0, 129, 255, 168);
+                                topNeighbor.tag = "MoveTile";
+                                CheckNeighbors(y - 1, x, wall, mov, beginX, beginY, range, giveCount, showTiles, allies);
+                            }
                         }
                         if (range > 1)
                         {
@@ -295,7 +300,12 @@ public class TileData : MonoBehaviour
                         bottomNeighbor.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
                         if (currMapCharPos[y + 1, x] == 1 && allies == 1 || currMapCharPos[y + 1, x] >= 2 && allies == 2)
                         {
-                            CheckNeighbors(y + 1, x, wall, mov, beginX, beginY, range, giveCount, showTiles, allies);
+                            if (giveCount <= mov)
+                            {
+                                bottomNeighbor.tag = "MoveTile";
+                                bottomNeighbor.GetComponent<SpriteRenderer>().color = new Color32(0, 129, 255, 168);
+                                CheckNeighbors(y + 1, x, wall, mov, beginX, beginY, range, giveCount, showTiles, allies);
+                            }
                         }
                         if (range > 1)
                         {
@@ -334,7 +344,12 @@ public class TileData : MonoBehaviour
                         leftNeighbor.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
                         if (currMapCharPos[y, x - 1] == 1 && allies == 1 || currMapCharPos[y, x - 1] >= 2 && allies == 2)
                         {
-                            CheckNeighbors(y, x - 1, wall, mov, beginX, beginY, range, giveCount, showTiles, allies);
+                            if (giveCount <= mov)
+                            {
+                                leftNeighbor.GetComponent<SpriteRenderer>().color = new Color32(0, 129, 255, 168);
+                                leftNeighbor.tag = "MoveTile";
+                                CheckNeighbors(y, x - 1, wall, mov, beginX, beginY, range, giveCount, showTiles, allies);
+                            }
                         }
                         if (range > 1)
                         {
@@ -373,7 +388,12 @@ public class TileData : MonoBehaviour
                         rightNeighbor.GetComponent<SpriteRenderer>().color = new Color32(255, 0, 0, 168);
                         if (currMapCharPos[y, x + 1] == 1 && allies == 1 || currMapCharPos[y, x + 1] >= 2 && allies == 2)
                         {
-                            CheckNeighbors(y, x + 1, wall, mov, beginX, beginY, range, giveCount, showTiles, allies);
+                            if (giveCount <= mov)
+                            {
+                                rightNeighbor.GetComponent<SpriteRenderer>().color = new Color32(0, 129, 255, 168);
+                                rightNeighbor.tag = "MoveTile";
+                                CheckNeighbors(y, x + 1, wall, mov, beginX, beginY, range, giveCount, showTiles, allies);
+                            }
                         }
                         if (range > 1)
                         {

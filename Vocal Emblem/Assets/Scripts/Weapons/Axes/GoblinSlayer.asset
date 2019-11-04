@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94eae39947782b849af71f23eeaa44f3, type: 3}
-  m_Name: Leek
+  m_Name: GoblinSlayer
   m_EditorClassIdentifier: 
-  weaponName: Leek
-  description: Just a normal leek
-  typeOfWeapon: 0
-  mt: 5
+  weaponName: Goblin slayer
+  description: fvv
+  typeOfWeapon: 1
+  mt: 7
   heal: 0
-  uses: 42
-  crit: 0
-  accuracy: 100
+  uses: 40
+  crit: 40
+  accuracy: 85
   skillLevel: 1
-  range: 1
+  range: 2
   rangeOneAndTwo: 1
   counterAll: 0
   worth: 320

@@ -106,6 +106,7 @@ public class Attack : MonoBehaviour
         else if(gameObject.CompareTag("Enemy") && !healing)
         {
             enemies = tileData.CheckEnemiesInRange(Mathf.RoundToInt(transform.position.x - 0.5f), Mathf.RoundToInt(transform.position.y - 0.5f), stats.equippedWeapon.range, stats.equippedWeapon.rangeOneAndTwo, false, false);
+            indexEnemies = enemies.IndexOf(GetComponent<EnemyAI>().target.gameObject);
         }
 
         if (enemies.Count > 0  && !healing|| heal.GetAllies().Count > 0 && healing)
@@ -148,7 +149,7 @@ public class Attack : MonoBehaviour
             triangleBonusEnemy = 0;
 
             if (!healing)
-            {                
+            {
                 damage = CalcDamage(gameObject, target);
                 doubling = CalcSpeed(gameObject, target);
 
@@ -178,7 +179,7 @@ public class Attack : MonoBehaviour
                 float critEvade = 0;
                 enemyAcc = 0;
 
-                distance = Mathf.Abs(gameObject.transform.position.x - target.transform.position.x) + Mathf.Abs(gameObject.transform.position.y - target.transform.position.y);
+                distance = Mathf.Abs(transform.position.x - target.transform.position.x) + Mathf.Abs(transform.position.y - target.transform.position.y);
 
                 if (distance <= target.GetComponent<Stats>().equippedWeapon.range && target.GetComponent<Stats>().equippedWeapon.rangeOneAndTwo || distance != 1 && distance <= target.GetComponent<Stats>().equippedWeapon.range && !target.GetComponent<Stats>().equippedWeapon.rangeOneAndTwo || target.GetComponent<Stats>().equippedWeapon.counterAll)
                 {
@@ -193,13 +194,6 @@ public class Attack : MonoBehaviour
                         enemyCritRate = CalcCrit(target);
                         critEvade = CalcCritEvade(gameObject);
                         enemyCrit = CalcCritHit(enemyCritRate, critEvade);
-                    }
-                    else
-                    {
-                        enemyDamage = 0;
-                        enemyAcc = 0;
-                        enemyDoubling = 1;
-                        enemyCrit = 0;
                     }
                 }
             }
@@ -727,7 +721,7 @@ public class Attack : MonoBehaviour
         return damage;
     }
 
-    private int CalcSpeed(GameObject firstChar, GameObject otherChar)
+    public int CalcSpeed(GameObject firstChar, GameObject otherChar)
     {
         int i = 1;
 
@@ -747,7 +741,6 @@ public class Attack : MonoBehaviour
         float hitRate = 0;
 
         hitRate = character.GetComponent<Stats>().equippedWeapon.accuracy + character.GetComponent<Stats>().skill * 2 + character.GetComponent<Stats>().luk / 2 + 0 + 0; //0's for missing parts
-        Debug.Log("HitRate: " + hitRate);
 
         return hitRate;
     }

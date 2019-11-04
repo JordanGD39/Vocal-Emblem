@@ -116,6 +116,7 @@ MonoBehaviour:
     type: 3}
   weapons:
   - {fileID: 11400000, guid: c11e4e42138ea294e868c75c6c2208d3, type: 2}
+  - {fileID: 11400000, guid: 7a8f7744c70ffdd4f8c95806a525e010, type: 2}
   equippedWeapon: {fileID: 11400000, guid: c11e4e42138ea294e868c75c6c2208d3, type: 2}
   typeMovement: 0
   maxHP: 20

@@ -29,7 +29,7 @@ public class BattleStateMachine : MonoBehaviour
         {
             case battlePhase.PLAYER:
                 cursor.SetActive(true);
-                if (!checkingWait && allAreWaiting)
+                if (!checkingWait && allAreWaiting || Input.GetKeyDown(KeyCode.Alpha0))
                 {
                     phase = battlePhase.ALLY;
                 }
