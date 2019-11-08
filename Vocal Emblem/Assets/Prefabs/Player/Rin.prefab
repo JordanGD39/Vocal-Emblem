@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 9021179540431850880}
   - component: {fileID: 3671566705060683733}
   - component: {fileID: 7236658818979535472}
+  - component: {fileID: 954830577969040811}
+  - component: {fileID: -2816864846870449836}
   m_Layer: 0
   m_Name: Rin
   m_TagString: Player
@@ -119,6 +121,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ea3ab53fcd6a7fb44b11985b18922653, type: 2}
   equippedWeapon: {fileID: 0}
   typeMovement: 0
+  level: 1
+  exp: 0
   maxHP: 18
   hp: 18
   maxStr: 4
@@ -201,3 +205,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allies: []
+--- !u!114 &954830577969040811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5430091063341046885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd93dd8323adeb8498f2530aeb28bfc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-2816864846870449836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5430091063341046885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11cd04d105af15443903fe5d94607178, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpGrowth: 80
+  strGrowth: 40
+  scrGrowth: 60
+  skillGrowth: 40
+  spdGrowth: 60
+  defGrowth: 30
+  resGrowth: 40
+  lukGrowth: 70

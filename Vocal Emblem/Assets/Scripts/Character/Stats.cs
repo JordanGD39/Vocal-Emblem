@@ -16,6 +16,10 @@ public class Stats : MonoBehaviour
     public enum movementType { INFANTRY, FLIER};
     public movementType typeMovement;
 
+    public int level = 1;
+
+    public int exp = 0;
+
     public float maxHP;
     public float hp;
     public float maxStr;

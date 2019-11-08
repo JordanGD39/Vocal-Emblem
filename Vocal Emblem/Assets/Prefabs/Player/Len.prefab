@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 7725116311192346003}
   - component: {fileID: 2661782216753762246}
   - component: {fileID: 8244204702745315939}
+  - component: {fileID: 6659862997002618547}
+  - component: {fileID: 8413518569720807237}
   m_Layer: 0
   m_Name: Len
   m_TagString: Player
@@ -118,6 +120,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ea3ab53fcd6a7fb44b11985b18922653, type: 2}
   equippedWeapon: {fileID: 11400000, guid: ea3ab53fcd6a7fb44b11985b18922653, type: 2}
   typeMovement: 0
+  level: 1
+  exp: 80
   maxHP: 14
   hp: 14
   maxStr: 10
@@ -200,3 +204,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allies: []
+--- !u!114 &6659862997002618547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6728102589628615798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd93dd8323adeb8498f2530aeb28bfc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftOverXP: 0
+--- !u!114 &8413518569720807237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6728102589628615798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11cd04d105af15443903fe5d94607178, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpGrowth: 60
+  strGrowth: 80
+  scrGrowth: 40
+  skillGrowth: 70
+  spdGrowth: 60
+  defGrowth: 40
+  resGrowth: 30
+  lukGrowth: 20

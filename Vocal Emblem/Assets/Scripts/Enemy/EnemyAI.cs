@@ -24,12 +24,6 @@ public class EnemyAI : MonoBehaviour
         stats.equippedWeapon = stats.weapons[0];
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Selected()
     {
         if (stats.typeMovement == Stats.movementType.FLIER)
@@ -48,7 +42,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (!wait)
         {
-            Debug.Log("-------------- " + gameObject + " searching target --------------");
+            Debug.Log("-------------- " + name + " searching target --------------");
 
             bool targetInRange = false;
 
@@ -125,7 +119,7 @@ public class EnemyAI : MonoBehaviour
 
                     if (targetStats.hp - damage <= 0)
                     {
-                        Debug.Log(acc + " double " + doubling + " on " + targets[i]);
+                        Debug.Log(acc + " double " + doubling + " on " + targets[i].name);
                         Debug.Log(bestAcc + " the best");
                         killOnHit = 1;
                         if (acc > bestAcc)
@@ -139,7 +133,7 @@ public class EnemyAI : MonoBehaviour
                     {
                         if (targetStats.hp - damage * 2 <= 0)
                         {
-                            Debug.Log(acc + " double " + doubling + " on " + targets[i]);
+                            Debug.Log(acc + " double " + doubling + " on " + targets[i].name);
                             Debug.Log(bestAcc + " the best");
                             killOnHit = 2;
                             if (acc > bestAcc && stats.hp - enemyDamage > 0 || enemyAcc < 40)
@@ -153,7 +147,7 @@ public class EnemyAI : MonoBehaviour
                     {
                         if (targetStats.hp - damage * 4 <= 0)
                         {
-                            Debug.Log(acc + " double " + doubling + " on " + targets[i]);
+                            Debug.Log(acc + " double " + doubling + " on " + targets[i].name);
                             Debug.Log(bestAcc + " the best");
 
                             killOnHit = 4;
@@ -166,7 +160,7 @@ public class EnemyAI : MonoBehaviour
                     }
                 }
 
-                //Check if someone almost dies from this attack and above 70%
+                //Check if someone almost dies from this attack and above and inclusive 65%
                 if (target == null)
                 {
                     Debug.Log("-------------- Can't kill --------------");
@@ -212,9 +206,9 @@ public class EnemyAI : MonoBehaviour
                             }
                         }
 
-                        if (targetStats.hp - damage * doubling < leastHealth && acc > 70)
+                        if (targetStats.hp - damage * doubling < leastHealth && acc >= 65)
                         {
-                            Debug.Log((targetStats.hp - damage * doubling) + " double " + doubling + " on " + targets[i]);
+                            Debug.Log((targetStats.hp - damage * doubling) + " double " + doubling + " on " + targets[i].name);
                             Debug.Log(leastHealth + " the best");
                             if (stats.hp - enemyDamage * enemyDoubling > 0 || enemyAcc < 40)
                             {
@@ -263,7 +257,7 @@ public class EnemyAI : MonoBehaviour
                             }
                         }
 
-                        Debug.Log(acc + " on " + targets[i]);
+                        Debug.Log(acc + " on " + targets[i].name);
                         Debug.Log(bestAccu + " the best");
 
                         if (acc > bestAccu)
@@ -277,10 +271,14 @@ public class EnemyAI : MonoBehaviour
 
             if (target != null)
             {
-                Debug.Log("TARGET = " + target.gameObject.name);
+                Debug.Log("TARGET = " + target.name);
                 Debug.Log("-------------- Walking --------------");                
 
                 WalkingTowardsTarget(x, y, false, false, false, false);
+            }
+            else
+            {
+                tileData.DeselectMovement();
             }
         }        
     }

@@ -162,14 +162,6 @@ public class Attack : MonoBehaviour
                 float enemyCritEvade = CalcCritEvade(target);
                 crit = CalcCritHit(critRate, enemyCritEvade);
 
-                if (gameObject.GetComponent<Stats>().equippedWeapon.typeOfWeapon == Weapon.WeaponType.STAFF)
-                {
-                    damage = 0;
-                    doubling = 1;
-                    acc = 0;
-                    crit = 0;
-                }
-
                 enemyDamage = 0;
                 enemyCrit = 0;
                 enemyDoubling = 0;

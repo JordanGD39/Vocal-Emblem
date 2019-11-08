@@ -17,17 +17,24 @@ public class BattleManager : MonoBehaviour
     private GameObject playerSprite;
     private GameObject enemySprite;
 
+    private Transform levelPanel;
+
     [SerializeField] private Stats playerBattle;
     [SerializeField] private Stats enemyBattle;
 
     private float playerHPtarget = 99;
     private float enemyHPtarget = 99;
 
+    private float xp = 0;
+
+    private bool leveling = false;
+
     private void Start()
     {
         cursor = GameObject.FindGameObjectWithTag("Cursor").GetComponent<Cursor>();
         tileData = GameObject.FindGameObjectWithTag("TileManager").GetComponent<TileData>();
         BSM = GameManager.instance.GetComponent<BattleStateMachine>();
+        levelPanel = GameObject.FindGameObjectWithTag("Canvas").transform.GetChild(2).GetChild(2);
     }
 
     private void Update()
@@ -73,6 +80,8 @@ public class BattleManager : MonoBehaviour
         playerHPtarget = playerBattle.hp;
         enemyHPtarget = enemyBattle.hp;
         Transform battlePanel = cursor.battlePanel.transform;
+
+        levelPanel.gameObject.SetActive(false);
 
         Stats damageHolder = null;
 
@@ -219,8 +228,6 @@ public class BattleManager : MonoBehaviour
             enemySprite.GetComponent<Animator>().Play("Idle");
             if (player.hp <= 0)
             {
-                Debug.Log("Taampje " + player);                
-
                 if (damageHolder == playerBattle)
                 {
                     tileData.players.Remove(player.gameObject);
@@ -231,6 +238,16 @@ public class BattleManager : MonoBehaviour
                 {
                     tileData.enemiesInGame.Remove(player.gameObject);
                     tileData.currMapCharPos[Mathf.RoundToInt(-player.transform.position.y + 0.5f), Mathf.RoundToInt(player.transform.position.x - 0.5f)] = 0;
+
+                    if (xp > 0 && playerBattle != null)
+                    {
+                        leveling = true;
+                        StartCoroutine(Leveling());
+                        while (leveling)
+                        {
+                            yield return new WaitForSeconds(0.5f);
+                        }
+                    }
                 }
 
                 Destroy(player.gameObject);
@@ -253,6 +270,7 @@ public class BattleManager : MonoBehaviour
             tileData.currMapCharPos[Mathf.RoundToInt(-enemy.transform.position.y + 0.5f), Mathf.RoundToInt(enemy.transform.position.x - 0.5f)] = 0;            
             if (damageHolder == playerBattle)
             {
+                xp *= 10;
                 tileData.enemiesInGame.Remove(enemy.gameObject);
             }
             else
@@ -285,6 +303,16 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
+                if (xp > 0 && playerBattle != null)
+                {
+                    leveling = true;
+                    StartCoroutine(Leveling());
+                    while (leveling)
+                    {
+                        yield return new WaitForSeconds(0.5f);
+                    }
+                }
+
                 yield return new WaitForSeconds(1);
                 Destroy(playerSprite);
                 Destroy(enemySprite);
@@ -292,7 +320,7 @@ public class BattleManager : MonoBehaviour
 
                 if (damageHolder == playerBattle)
                 {
-                    GameObject.FindGameObjectWithTag("Canvas").GetComponent<SelectChoices>().Wait();
+                    GameObject.FindGameObjectWithTag("Canvas").GetComponent<SelectChoices>().Wait();                    
                 }
                 else
                 {
@@ -314,14 +342,33 @@ public class BattleManager : MonoBehaviour
         bool didHit = Randomizer(hit);
         bool didCrit = Randomizer(crit);
 
+        if (playerBattle == attacker)
+        {
+            xp = GameManager.instance.EXPcalc(playerBattle, enemyBattle);
+        }
+        else
+        {
+            xp = GameManager.instance.EXPcalc(playerBattle, enemyBattle);
+            xp *= 0.75f;
+        }
+
         if (!didHit)
         {
             defendSprite.GetComponentInChildren<Animator>().Play("Evade");
             defendSprite.GetComponent<BoxCollider2D>().enabled = false;
+            if (playerBattle == attacker)
+            {
+                xp = 0;
+            }
+            else
+            {
+                xp *= 1.5f;
+            }
         }
         if (didCrit)
         {
             defendSprite.GetComponent<AttackingInBattle>().damage *= 3;
+            xp *= 1.5f;
         }
 
         switch (attacker.equippedWeapon.typeOfWeapon)
@@ -395,6 +442,57 @@ public class BattleManager : MonoBehaviour
             {
                 enemyHPtarget = enemyBattle.maxHP;
             }
+        }
+    }
+
+    private IEnumerator Leveling()
+    {
+        Stats playerStats = playerBattle.GetComponent<Stats>();
+
+        if (playerStats.level < 99)
+        {
+            float nextLvlXP = Mathf.Pow(1.1f, (playerStats.level + 1) - 2) * 100;
+
+            levelPanel.GetChild(1).GetChild(0).GetComponent<Image>().fillAmount = playerStats.exp / nextLvlXP;
+            levelPanel.GetChild(1).GetChild(2).GetComponent<Text>().text = nextLvlXP.ToString("F0");
+
+            levelPanel.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+
+            float exp = xp + playerBattle.GetComponent<Stats>().exp;
+
+            Debug.Log("Target xp: " + exp + " xp: " + playerStats.exp);
+
+            while (exp > playerStats.exp)
+            {                
+                playerStats.exp += 3;                
+
+                if (playerStats.exp >= nextLvlXP)
+                {
+                    float leftOverXP = exp - nextLvlXP;
+
+                    if(leftOverXP > 0)
+                    {
+                        exp = leftOverXP;
+                    }
+                    playerBattle.GetComponent<LevelManager>().RandomStatsGrowth();
+                    playerStats.exp = 0;
+                    playerStats.level += 1;                    
+                    yield return new WaitForSeconds(1);
+                    nextLvlXP = Mathf.Pow(1.1f, (playerStats.level + 1) - 2) * 100;
+                    levelPanel.GetChild(1).GetChild(2).GetComponent<Text>().text = nextLvlXP.ToString("F0");
+                }
+
+                yield return null;
+                levelPanel.GetChild(1).GetChild(0).GetComponent<Image>().fillAmount = playerStats.exp / nextLvlXP;
+            }            
+
+            if (exp <= playerStats.exp)
+            {
+                playerStats.exp = Mathf.RoundToInt(exp);
+                levelPanel.GetChild(1).GetChild(0).GetComponent<Image>().fillAmount = playerStats.exp / nextLvlXP;
+                leveling = false;
+            }            
         }
     }
 }

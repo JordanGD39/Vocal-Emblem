@@ -23,10 +23,24 @@ public class SelectChoices : MonoBehaviour
 
     public void Attack()
     {
-        cursor.doneCalc = false;
-        tileData.DeselectMovement();
-        cursor.currSelectedChar.GetComponent<Attack>().indexEnemies = 0;
-        cursor.currSelectedChar.GetComponent<Attack>().CheckAttackRange(false);   
+        if (cursor.currSelectedChar.GetComponent<Stats>().equippedWeapon.typeOfWeapon == Weapon.WeaponType.STAFF)
+        {
+            for (int i = 0; i < cursor.currSelectedChar.GetComponent<Stats>().weapons.Count; i++)
+            {
+                if (cursor.currSelectedChar.GetComponent<Stats>().weapons[i].typeOfWeapon != Weapon.WeaponType.STAFF)
+                {
+                    cursor.currSelectedChar.GetComponent<Stats>().equippedWeapon = cursor.currSelectedChar.GetComponent<Stats>().weapons[i];
+                }
+            }
+        }
+
+        if (cursor.currSelectedChar.GetComponent<Stats>().equippedWeapon.typeOfWeapon != Weapon.WeaponType.STAFF)
+        {
+            cursor.doneCalc = false;
+            tileData.DeselectMovement();
+            cursor.currSelectedChar.GetComponent<Attack>().indexEnemies = 0;
+            cursor.currSelectedChar.GetComponent<Attack>().CheckAttackRange(false);
+        }
     }
 
     public void Items()
@@ -51,10 +65,25 @@ public class SelectChoices : MonoBehaviour
 
     public void Heal()
     {
-        cursor.doneCalc = false;
-        tileData.DeselectMovement();
-        cursor.currSelectedChar.GetComponent<Attack>().indexEnemies = 0;
-        cursor.currSelectedChar.GetComponent<Attack>().CheckAttackRange(true);
+        if (cursor.currSelectedChar.GetComponent<Stats>().equippedWeapon.typeOfWeapon != Weapon.WeaponType.STAFF)
+        {
+            for (int i = 0; i < cursor.currSelectedChar.GetComponent<Stats>().weapons.Count; i++)
+            {
+                if (cursor.currSelectedChar.GetComponent<Stats>().weapons[i].typeOfWeapon == Weapon.WeaponType.STAFF)
+                {
+                    cursor.currSelectedChar.GetComponent<Stats>().equippedWeapon = cursor.currSelectedChar.GetComponent<Stats>().weapons[i];
+                }                
+            }
+        }
+
+        if (cursor.currSelectedChar.GetComponent<Stats>().equippedWeapon.typeOfWeapon == Weapon.WeaponType.STAFF)
+        {
+            cursor.doneCalc = false;
+            tileData.DeselectMovement();
+            cursor.currSelectedChar.GetComponent<Attack>().indexEnemies = 0;
+            cursor.currSelectedChar.GetComponent<Attack>().CheckAttackRange(true);
+        }
+        
     }
 
     public void Wait()

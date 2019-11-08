@@ -26,15 +26,55 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public int EXPcalc(Stats player, Stats enemy)
     {
-        
-    }
+        int xp = 0;
 
-    // Update is called once per frame
-    void Update()
-    {
+        int levelDiff = enemy.level - player.level;
 
+        if (levelDiff < 0)
+        {
+            xp = 1;
+        }
+        else if (levelDiff >= 3 && levelDiff <= 6)
+        {
+            xp = 10;
+        }
+        else if(levelDiff > 12)
+        {
+            xp = 30;
+        }
+        switch (levelDiff)
+        {
+            case 0:
+                xp = 3;
+                break;
+            case 1:
+                xp = 6;
+                break;
+            case 2:
+                xp = 8;
+                break;
+            case 7:
+                xp = 13;
+                break;
+            case 8:
+                xp = 16;
+                break;
+            case 9:
+                xp = 19;
+                break;
+            case 10:
+                xp = 22;
+                break;
+            case 11:
+                xp = 25;
+                break;
+            case 12:
+                xp = 28;
+                break;
+        }
+
+        return xp;
     }
 }
